@@ -1,0 +1,109 @@
+<div class="bg-white rounded-lg shadow-sm">
+  <!-- Header -->
+  <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Event & Communication Management</h2>
+      <p class="text-gray-600">Manage events, notices, and institutional communication</p>
+    </div>
+    <div class="flex space-x-3">
+      <button (click)="showNoticeForm=true" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+        <i class="ri-notification-line mr-2"></i> Post Notice
+      </button>
+      <button (click)="showEventForm=true" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg">
+        <i class="ri-calendar-event-line mr-2"></i> Create Event
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="p-6 border-b border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+      <p class="text-blue-600 font-medium">Upcoming Events</p>
+      <p class="text-2xl font-bold text-blue-800">{{ upcomingEvents }}</p>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+      <p class="text-green-600 font-medium">Active Notices</p>
+      <p class="text-2xl font-bold text-green-800">{{ totalNotices }}</p>
+    </div>
+    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+      <p class="text-red-600 font-medium">Important Notices</p>
+      <p class="text-2xl font-bold text-red-800">{{ importantNotices }}</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-gray-200 flex space-x-8 px-6">
+    <button (click)="switchTab('events')" 
+      [class.border-blue-500]="activeTab==='events'" 
+      [class.text-blue-600]="activeTab==='events'"
+      class="py-4 px-1 border-b-2 font-medium text-sm">
+      <i class="ri-calendar-line mr-2"></i> Events
+    </button>
+    <button (click)="switchTab('notices')" 
+      [class.border-blue-500]="activeTab==='notices'" 
+      [class.text-blue-600]="activeTab==='notices'"
+      class="py-4 px-1 border-b-2 font-medium text-sm">
+      <i class="ri-file-list-line mr-2"></i> Notice Board
+    </button>
+    <button (click)="switchTab('feedback')" 
+      [class.border-blue-500]="activeTab==='feedback'" 
+      [class.text-blue-600]="activeTab==='feedback'"
+      class="py-4 px-1 border-b-2 font-medium text-sm">
+      <i class="ri-feedback-line mr-2"></i> Feedback & Grievance
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="p-6 border-b border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" class="w-full px-3 py-2 border rounded-lg"/>
+    </div>
+    <div>
+      <select [(ngModel)]="selectedFilter" class="w-full px-3 py-2 border rounded-lg">
+        <option value="">All {{activeTab==='events'?'Types':'Categories'}}</option>
+        <ng-container *ngIf="activeTab==='events'">
+          <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
+          <option *ngFor="let status of eventStatuses" [value]="status">{{status}}</option>
+        </ng-container>
+        <ng-container *ngIf="activeTab==='notices'">
+          <option *ngFor="let cat of noticeCategories" [value]="cat">{{cat}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div>
+      <button class="bg-purple-600 text-white px-4 py-2 rounded-lg">Send Notifications</button>
+    </div>
+  </div>
+
+  <!-- Events List -->
+  <div *ngIf="activeTab==='events'" class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div *ngFor="let event of filteredEvents" class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+      <h3 class="font-semibold">{{event.title}}</h3>
+      <p>{{event.date}} at {{event.time}}</p>
+      <p>{{event.venue}}</p>
+      <p>by {{event.organizer}}</p>
+      <p>{{event.description}}</p>
+      <span [ngClass]="{
+        'bg-blue-100 text-blue-800': event.status==='upcoming',
+        'bg-green-100 text-green-800': event.status==='ongoing',
+        'bg-gray-100 text-gray-800': event.status==='completed',
+        'bg-red-100 text-red-800': event.status==='cancelled'
+      }">{{event.status}}</span>
+    </div>
+  </div>
+
+  <!-- Notices List -->
+  <div *ngIf="activeTab==='notices'" class="p-6 space-y-4">
+    <div *ngFor="let notice of filteredNotices" class="rounded-lg p-6 border" [ngClass]="{'border-red-200 bg-red-50': notice.isImportant, 'border-gray-200 bg-white': !notice.isImportant}">
+      <h3 class="font-semibold">{{notice.title}}</h3>
+      <p>{{notice.content}}</p>
+      <span>{{notice.category}}</span>
+    </div>
+  </div>
+
+  <!-- Feedback Tab -->
+  <div *ngIf="activeTab==='feedback'" class="p-6 text-center">
+    <h3>Feedback & Grievance System</h3>
+    <p>Manage student and staff feedback</p>
+  </div>
+</div>

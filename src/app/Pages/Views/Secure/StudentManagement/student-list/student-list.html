@@ -1,0 +1,144 @@
+<div class="bg-white rounded-lg shadow-sm">
+
+  <!-- Header -->
+  <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Student Management</h2>
+      <p class="text-gray-600">Manage student admissions, profiles, and records</p>
+    </div>
+    <button
+      (click)="showAddForm = true"
+      class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center whitespace-nowrap"
+    >
+      <i class="ri-user-add-line mr-2"></i> Add New Student
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="p-6 border-b border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Search Students</label>
+      <div class="relative">
+        <input type="text" placeholder="Search by name or student ID..."
+               [(ngModel)]="searchTerm"
+               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm" />
+        <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
+      <select [(ngModel)]="selectedDepartment"
+              class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
+        <option value="">All Departments</option>
+        <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
+      </select>
+    </div>
+
+    <div class="flex items-end">
+      <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium flex items-center whitespace-nowrap">
+        <i class="ri-download-line mr-2"></i> Export Data
+      </button>
+    </div>
+  </div>
+
+  <!-- Students Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Info</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Semester</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let student of filteredStudents" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div>
+              <div class="text-sm font-medium text-gray-900">{{student.name}}</div>
+              <div class="text-sm text-gray-500">{{student.studentId}}</div>
+              <div class="text-sm text-gray-500">{{student.email}}</div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{student.department}}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{student.program}}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{student.semester}}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+                  [ngClass]="{
+                    'bg-green-100 text-green-800': student.status === 'active',
+                    'bg-red-100 text-red-800': student.status === 'inactive'
+                  }">
+              {{student.status}}
+            </span>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <div class="flex space-x-2">
+              <button class="text-blue-600 hover:text-blue-800 p-1"><i class="ri-eye-line"></i></button>
+              <button class="text-green-600 hover:text-green-800 p-1"><i class="ri-edit-line"></i></button>
+              <button class="text-red-600 hover:text-red-800 p-1"><i class="ri-delete-bin-line"></i></button>
+              <button class="text-purple-600 hover:text-purple-800 p-1"><i class="ri-id-card-line"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add Student Modal -->
+  <div *ngIf="showAddForm" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+        <h3 class="text-xl font-bold text-gray-800">Add New Student</h3>
+        <button (click)="showAddForm = false" class="text-gray-400 hover:text-gray-600 p-2">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <form class="p-6 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+            <input type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+            <input type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+            <input type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+            <input type="tel" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm"/>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Department *</label>
+            <select required class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
+              <option value="">Select Department</option>
+              <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Program *</label>
+            <select required class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm">
+              <option value="">Select Program</option>
+              <option *ngFor="let program of programs" [value]="program">{{program}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+          <button type="button" (click)="showAddForm = false" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200 whitespace-nowrap">Cancel</button>
+          <button type="submit" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200 whitespace-nowrap">Add Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

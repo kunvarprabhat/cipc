@@ -1,1 +1,126 @@
-<p>header works!</p>
+<!-- Top Header -->
+<div class="bg-gradient-to-r from-green-50 to-blue-50 py-4 px-4 shadow-sm">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between">
+    <div class="flex items-center space-x-6">
+      <div class="w-20 h-20 flex items-center justify-center bg-white rounded-full shadow-lg">
+        <img src="https://static.readdy.ai/image/85111bce17a3a7cabcbbff1d4ebbc787/d0d778464cf62505f63f8e8ff6cc0ba7.png"
+          alt="CIPC Logo" class="h-16 w-16 rounded-full object-cover" />
+      </div>
+      <div class="text-center lg:text-left">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">
+          CIPC PARAMEDICAL COUNCIL
+        </h1>
+        <div
+          class="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 text-sm font-semibold rounded-full shadow-md">
+          <i class="ri-award-line mr-2"></i>
+          AN ISO 9001 : 2015 CERTIFIED INSTITUTE
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-center gap-6 mt-6 lg:mt-0">
+      <!-- Contact Info -->
+      <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-600">
+        <div class="flex items-center text-green-700 font-semibold mb-3">
+          <i class="ri-customer-service-2-line text-2xl mr-3"></i>
+          <span>Information Enquiry</span>
+        </div>
+        <div class="text-3xl font-bold text-green-700 mb-2 flex items-center justify-center">
+          <i class="ri-phone-fill mr-2"></i>
+          7275380105
+        </div>
+        <div class="flex items-center justify-center text-sm text-gray-600">
+          <i class="ri-mail-line mr-2"></i>
+          cipcvns@gmail.com
+        </div>
+      </div>
+
+      <!-- Login Buttons -->
+      <div class="grid grid-cols-2 gap-3">
+        <button (click)="openLogin('student')"
+          class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center text-sm">
+          <i class="ri-graduation-cap-line mr-2"></i> Student Login
+        </button>
+        <button (click)="openLogin('admin')"
+          class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center text-sm">
+          <i class="ri-admin-line mr-2"></i> Admin Login
+        </button>
+        <button (click)="openLogin('teacher')"
+          class="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center text-sm">
+          <i class="ri-user-star-line mr-2"></i> Faculty Login
+        </button>
+        <button (click)="openLogin('affiliation')"
+          class="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white px-4 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center text-sm">
+          <i class="ri-building-line mr-2"></i> Affiliation
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav class="bg-gradient-to-r from-green-700 to-green-800 sticky top-0 z-40 shadow-lg">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center">
+      <!-- Mobile Logo -->
+      <a routerLink="/" class="lg:hidden text-white font-bold text-xl flex items-center">
+        <i class="ri-hospital-line mr-2"></i> CIPC
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden lg:flex space-x-1 w-full justify-center">
+        <button *ngFor="let item of navItems" [routerLink]="item.path"
+          class="text-white hover:bg-green-600 px-4 py-4 transition-all duration-300 whitespace-nowrap font-medium hover:scale-105 rounded-lg mx-1 flex items-center group">
+          <span class="group-hover:translate-x-1 transition-transform duration-200">{{item.name}}</span>
+        </button>
+        <!-- Apply Now -->
+      </div>
+        <button routerLink="/contact"
+        class="hidden lg:flex bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center">
+        <i class="ri-user-add-line mr-2"></i> Apply Now
+      </button>
+
+      <!-- Mobile Menu Button -->
+      <button (click)="toggleMenu()"
+        class="lg:hidden text-white p-2 hover:bg-green-600 rounded-lg transition-colors duration-200">
+        <i class="ri" [ngClass]="isMenuOpen ? 'ri-close-line' : 'ri-menu-line'"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div *ngIf="isMenuOpen" class="lg:hidden bg-green-800 pb-4 rounded-b-lg">
+      <a *ngFor="let item of navItems" [routerLink]="item.path" (click)="toggleMenu()"
+        class="block text-white hover:bg-green-600 px-4 py-3 border-t border-green-600 transition-colors duration-200">
+        {{item.name}}
+      </a>
+      <div class="px-4 pt-4 space-y-3">
+        <a routerLink="/contact" (click)="toggleMenu()"
+          class="block text-center bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition-colors duration-200 whitespace-nowrap">
+          Apply Now
+        </a>
+        <div class="grid grid-cols-2 gap-2">
+          <button (click)="openLogin('student'); toggleMenu()"
+            class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors duration-200 whitespace-nowrap text-xs">Student</button>
+          <button (click)="openLogin('admin'); toggleMenu()"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors duration-200 whitespace-nowrap text-xs">Admin</button>
+          <button (click)="openLogin('teacher'); toggleMenu()"
+            class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors duration-200 whitespace-nowrap text-xs">Faculty</button>
+          <button (click)="openLogin('affiliation'); toggleMenu()"
+            class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors duration-200 whitespace-nowrap text-xs">Affiliation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Login Modal -->
+<app-login 
+  [isOpen]="loginModal.isOpen" 
+  [loginType]="loginModal.type" 
+  (onClose)="closeLogin()">
+</app-login>
+
+
+
+
+

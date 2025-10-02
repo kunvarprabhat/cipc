@@ -1,0 +1,129 @@
+<div class="bg-white rounded-lg shadow-sm">
+  <!-- Header -->
+  <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Library Management</h2>
+      <p class="text-gray-600">Manage books, issues, returns, and digital resources</p>
+    </div>
+    <div class="flex space-x-3">
+      <button (click)="showAddBookForm = true"
+        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium flex items-center">
+        <i class="ri-book-add-line mr-2"></i> Add Book
+      </button>
+      <button (click)="showIssueForm = true"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center">
+        <i class="ri-book-mark-line mr-2"></i> Issue Book
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-gray-200">
+    <nav class="flex space-x-8 px-6">
+      <button (click)="switchTab('books')"
+        [ngClass]="{'border-blue-500 text-blue-600': activeTab==='books', 'border-transparent text-gray-500 hover:text-gray-700': activeTab!=='books'}"
+        class="py-4 px-1 border-b-2 font-medium text-sm">
+        <i class="ri-book-line mr-2"></i> Books Catalog
+      </button>
+      <button (click)="switchTab('issues')"
+        [ngClass]="{'border-blue-500 text-blue-600': activeTab==='issues', 'border-transparent text-gray-500 hover:text-gray-700': activeTab!=='issues'}"
+        class="py-4 px-1 border-b-2 font-medium text-sm">
+        <i class="ri-book-open-line mr-2"></i> Issues & Returns
+      </button>
+    </nav>
+  </div>
+
+  <!-- Search -->
+  <div class="p-6 border-b border-gray-200">
+    <div class="relative max-w-md">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTerm"
+        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+      <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
+    </div>
+  </div>
+
+  <!-- Books Table -->
+  <div *ngIf="activeTab === 'books'" class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Book Details</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Copies</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let book of filteredBooks" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div>
+              <div class="text-sm font-medium text-gray-900">{{book.title}}</div>
+              <div class="text-sm text-gray-500">ISBN: {{book.isbn}}</div>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{book.author}}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{book.category}}</td>
+          <td class="px-6 py-4">
+            <div class="text-sm text-gray-900">{{book.availableCopies}}/{{book.totalCopies}} available</div>
+          </td>
+          <td class="px-6 py-4">
+            <span [ngClass]="{
+              'bg-green-100 text-green-800': book.status==='available',
+              'bg-yellow-100 text-yellow-800': book.status==='issued',
+              'bg-red-100 text-red-800': book.status==='maintenance'
+            }" class="inline-flex px-2 py-1 text-xs font-semibold rounded-full">{{book.status}}</span>
+          </td>
+          <td class="px-6 py-4 text-sm font-medium flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800 p-1"><i class="ri-eye-line"></i></button>
+            <button class="text-green-600 hover:text-green-800 p-1"><i class="ri-edit-line"></i></button>
+            <button class="text-purple-600 hover:text-purple-800 p-1"><i class="ri-book-mark-line"></i></button>
+            <button class="text-red-600 hover:text-red-800 p-1"><i class="ri-delete-bin-line"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Issues Table -->
+  <div *ngIf="activeTab === 'issues'" class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Book Title</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue Date</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let issue of filteredIssues" class="hover:bg-gray-50">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">{{issue.bookTitle}}</td>
+          <td class="px-6 py-4">
+            <div>
+              <div class="text-sm font-medium text-gray-900">{{issue.studentName}}</div>
+              <div class="text-sm text-gray-500">{{issue.studentId}}</div>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{issue.issueDate}}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{issue.dueDate}}</td>
+          <td class="px-6 py-4">
+            <span [ngClass]="{
+              'bg-blue-100 text-blue-800': issue.status==='issued',
+              'bg-red-100 text-red-800': issue.status==='overdue',
+              'bg-green-100 text-green-800': issue.status==='returned'
+            }" class="inline-flex px-2 py-1 text-xs font-semibold rounded-full">{{issue.status}}</span>
+          </td>
+          <td class="px-6 py-4 text-sm font-medium flex space-x-2">
+            <button class="text-green-600 hover:text-green-800 p-1"><i class="ri-book-read-line"></i></button>
+            <button class="text-blue-600 hover:text-blue-800 p-1"><i class="ri-refresh-line"></i></button>
+            <button class="text-orange-600 hover:text-orange-800 p-1"><i class="ri-money-dollar-circle-line"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

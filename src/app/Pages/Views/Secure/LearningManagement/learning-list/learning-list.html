@@ -1,0 +1,129 @@
+<div class="bg-white rounded-lg shadow-sm">
+
+  <!-- Header -->
+  <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Learning Management System</h2>
+      <p class="text-gray-600">Manage courses, study materials, and online learning</p>
+    </div>
+    <div class="flex space-x-3">
+      <button (click)="showUploadForm = true" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center">
+        <i class="ri-upload-cloud-line mr-2"></i> Upload Material
+      </button>
+      <button (click)="showCourseForm = true" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center">
+        <i class="ri-book-open-line mr-2"></i> Create Course
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b border-gray-200">
+    <nav class="flex space-x-8 px-6">
+      <button (click)="activeTab='courses'" 
+              [ngClass]="activeTab==='courses' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" 
+              class="py-4 px-1 border-b-2 font-medium text-sm">
+        <i class="ri-book-line mr-2"></i> Courses
+      </button>
+      <button (click)="activeTab='materials'" 
+              [ngClass]="activeTab==='materials' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" 
+              class="py-4 px-1 border-b-2 font-medium text-sm">
+        <i class="ri-folder-line mr-2"></i> Study Materials
+      </button>
+      <button (click)="activeTab='assignments'" 
+              [ngClass]="activeTab==='assignments' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'" 
+              class="py-4 px-1 border-b-2 font-medium text-sm">
+        <i class="ri-task-line mr-2"></i> Assignments
+      </button>
+    </nav>
+  </div>
+
+  <!-- Search -->
+  <div class="p-6 border-b border-gray-200 relative max-w-md">
+    <input type="text" placeholder="Search {{activeTab}}..." [(ngModel)]="searchTerm"
+           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+    <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
+  </div>
+
+  <!-- Courses Tab -->
+  <div *ngIf="activeTab==='courses'" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let course of filteredCourses()" class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100 hover:shadow-lg">
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">{{course.title}}</h3>
+          <p class="text-sm text-gray-600">by {{course.instructor}}</p>
+          <p class="text-xs text-gray-500">{{course.department}}</p>
+        </div>
+        <span class="px-2 py-1 text-xs font-medium rounded-full" 
+              [ngClass]="course.status==='active'? 'bg-green-100 text-green-800' : course.status==='completed' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'">
+          {{course.status}}
+        </span>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mb-4 text-center">
+        <div>
+          <div class="text-2xl font-bold text-blue-600">{{course.students}}</div>
+          <div class="text-xs text-gray-500">Students</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-green-600">{{course.materials}}</div>
+          <div class="text-xs text-gray-500">Materials</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-orange-600">{{course.assignments}}</div>
+          <div class="text-xs text-gray-500">Assignments</div>
+        </div>
+      </div>
+      <div class="flex space-x-2">
+        <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium">
+          <i class="ri-eye-line mr-1"></i> View Course
+        </button>
+        <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 rounded-lg">
+          <i class="ri-more-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Materials Tab -->
+  <div *ngIf="activeTab==='materials'" class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Material</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Upload Date</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Downloads</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let material of filteredMaterials()" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap flex items-center">
+            <i [ngClass]="getFileIcon(material.type) + ' ' + getFileColor(material.type) + ' text-2xl mr-3'"></i>
+            <div>
+              <div class="text-sm font-medium text-gray-900">{{material.title}}</div>
+              <div class="text-sm text-gray-500 uppercase">{{material.type}}</div>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{material.course}}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{material.uploadDate}}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{material.size}}</td>
+          <td class="px-6 py-4 text-sm text-gray-900">{{material.downloads}}</td>
+          <td class="px-6 py-4 text-sm font-medium flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800 p-1"><i class="ri-download-line"></i></button>
+            <button class="text-green-600 hover:text-green-800 p-1"><i class="ri-eye-line"></i></button>
+            <button class="text-purple-600 hover:text-purple-800 p-1"><i class="ri-share-line"></i></button>
+            <button class="text-red-600 hover:text-red-800 p-1"><i class="ri-delete-bin-line"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Assignments Tab Placeholder -->
+  <div *ngIf="activeTab==='assignments'" class="p-6 text-center text-gray-500">
+    <i class="ri-task-line text-6xl mb-4"></i>
+    <p>Assignment Management Coming Soon</p>
+  </div>
+
+</div>
