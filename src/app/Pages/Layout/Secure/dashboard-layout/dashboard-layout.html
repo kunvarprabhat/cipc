@@ -1,0 +1,21 @@
+<app-dash-board-header></app-dash-board-header>
+<div class="h-screen flex flex-col">
+  <!-- Header -->
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <app-dashboard-sidebar [activeModule]="activeModule" [userRole]="userInfo?.role" [userInfo]="userInfo"
+      [setActiveModule]="setActiveModule.bind(this)">
+    </app-dashboard-sidebar>
+
+    <!-- Main Content -->
+    <main class="flex-1 bg-gray-50 p-6 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+</div>
+  <!-- Footer (optional) -->
+  <footer class="bg-gray-100 text-center py-2 text-sm text-gray-600">
+    © 2025 CIPC Paramedical Council
+  </footer>

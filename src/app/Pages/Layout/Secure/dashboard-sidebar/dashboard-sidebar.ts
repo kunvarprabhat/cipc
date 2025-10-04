@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 interface UserInfo {
   name: string;
@@ -13,12 +14,13 @@ interface MenuItem {
   label: string;
   icon: string;
   roles: string[];
+    route: string;   // ✅ नया field
 }
 
 @Component({
   selector: 'app-dashboard-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './dashboard-sidebar.html',
   styleUrls: ['./dashboard-sidebar.css']
 })
@@ -33,35 +35,46 @@ export class DashboardSidebar {
   @Input() setActiveModule!: (module: string) => void;
 
   menuItems: MenuItem[] = [
-    { id: 'overview', label: 'Dashboard Overview', icon: 'ri-dashboard-line', roles: ['admin', 'teacher', 'student', 'affiliation'] },
-    { id: 'students', label: 'Student Management', icon: 'ri-graduation-cap-line', roles: ['admin', 'teacher', 'affiliation'] },
-    { id: 'faculty', label: 'Faculty Management', icon: 'ri-user-star-line', roles: ['admin'] },
-    { id: 'courses', label: 'Course Management', icon: 'ri-book-open-line', roles: ['admin', 'teacher', 'student'] },
-    { id: 'attendance', label: 'Attendance Management', icon: 'ri-calendar-check-line', roles: ['admin', 'teacher', 'student'] },
-    { id: 'leave', label: 'Leave Management', icon: 'ri-calendar-todo-line', roles: ['admin', 'teacher', 'student'] },
-    { id: 'exams', label: 'Exam Management', icon: 'ri-file-list-3-line', roles: ['admin', 'teacher', 'student', 'affiliation'] },
-    { id: 'fees', label: 'Fees Management', icon: 'ri-money-dollar-circle-line', roles: ['admin', 'student'] },
-    { id: 'library', label: 'Library Management', icon: 'ri-book-line', roles: ['admin', 'teacher', 'student'] },
-    { id: 'lms', label: 'Learning Management', icon: 'ri-graduation-cap-fill', roles: ['admin', 'teacher', 'student'] },
-    { id: 'hostel', label: 'Hostel Management', icon: 'ri-home-line', roles: ['admin', 'student'] },
-    { id: 'transport', label: 'Transport Management', icon: 'ri-bus-line', roles: ['admin', 'student'] },
-    { id: 'events', label: 'Events & Communication', icon: 'ri-calendar-event-line', roles: ['admin', 'teacher', 'student', 'affiliation'] },
-    { id: 'alumni', label: 'Alumni Management', icon: 'ri-group-line', roles: ['admin', 'affiliation'] },
-    { id: 'reports', label: 'Reports & Analytics', icon: 'ri-bar-chart-line', roles: ['admin', 'teacher', 'affiliation'] }
+    { id: 'overview', label: 'Dashboard Overview', icon: 'ri-dashboard-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route: ''  },
+    { id: 'students', label: 'Student Management', icon: 'ri-graduation-cap-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/students' },
+    { id: 'faculty', label: 'Faculty Management', icon: 'ri-user-star-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/faculty' },
+    { id: 'courses', label: 'Course Management', icon: 'ri-book-open-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/courses' },
+    { id: 'attendance', label: 'Attendance Management', icon: 'ri-calendar-check-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/attendance' },
+    { id: 'leave', label: 'Leave Management', icon: 'ri-calendar-todo-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/leave' },
+    { id: 'exams', label: 'Exam Management', icon: 'ri-file-list-3-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/exams' },
+    { id: 'fees', label: 'Fees Management', icon: 'ri-money-dollar-circle-line',  roles: ['admin', 'teacher', 'student', 'affiliation']  ,route:'/fees' },
+    { id: 'library', label: 'Library Management', icon: 'ri-book-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/library' },
+    { id: 'lms', label: 'Learning Management', icon: 'ri-graduation-cap-fill',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/lms' },
+    { id: 'hostel', label: 'Hostel Management', icon: 'ri-home-line', roles: ['admin', 'teacher', 'student', 'affiliation'] ,route:'/hostel' },
+    { id: 'transport', label: 'Transport Management', icon: 'ri-bus-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/transport'  },
+    { id: 'events', label: 'Events & Communication', icon: 'ri-calendar-event-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/events'  },
+    { id: 'alumni', label: 'Alumni Management', icon: 'ri-group-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/alumni'  },
+    { id: 'reports', label: 'Reports & Analytics', icon: 'ri-bar-chart-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/reports'  }
   ];
 
+  // get filteredMenuItems() {
+  //   return this.menuItems.filter(item => item.roles.includes(this.userRole));
+  // }
+   // बिना role validation के सभी items दिखाएं
   get filteredMenuItems() {
-    return this.menuItems.filter(item => item.roles.includes(this.userRole));
+    return this.menuItems; // अब सभी menu items दिखेंगे
+  } 
+
+  
+  getRoleColor(): string {
+  if (!this.userInfo || !this.userInfo.loginType) {
+    return 'text-gray-600 bg-gray-50'; // default color
   }
 
-  getRoleColor(): string {
-    switch (this.userInfo.loginType) {
-      case 'student': return 'text-green-600 bg-green-50';
-      case 'teacher': return 'text-purple-600 bg-purple-50';
-      case 'affiliation': return 'text-orange-600 bg-orange-50';
-      default: return 'text-blue-600 bg-blue-50';
-    }
+  switch (this.userInfo.loginType) {
+    case 'student': return 'text-green-600 bg-green-50';
+    case 'teacher': return 'text-purple-600 bg-purple-50';
+    case 'affiliation': return 'text-orange-600 bg-orange-50';
+    default: return 'text-blue-600 bg-blue-50';
   }
+}
+
+
 
   handleLogout() {
     localStorage.removeItem('userInfo');

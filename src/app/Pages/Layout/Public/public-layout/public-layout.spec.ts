@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashBoardFooter } from './dash-board-footer';
+import { PublicLayout } from './public-layout';
 
-describe('DashBoardFooter', () => {
-  let component: DashBoardFooter;
-  let fixture: ComponentFixture<DashBoardFooter>;
+describe('PublicLayout', () => {
+  let component: PublicLayout;
+  let fixture: ComponentFixture<PublicLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashBoardFooter]
+      imports: [PublicLayout]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DashBoardFooter);
+    fixture = TestBed.createComponent(PublicLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

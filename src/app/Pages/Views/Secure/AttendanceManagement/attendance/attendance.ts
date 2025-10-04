@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashBoardHeader } from "../../../../Layout/Secure/dash-board-header/dash-board-header";
 
 
 interface AttendanceRecord {
@@ -14,7 +15,7 @@ interface AttendanceRecord {
 }
 @Component({
   selector: 'app-attendance',
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DashBoardHeader,],
   templateUrl: './attendance.html',
   styleUrl: './attendance.css'
 })

@@ -1,6 +1,6 @@
 <!-- Top Header -->
 <div class="bg-gradient-to-r from-green-50 to-blue-50 py-4 px-4 shadow-sm">
-  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
     <div class="flex items-center space-x-6">
       <div class="w-20 h-20 flex items-center justify-center bg-white rounded-full shadow-lg">
         <img src="https://static.readdy.ai/image/85111bce17a3a7cabcbbff1d4ebbc787/d0d778464cf62505f63f8e8ff6cc0ba7.png"
@@ -59,13 +59,13 @@
 </div>
 
 <!-- Navigation -->
-<nav class="bg-gradient-to-r from-green-700 to-green-800 sticky top-0 z-40 shadow-lg">
-  <div class="max-w-7xl mx-auto px-4">
+<nav class="bg-gradient-to-r from-green-700 to-green-800 sticky top-0 z-40 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 ">
     <div class="flex justify-between items-center">
       <!-- Mobile Logo -->
-      <a routerLink="/" class="lg:hidden text-white font-bold text-xl flex items-center">
+      <button routerLink="/" class="lg:hidden text-white font-bold text-xl flex items-center">
         <i class="ri-hospital-line mr-2"></i> CIPC
-      </a>
+      </button>
 
       <!-- Desktop Nav -->
       <div class="hidden lg:flex space-x-1 w-full justify-center">
@@ -74,11 +74,11 @@
           <span class="group-hover:translate-x-1 transition-transform duration-200">{{item.name}}</span>
         </button>
         <!-- Apply Now -->
-      </div>
         <button routerLink="/contact"
         class="hidden lg:flex bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 whitespace-nowrap flex items-center">
         <i class="ri-user-add-line mr-2"></i> Apply Now
       </button>
+    </div>
 
       <!-- Mobile Menu Button -->
       <button (click)="toggleMenu()"
@@ -89,15 +89,15 @@
 
     <!-- Mobile Menu -->
     <div *ngIf="isMenuOpen" class="lg:hidden bg-green-800 pb-4 rounded-b-lg">
-      <a *ngFor="let item of navItems" [routerLink]="item.path" (click)="toggleMenu()"
+      <button *ngFor="let item of navItems" [routerLink]="item.path" (click)="toggleMenu()"
         class="block text-white hover:bg-green-600 px-4 py-3 border-t border-green-600 transition-colors duration-200">
         {{item.name}}
-      </a>
+      </button>
       <div class="px-4 pt-4 space-y-3">
-        <a routerLink="/contact" (click)="toggleMenu()"
+        <button routerLink="/contact" (click)="toggleMenu()"
           class="block text-center bg-yellow-500 hover:bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold transition-colors duration-200 whitespace-nowrap">
           Apply Now
-        </a>
+        </button>
         <div class="grid grid-cols-2 gap-2">
           <button (click)="openLogin('student'); toggleMenu()"
             class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors duration-200 whitespace-nowrap text-xs">Student</button>
@@ -112,6 +112,7 @@
     </div>
   </div>
 </nav>
+
 
 <!-- Login Modal -->
 <app-login 
