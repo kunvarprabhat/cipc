@@ -21,6 +21,7 @@ import { LearningList } from './Pages/Views/Secure/LearningManagement/learning-l
 import { HostelList } from './Pages/Views/Secure/HostelManagement/hostel-list/hostel-list';
 import { TransportList } from './Pages/Views/Secure/TransportManagement/transport-list/transport-list';
 import { EventList } from './Pages/Views/Secure/EventManagement/event-list/event-list';
+import { Gallary } from './Pages/Views/Public/gallary/gallary';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +34,7 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'Training Pattern', component: Faculty },
   { path: 'Our Achievements', component: News },
-  { path: 'Gallery', component: News },
+  { path: 'gallary', component: Gallary },
   // Secure pages
   { path: 'dashboard', component: DashboardLayout, canActivate: [AuthGuard] },
   { path: 'students', component: StudentList },

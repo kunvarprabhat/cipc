@@ -1,0 +1,50 @@
+<section class="p-4 sm:p-8 bg-gray-100">
+  <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Image Gallery</h2>
+
+  <!-- Gallery Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div
+      *ngFor="let image of images; let i = index"
+      class="rounded-xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer transition transform hover:scale-[1.03]"
+      (click)="openLightbox(i)"
+    >
+      <img [src]="image.url" [alt]="image.alt" class="w-full h-48 object-cover" />
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div
+  *ngIf="lightboxOpen"
+  class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+>
+  <!-- Close -->
+  <button
+    class="absolute top-5 right-5 text-white text-4xl font-semibold hover:scale-110 transition"
+    (click)="closeLightbox()"
+  >
+    ✕
+  </button>
+
+  <!-- Prev -->
+  <button
+    class="absolute left-5 text-white text-5xl font-bold hover:scale-110 transition"
+    (click)="prevImage()"
+  >
+    ‹
+  </button>
+
+  <!-- MAIN IMAGE -->
+  <img
+    [src]="images[currentIndex].url"
+    class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl animate-fade"
+  />
+
+  <!-- Next -->
+  <button
+    class="absolute right-5 text-white text-5xl font-bold hover:scale-110 transition"
+    (click)="nextImage()"
+  >
+    ›
+  </button>
+</div>

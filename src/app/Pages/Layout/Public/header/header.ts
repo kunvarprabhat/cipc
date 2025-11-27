@@ -18,11 +18,11 @@ export class Header {
   loginModal = { isOpen: false, type: 'student' as LoginType };
 
   navItems = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/home' },
     { name: 'About Us', path: '/about' },
     { name: 'Training Pattern', path: '/training' },
     { name: 'Our Achievements', path: '/achievements' },
-    { name: 'Gallery', path: '/gallery' },
+    { name: 'Gallary', path: '/gallary' },
     { name: 'Affiliated Institutions', path: '/affiliated' },
     { name: 'Contact Us', path: '/contact' },
     { name: 'Student Verification', path: '/verification' },
