@@ -14,10 +14,11 @@ interface Student {
   status: 'active' | 'inactive';
 }
 @Component({
+  standalone: true,
   selector: 'app-student-list',
   imports: [FormsModule,CommonModule],
   templateUrl: './student-list.html',
-  styleUrl: './student-list.css'
+  styleUrls: ['./student-list.css']
 })
 export class StudentList {
 students: Student[] = [

@@ -28,7 +28,7 @@ import { Observable } from 'rxjs';
     MatButtonModule
   ],
   templateUrl: './admission.html',
-  styleUrl: './admission.css'
+    styleUrls: ['./admission.css']
 })
 export class AdmissionForm implements OnInit {
   admissionForm!: FormGroup;

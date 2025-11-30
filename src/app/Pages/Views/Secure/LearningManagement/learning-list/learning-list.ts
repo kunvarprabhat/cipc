@@ -24,8 +24,9 @@ interface StudyMaterial {
 @Component({
   selector: 'app-learning-list',
   imports: [CommonModule, FormsModule,ReactiveFormsModule],
-  templateUrl: './learning-list.html',
-  styleUrl: './learning-list.css'
+    standalone: true,
+    templateUrl: './learning-list.html',
+    styleUrls: ['./learning-list.css']
 })
 export class LearningList {
 activeTab: 'courses' | 'materials' | 'assignments' = 'courses';

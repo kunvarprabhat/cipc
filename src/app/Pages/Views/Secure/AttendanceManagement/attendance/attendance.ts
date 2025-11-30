@@ -14,10 +14,11 @@ interface AttendanceRecord {
   markedBy: string;
 }
 @Component({
+  standalone: true,
   selector: 'app-attendance',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, DashBoardHeader,],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DashBoardHeader],
   templateUrl: './attendance.html',
-  styleUrl: './attendance.css'
+  styleUrls: ['./attendance.css']
 })
 export class Attendance {
 attendanceRecords: AttendanceRecord[] = [

@@ -5,10 +5,11 @@ import { Header } from '../../../Layout/Public/header/header';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'app-public-dashboard',
-  imports: [CommonModule, Header, Footer,],
+  imports: [CommonModule, Header, Footer],
   templateUrl: './public-dashboard.html',
-  styleUrl: './public-dashboard.css'
+  styleUrls: ['./public-dashboard.css']
 })
 export class PublicDashboard {
 

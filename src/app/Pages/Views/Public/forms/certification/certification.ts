@@ -26,7 +26,7 @@ import { Observable } from 'rxjs';
     MatButtonModule
   ],
   templateUrl: './certification.html',
-  styleUrl: './certification.css'
+  styleUrls: ['./certification.css']
 })
 export class CertificationForm implements OnInit {
   certificationForm!: FormGroup;

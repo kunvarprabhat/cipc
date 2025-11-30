@@ -25,10 +25,11 @@ export interface BookIssue {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-library-list',
   imports: [CommonModule,FormsModule],
   templateUrl: './library-list.html',
-  styleUrl: './library-list.css'
+  styleUrls: ['./library-list.css']
 })
 export class LibraryList {
  activeTab: 'books' | 'issues' = 'books';

@@ -14,10 +14,11 @@ interface CourseDto {
   status: 'active' | 'inactive';
 }
 @Component({
+  standalone: true,
   selector: 'app-course',
   imports: [CommonModule,ReactiveFormsModule,FormsModule],
   templateUrl: './course.html',
-  styleUrl: './course.css'
+  styleUrls: ['./course.css']
 })
 export class Course {
 courses: CourseDto[] = [

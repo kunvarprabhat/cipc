@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-gallary',
   imports: [CommonModule],
   templateUrl: './gallary.html',
-  styleUrl: './gallary.css'
+  styleUrls: ['./gallary.css']
 })
 
 export class Gallary implements OnInit {

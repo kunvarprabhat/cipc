@@ -15,10 +15,11 @@ interface Fee {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-fees-list',
   imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './fees-list.html',
-  styleUrl: './fees-list.css'
+  styleUrls: ['./fees-list.css']
 })
 export class FeesList {
  fees: Fee[] = [

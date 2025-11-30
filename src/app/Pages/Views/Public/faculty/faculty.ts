@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-faculty',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './faculty.html',
-  styleUrl: './faculty.css'
+  styleUrls: ['./faculty.css']
 })
 export class Faculty {
 

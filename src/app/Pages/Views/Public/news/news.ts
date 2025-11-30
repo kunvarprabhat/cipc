@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-news',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './news.html',
-  styleUrl: './news.css'
+  styleUrls: ['./news.css']
 })
 export class News {
 

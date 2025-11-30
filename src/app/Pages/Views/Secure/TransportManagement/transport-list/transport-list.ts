@@ -28,10 +28,11 @@ interface Student {
   phone: string;
 }
 @Component({
+  standalone: true,
   selector: 'app-transport-list',
   imports: [CommonModule,FormsModule],
   templateUrl: './transport-list.html',
-  styleUrl: './transport-list.css'
+  styleUrls: ['./transport-list.css']
 })
 export class TransportList {
 activeTab: 'routes' | 'students' | 'tracking' = 'routes';

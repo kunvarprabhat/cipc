@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './dashboard-overview.html',
-  styleUrl: './dashboard-overview.css'
+  styleUrls: ['./dashboard-overview.css']
 })
 export class DashboardOverview {
   userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');

@@ -18,9 +18,10 @@ interface LeaveRequest {
 }
 @Component({
   selector: 'app-leave-list',
-  imports: [CommonModule,FormsModule],
-  templateUrl: './leave-list.html',
-  styleUrl: './leave-list.css'
+    standalone: true,
+    imports: [CommonModule, FormsModule],
+    templateUrl: './leave-list.html',
+    styleUrls: ['./leave-list.css']
 })
 export class LeaveList {
 leaveRequests: LeaveRequest[] = [

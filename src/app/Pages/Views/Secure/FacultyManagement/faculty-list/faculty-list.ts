@@ -19,10 +19,11 @@ interface Faculty {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-faculty-list',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './faculty-list.html',
-  styleUrl: './faculty-list.css'
+  styleUrls: ['./faculty-list.css']
 })
 export class FacultyList {
   faculty: Faculty[] = [

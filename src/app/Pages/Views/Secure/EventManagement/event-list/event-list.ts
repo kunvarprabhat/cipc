@@ -27,25 +27,12 @@ export interface Notice {
   views: number;
   isImportant: boolean;
 }
-export interface Event {
-  id: string;
-  title: string;
-  type: 'academic' | 'cultural' | 'sports' | 'workshop' | 'notice';
-  date: string;
-  time: string;
-  venue: string;
-  organizer: string;
-  description: string;
-  attendees: number;
-  maxAttendees?: number;
-  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
-  priority: 'high' | 'medium' | 'low';
-}
 @Component({
+  standalone: true,
   selector: 'app-event-list',
   imports: [FormsModule,CommonModule],
   templateUrl: './event-list.html',
-  styleUrl: './event-list.css'
+  styleUrls: ['./event-list.css']
 })
 export class EventList {
 activeTab: 'events' | 'notices' | 'feedback' = 'events';

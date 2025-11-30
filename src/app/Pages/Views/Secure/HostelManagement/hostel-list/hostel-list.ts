@@ -24,9 +24,10 @@ interface Allocation {
 }
 @Component({
   selector: 'app-hostel-list',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './hostel-list.html',
-  styleUrl: './hostel-list.css'
+  styleUrls: ['./hostel-list.css']
 })
 export class HostelList {
   activeTab: 'rooms' | 'allocations' = 'rooms';

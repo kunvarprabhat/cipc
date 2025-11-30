@@ -20,10 +20,11 @@ interface Result {
 }
 
 @Component({
+  standalone: true,
   selector: 'app-result-list',
   imports: [CommonModule, FormsModule],
   templateUrl: './result-list.html',
-  styleUrl: './result-list.css'
+  styleUrls: ['./result-list.css']
 })
 export class ResultList {
   results: Result[] = [

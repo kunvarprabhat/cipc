@@ -15,10 +15,11 @@ interface Exam {
   status: 'scheduled' | 'ongoing' | 'completed';
 }
 @Component({
+  standalone: true,
   selector: 'app-exam-list',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './exam-list.html',
-  styleUrl: './exam-list.css'
+  styleUrls: ['./exam-list.css']
 })
 export class ExamList {
 exams: Exam[] = [

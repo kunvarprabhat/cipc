@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-admissions',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './admissions.html',
-  styleUrl: './admissions.css'
+  styleUrls: ['./admissions.css']
 })
 export class Admissions {
 
