@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, AfterViewInit } from '@angular/core';
 import { CommonModule, NgForOf } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgForOf],
+  imports: [CommonModule, RouterModule, NgForOf,],
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class Footer {
+export class Footer  {
   currentYear: number = new Date().getFullYear();
 
   quickLinks = [
@@ -50,4 +51,44 @@ export class Footer {
     { name: 'Terms & Conditions', path: '#' },
     { name: 'Disclaimer', path: '#' }
   ];
+
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const btn = document.querySelector('.scroll-btn') as HTMLElement;
+
+    if (window.scrollY > 150) {
+      btn.classList.remove('hidden');
+      btn.classList.add('opacity-100');
+    } else {
+      btn.classList.add('hidden');
+      btn.classList.remove('opacity-100');
+    }
+  }
+
+  ngAfterViewInit() {
+    /** Fade-In Scroll Animation */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0', 'translate-y-5');
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+        }
+      });
+    });
+
+    document.querySelectorAll('.fade-section')
+      .forEach((el) => observer.observe(el));
+
+    /** Scroll-to-top click */
+    const btn = document.querySelector('.scroll-btn') as HTMLElement;
+    btn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+
+
+
 }
+

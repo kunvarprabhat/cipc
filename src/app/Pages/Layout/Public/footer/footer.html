@@ -1,131 +1,141 @@
-<footer class="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-300 mt-16 relative">
+<footer class="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-300 mt-16 relative [&_a]:no-underline [&_a:hover]:no-underline">
+  
   <!-- Top Accent Line -->
   <div class="h-1 bg-gradient-to-r from-green-600 via-green-500 to-transparent"></div>
 
   <!-- Main Footer Content -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-20 lg:py-24">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 lg:py-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
       
       <!-- Logo & About Section -->
-      <div class="lg:col-span-1">
+      <div class="lg:col-span-3">
         <div class="mb-6">
           <img src="Assets/logos/image.png" alt="CIPC Paramedical Council" 
-               class="h-24 w-auto object-contain drop-shadow-lg mb-3"
+               class="h-20 sm:h-24 w-auto object-contain drop-shadow-lg mb-4"
                onerror="this.style.display='none';">
-          <div>
-            <h3 class="text-xl font-bold text-white">CIPC</h3>
-            <p class="text-xs text-gray-400 font-semibold">Paramedical Council</p>
+          <div class="mb-3">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">CIPC</h3>
+            <p class="text-xs sm:text-sm text-gray-400 font-semibold">Paramedical Council</p>
           </div>
         </div>
-        <p class="text-sm text-gray-400 leading-relaxed mb-4">Empowering healthcare professionals through quality education and excellence.</p>
-        <div class="flex items-center gap-2 bg-gradient-to-r from-green-600/20 to-transparent p-3 rounded-lg border border-green-600/30">
+        <p class="text-sm text-gray-400 leading-relaxed mb-5">Empowering healthcare professionals through quality education and excellence.</p>
+        <div class="flex items-center gap-2 bg-gradient-to-r from-green-600/20 to-transparent p-3 rounded-lg border border-green-600/30 hover:border-green-600/50 transition-all">
           <i class="ri-checkbox-circle-fill text-green-500 text-lg"></i>
           <p class="text-xs font-semibold text-gray-200">ISO 9001:2015 Certified</p>
         </div>
       </div>
 
-      <!-- Quick Links (2 columns) -->
-      <div class="lg:col-span-2">
-        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+      <!-- Quick Links -->
+      <div class="lg:col-span-4">
+        <h4 class="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2">
           <i class="ri-link-line text-green-500 text-lg"></i>Quick Links
         </h4>
-        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+        <div class="grid grid-cols-2 gap-x-4 gap-y-2 sm:gap-y-3">
           <a *ngFor="let link of quickLinks" 
              [routerLink]="link.path" 
-             class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-3 py-2 rounded-lg hover:bg-green-600/10">
-            <i [class]="'text-green-500 group-hover:translate-x-0.5 transition-transform ' + link.icon"></i>
-            <span class="group-hover:translate-x-1 transition-transform">{{ link.name }}</span>
+             class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-2 py-1.5 rounded-lg hover:bg-green-600/10">
+            <i [class]="'text-green-500 text-base group-hover:translate-x-0.5 transition-transform ' + link.icon"></i>
+            <span class="group-hover:translate-x-1 transition-transform text-xs sm:text-sm">{{ link.name }}</span>
           </a>
         </div>
       </div>
 
-      <!-- Courses -->
-      <div>
-        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
-          <i class="ri-book-open-line text-green-500 text-lg"></i>Featured Courses
-        </h4>
-        <ul class="space-y-3">
-          <li *ngFor="let course of courses">
-            <a [routerLink]="course.path" 
-               class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-2 py-1.5 rounded hover:bg-green-600/10">
-              <i [class]="'text-green-500 ' + course.icon"></i>
-              <span class="group-hover:translate-x-1 transition-transform">{{ course.name }}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <!-- Courses & Contact Combined -->
+      <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+        <!-- Courses -->
+        <div>
+          <h4 class="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <i class="ri-book-open-line text-green-500 text-lg"></i>Featured Courses
+          </h4>
+          <ul class="space-y-3">
+            <li *ngFor="let course of courses">
+              <a [routerLink]="course.path" 
+                 class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-2 py-1.5 rounded-lg hover:bg-green-600/10">
+                <i [class]="'text-green-500 text-base ' + course.icon"></i>
+                <span class="group-hover:translate-x-1 transition-transform text-xs sm:text-sm">{{ course.name }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Contact Info -->
-      <div>
-        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
-          <i class="ri-phone-line text-green-500 text-lg"></i>Contact
-        </h4>
-        <div class="space-y-5">
-          <div class="flex gap-3 group">
-            <div class="flex-shrink-0 mt-1">
-              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
-                <i class="ri-map-pin-line text-green-500"></i>
+        <!-- Contact Info -->
+        <div>
+          <h4 class="text-base sm:text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <i class="ri-phone-line text-green-500 text-lg"></i>Contact
+          </h4>
+          <div class="space-y-4">
+            <div class="flex gap-3 group">
+              <div class="flex-shrink-0">
+                <div class="w-9 h-9 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                  <i class="ri-map-pin-line text-green-500 text-base"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-xs font-semibold text-gray-300 mb-1">Address</p>
+                <p class="text-xs text-gray-400 leading-relaxed">N9/38 F-31 Newada Patiya<br>Varanasi, UP-221010<br>India</p>
               </div>
             </div>
-            <div>
-              <p class="text-xs font-semibold text-gray-300 mb-1">Address</p>
-              <p class="text-xs text-gray-400 leading-relaxed">N9/38 F-31 Newada Patiya<br>Varanasi, UP-221010<br>India</p>
-            </div>
-          </div>
-          <div class="flex gap-3 group">
-            <div class="flex-shrink-0 mt-1">
-              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
-                <i class="ri-phone-line text-green-500"></i>
+            <div class="flex gap-3 group">
+              <div class="flex-shrink-0">
+                <div class="w-9 h-9 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                  <i class="ri-phone-line text-green-500 text-base"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="text-xs font-semibold text-gray-300 mb-1">Phone</p>
+                <a href="tel:7275380105" class="text-xs sm:text-sm text-gray-400 hover:text-green-400 transition-colors">+91 7275 380105</a>
               </div>
             </div>
-            <div>
-              <p class="text-xs font-semibold text-gray-300 mb-1">Phone</p>
-              <a href="tel:7275380105" class="text-xs text-gray-400 hover:text-green-400 transition-colors">+91 7275 380105</a>
-            </div>
-          </div>
-          <div class="flex gap-3 group">
-            <div class="flex-shrink-0 mt-1">
-              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
-                <i class="ri-mail-line text-green-500"></i>
+            <div class="flex gap-3 group">
+              <div class="flex-shrink-0">
+                <div class="w-9 h-9 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                  <i class="ri-mail-line text-green-500 text-base"></i>
+                </div>
               </div>
-            </div>
-            <div>
-              <p class="text-xs font-semibold text-gray-300 mb-1">Email</p>
-              <a href="mailto:cipcvns@gmail.com" class="text-xs text-gray-400 hover:text-green-400 transition-colors break-all">cipcvns@gmail.com</a>
+              <div class="flex-1">
+                <p class="text-xs font-semibold text-gray-300 mb-1">Email</p>
+                <a href="mailto:cipcvns@gmail.com" class="text-xs sm:text-sm text-gray-400 hover:text-green-400 transition-colors break-all">cipcvns@gmail.com</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Social & Newsletter -->
-      <div>
-        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
-          <i class="ri-share-2-line text-green-500 text-lg"></i>Connect
-        </h4>
-        <div class="space-y-6">
-          <!-- Social Icons -->
-          <div>
-            <p class="text-xs font-semibold text-gray-300 mb-4">Follow Us</p>
-            <div class="flex flex-wrap gap-3">
-              <a *ngFor="let social of socialLinks" 
-                 [href]="social.url" 
-                 [title]="social.title"
-                 class="w-10 h-10 rounded-lg bg-green-600 hover:bg-green-500 flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50">
-                <i [class]="'text-base ' + social.icon"></i>
-              </a>
-            </div>
+    <!-- Social & Newsletter Section -->
+    <div class="mt-10 pt-8 border-t border-gray-800">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Social Icons -->
+        <div>
+          <h4 class="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i class="ri-share-2-line text-green-500 text-lg"></i>Follow Us
+          </h4>
+          <div class="flex flex-wrap gap-3">
+            <a *ngFor="let social of socialLinks" 
+               [href]="social.url" 
+               [title]="social.title"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="w-11 h-11 rounded-lg bg-green-600 hover:bg-green-500 flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50">
+              <i [class]="'text-lg ' + social.icon"></i>
+            </a>
           </div>
+        </div>
 
-          <!-- Newsletter -->
-          <div class="bg-gradient-to-br from-green-600/10 to-transparent p-4 rounded-lg border border-green-600/30">
-            <p class="text-xs font-bold text-white mb-3 flex items-center gap-2">
-              <i class="ri-mail-star-line text-green-500"></i>Newsletter
-            </p>
+        <!-- Newsletter -->
+        <div>
+          <h4 class="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <i class="ri-mail-star-line text-green-500 text-lg"></i>Newsletter
+          </h4>
+          <div class="bg-gradient-to-br from-green-600/10 to-transparent p-4 sm:p-5 rounded-lg border border-green-600/30">
+            <p class="text-xs sm:text-sm text-gray-300 mb-4">Subscribe to get updates on courses, admissions, and events.</p>
             <div class="flex gap-2">
-              <input type="email" placeholder="Your email" 
-                     class="flex-1 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg border border-gray-700 focus:border-green-500 focus:outline-none placeholder-gray-500 transition-colors">
-              <button class="px-3 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50">
+              <input type="email" 
+                     placeholder="Enter your email" 
+                     class="flex-1 px-4 py-2.5 bg-gray-800 text-white text-sm rounded-lg border border-gray-700 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20 placeholder-gray-500 transition-all">
+              <button class="px-4 py-2.5 bg-green-600 hover:bg-green-500 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50 flex items-center gap-2">
                 <i class="ri-send-plane-fill"></i>
+                <span class="hidden sm:inline">Subscribe</span>
               </button>
             </div>
           </div>
@@ -134,50 +144,49 @@
     </div>
 
     <!-- Stats Section -->
-    <div class="mt-12 pt-8 border-t border-gray-800">
+    <div class="mt-10 pt-8 border-t border-gray-800">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
-          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">2015</p>
-          <p class="text-xs sm:text-sm text-gray-400">Established</p>
+        <div class="text-center p-5 sm:p-6 rounded-lg bg-green-600/5 hover:bg-green-600/10 border border-green-600/10 hover:border-green-600/20 transition-all cursor-default">
+          <p class="text-3xl sm:text-4xl font-bold text-green-400 mb-2">2015</p>
+          <p class="text-xs sm:text-sm text-gray-400 font-medium">Established</p>
         </div>
-        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
-          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">50+</p>
-          <p class="text-xs sm:text-sm text-gray-400">Courses</p>
+        <div class="text-center p-5 sm:p-6 rounded-lg bg-green-600/5 hover:bg-green-600/10 border border-green-600/10 hover:border-green-600/20 transition-all cursor-default">
+          <p class="text-3xl sm:text-4xl font-bold text-green-400 mb-2">50+</p>
+          <p class="text-xs sm:text-sm text-gray-400 font-medium">Courses</p>
         </div>
-        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
-          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">5000+</p>
-          <p class="text-xs sm:text-sm text-gray-400">Students</p>
+        <div class="text-center p-5 sm:p-6 rounded-lg bg-green-600/5 hover:bg-green-600/10 border border-green-600/10 hover:border-green-600/20 transition-all cursor-default">
+          <p class="text-3xl sm:text-4xl font-bold text-green-400 mb-2">5000+</p>
+          <p class="text-xs sm:text-sm text-gray-400 font-medium">Students</p>
         </div>
-        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
-          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">85%</p>
-          <p class="text-xs sm:text-sm text-gray-400">Placed</p>
+        <div class="text-center p-5 sm:p-6 rounded-lg bg-green-600/5 hover:bg-green-600/10 border border-green-600/10 hover:border-green-600/20 transition-all cursor-default">
+          <p class="text-3xl sm:text-4xl font-bold text-green-400 mb-2">85%</p>
+          <p class="text-xs sm:text-sm text-gray-400 font-medium">Placed</p>
         </div>
       </div>
     </div>
 
     <!-- Divider -->
-    <div class="mt-12 pt-8 border-t border-gray-800"></div>
+    <div class="mt-10 pt-8 border-t border-gray-800"></div>
 
     <!-- Bottom Footer -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 items-center">
       <!-- Copyright & Message -->
       <div class="text-center sm:text-left">
-        <p class="text-xs sm:text-sm text-gray-400 font-semibold mb-1">
+        <p class="text-xs sm:text-sm text-gray-400 font-semibold mb-2">
           &copy; {{ currentYear }} CIPC Paramedical Council. All rights reserved.
         </p>
-        <p class="text-xs text-gray-500">
+        <p class="text-xs text-gray-500 flex items-center justify-center sm:justify-start gap-1">
           <i class="ri-heart-fill text-red-500"></i>
-          Empowering Healthcare Excellence Since 2015
+          <span>Empowering Healthcare Excellence Since 2015</span>
         </p>
       </div>
 
       <!-- Legal Links -->
       <div class="text-center sm:text-right">
-        <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs">
-          <a *ngFor="let link of legalLinks; let last = last" 
+        <div class="flex flex-wrap justify-center sm:justify-end gap-x-4 sm:gap-x-6 gap-y-2 text-xs">
+          <a *ngFor="let link of legalLinks" 
              [href]="link.path" 
-             class="text-gray-500 hover:text-green-400 transition-colors font-medium"
-             [ngClass]="{ 'sm:border-r sm:border-gray-700 sm:pr-6': !last }">
+             class="text-gray-500 hover:text-green-400 transition-colors font-medium px-2 py-1 rounded hover:bg-green-600/10">
             {{ link.name }}
           </a>
         </div>
@@ -188,3 +197,9 @@
   <!-- Animated Bottom Border -->
   <div class="h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
 </footer>
+<!-- Scroll To Top Button -->
+<button 
+  class="scroll-btn hidden fixed bottom-6 right-6 bg-green-600 text-white 
+         p-3 rounded-full shadow-lg hover:bg-green-700 transition z-[999]">
+  ↑
+</button>
