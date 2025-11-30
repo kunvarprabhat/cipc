@@ -55,6 +55,10 @@ activeTab: 'events' | 'notices' | 'feedback' = 'events';
   searchTerm = '';
   selectedFilter = '';
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
   eventTypes = ['academic', 'cultural', 'sports', 'workshop', 'notice'];
   noticeCategories = ['academic', 'administrative', 'event', 'emergency'];
   eventStatuses = ['upcoming', 'ongoing', 'completed', 'cancelled'];
@@ -147,9 +151,127 @@ activeTab: 'events' | 'notices' | 'feedback' = 'events';
     return this.notices.filter(notice => notice.isImportant).length;
   }
 
+  get paginatedEvents() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredEvents.slice(startIndex, endIndex);
+  }
+
+  get paginatedNotices() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredNotices.slice(startIndex, endIndex);
+  }
+
+  get currentData() {
+    return this.activeTab === 'events' ? this.filteredEvents : this.filteredNotices;
+  }
+
+  get paginatedData() {
+    return this.activeTab === 'events' ? this.paginatedEvents : this.paginatedNotices;
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.currentData.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    const pages: number[] = [];
+    const total = this.totalPages;
+    const current = this.currentPage;
+    
+    if (total <= 7) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (current > 3) {
+        pages.push(-1);
+      }
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (current < total - 2) {
+        pages.push(-1);
+      }
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onSearchOrFilterChange() {
+    this.currentPage = 1;
+  }
+
+  getStartIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  getEndIndex(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.currentData.length);
+  }
+
+  getSerialNumber(index: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+  }
+
   switchTab(tab: 'events' | 'notices' | 'feedback') {
     this.activeTab = tab;
     this.searchTerm = '';
     this.selectedFilter = '';
+    this.currentPage = 1;
+  }
+
+  // Action button methods
+  viewEvent(event: Event) {
+    console.log('View event:', event);
+  }
+
+  editEvent(event: Event) {
+    console.log('Edit event:', event);
+  }
+
+  deleteEvent(eventId: string) {
+    if (confirm('Are you sure you want to delete this event?')) {
+      this.events = this.events.filter(e => e.id !== eventId);
+    }
+  }
+
+  viewNotice(notice: Notice) {
+    console.log('View notice:', notice);
+  }
+
+  editNotice(notice: Notice) {
+    console.log('Edit notice:', notice);
+  }
+
+  deleteNotice(noticeId: string) {
+    if (confirm('Are you sure you want to delete this notice?')) {
+      this.notices = this.notices.filter(n => n.id !== noticeId);
+    }
   }
 }

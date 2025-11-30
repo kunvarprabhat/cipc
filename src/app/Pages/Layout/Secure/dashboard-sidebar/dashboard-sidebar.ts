@@ -3,10 +3,10 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 interface UserInfo {
-  name: string;
-  role: string;
-  loginType: 'student' | 'admin' | 'teacher' | 'affiliation';
-  email: string;
+  name?: string;
+  role?: string;
+  loginType?: 'student' | 'admin' | 'teacher' | 'affiliation';
+  email?: string;
 }
 
 interface MenuItem {
@@ -30,8 +30,8 @@ interface MenuItem {
 
 export class DashboardSidebar implements OnInit {
   @Input() activeModule!: string;
-  @Input() userRole!: string;
-  @Input() userInfo!: UserInfo;
+  @Input() userRole: string = '';
+  @Input() userInfo: UserInfo | null = null;
   @Input() setActiveModule!: (module: string) => void;
 
   isMobileSidebarOpen = false;
@@ -93,17 +93,17 @@ export class DashboardSidebar implements OnInit {
 
   
   getRoleColor(): string {
-  if (!this.userInfo || !this.userInfo.loginType) {
-    return 'text-gray-600 bg-gray-50'; // default color
-  }
+    if (!this.userInfo || !this.userInfo.loginType) {
+      return 'text-gray-600 bg-gray-50'; // default color
+    }
 
-  switch (this.userInfo.loginType) {
-    case 'student': return 'text-green-600 bg-green-50';
-    case 'teacher': return 'text-purple-600 bg-purple-50';
-    case 'affiliation': return 'text-orange-600 bg-orange-50';
-    default: return 'text-blue-600 bg-blue-50';
+    switch (this.userInfo.loginType) {
+      case 'student': return 'text-green-600 bg-green-50';
+      case 'teacher': return 'text-purple-600 bg-purple-50';
+      case 'affiliation': return 'text-orange-600 bg-orange-50';
+      default: return 'text-blue-600 bg-blue-50';
+    }
   }
-}
 
 
 

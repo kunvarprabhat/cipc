@@ -39,6 +39,10 @@ activeTab: 'routes' | 'students' | 'tracking' = 'routes';
   showAddRouteForm: boolean = false;
   showAllocateForm: boolean = false;
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
   routes: BusRoute[] = [
     {
       id: '1',
@@ -105,11 +109,143 @@ activeTab: 'routes' | 'students' | 'tracking' = 'routes';
     );
   }
 
+  get paginatedRoutes() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredRoutes.slice(startIndex, endIndex);
+  }
+
+  get paginatedTransportStudents() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredStudents.slice(startIndex, endIndex);
+  }
+
+  get currentData() {
+    return this.activeTab === 'routes' ? this.filteredRoutes : this.filteredStudents;
+  }
+
+  get paginatedData() {
+    return this.activeTab === 'routes' ? this.paginatedRoutes : this.paginatedTransportStudents;
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.currentData.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    const pages: number[] = [];
+    const total = this.totalPages;
+    const current = this.currentPage;
+    
+    if (total <= 7) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (current > 3) {
+        pages.push(-1);
+      }
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (current < total - 2) {
+        pages.push(-1);
+      }
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onSearchOrFilterChange() {
+    this.currentPage = 1;
+  }
+
+  getStartIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  getEndIndex(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.currentData.length);
+  }
+
+  getSerialNumber(index: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+  }
+
   toggleAddRouteForm() {
     this.showAddRouteForm = !this.showAddRouteForm;
   }
 
   toggleAllocateForm() {
     this.showAllocateForm = !this.showAllocateForm;
+  }
+
+  switchTab(tab: 'routes' | 'students' | 'tracking') {
+    this.activeTab = tab;
+    this.currentPage = 1;
+  }
+
+  // Action button methods
+  viewRoute(route: BusRoute) {
+    console.log('View route:', route);
+  }
+
+  editRoute(route: BusRoute) {
+    console.log('Edit route:', route);
+  }
+
+  deleteRoute(routeId: string) {
+    if (confirm('Are you sure you want to delete this route?')) {
+      this.routes = this.routes.filter(r => r.id !== routeId);
+    }
+  }
+
+  viewStudent(student: Student) {
+    console.log('View student:', student);
+  }
+
+  editAllocation(student: Student) {
+    console.log('Edit allocation:', student);
+  }
+
+  removeAllocation(studentId: string) {
+    if (confirm('Are you sure you want to remove this allocation?')) {
+      this.transportStudents = this.transportStudents.filter(s => s.id !== studentId);
+    }
+  }
+
+  collectFee(studentId: string) {
+    console.log('Collect fee for:', studentId);
+    // Implement collect fee functionality
+  }
+
+  sendSMS(studentId: string) {
+    console.log('Send SMS to:', studentId);
+    // Implement send SMS functionality
   }
 }

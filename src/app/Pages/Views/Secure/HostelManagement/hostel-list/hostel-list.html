@@ -62,11 +62,11 @@
     <!-- Tab Navigation -->
     <div class="border-b border-gray-200">
         <nav class="flex space-x-8 px-6">
-            <button (click)="activeTab='rooms'" class="py-4 px-1 border-b-2 font-medium text-sm"
+            <button (click)="switchTab('rooms')" class="py-4 px-1 border-b-2 font-medium text-sm"
                 [ngClass]="activeTab==='rooms' ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'">
                 <i class="ri-building-2-line mr-2"></i> Room Management
             </button>
-            <button (click)="activeTab='allocations'" class="py-4 px-1 border-b-2 font-medium text-sm"
+            <button (click)="switchTab('allocations')" class="py-4 px-1 border-b-2 font-medium text-sm"
                 [ngClass]="activeTab==='allocations' ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'">
                 <i class="ri-user-location-line mr-2"></i> Room Allocations
             </button>
@@ -76,7 +76,7 @@
     <!-- Search -->
     <div class="p-6 border-b border-gray-200">
         <div class="relative max-w-md">
-            <input type="text" [(ngModel)]="searchTerm"
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchOrFilterChange()"
                 placeholder="Search {{activeTab==='rooms'?'rooms':'allocations'}}..."
                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm" />
             <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
@@ -88,6 +88,7 @@
         <table class="w-full">
             <thead class="bg-gray-50">
                 <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">Sr.</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room
                         Details</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Floor
@@ -100,10 +101,15 @@
                         Rent</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
                     </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <tr *ngFor="let room of filteredRooms" class="hover:bg-gray-50">
+                <tr *ngFor="let room of paginatedRooms; let i = index" class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                        {{ getSerialNumber(i) }}
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div>
                             <div class="text-sm font-medium text-gray-900">{{room.roomNumber}}</div>
@@ -121,6 +127,25 @@
                 'bg-yellow-100 text-yellow-800': room.status==='maintenance'
               }">{{room.status}}</span>
                     </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div class="flex items-center gap-1">
+                            <button (click)="viewRoom(room)" class="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 transition-colors" title="View">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                            <button (click)="editRoom(room)" class="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 transition-colors" title="Edit">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                            <button (click)="deleteRoom(room.id)" class="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-50 transition-colors" title="Delete">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="filteredRooms.length === 0">
+                    <td colspan="8" class="px-6 py-8 text-center text-gray-500">
+                        <i class="ri-home-search-line text-4xl mb-2 block"></i>
+                        <p>No rooms found</p>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -131,6 +156,7 @@
         <table class="w-full">
             <thead class="bg-gray-50">
                 <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-12">Sr.</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student
                         Info</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room
@@ -141,10 +167,15 @@
                         Date</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
                     </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <tr *ngFor="let alloc of filteredAllocations" class="hover:bg-gray-50">
+                <tr *ngFor="let alloc of paginatedAllocations; let i = index" class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">
+                        {{ getSerialNumber(i) }}
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div>
                             <div class="text-sm font-medium text-gray-900">{{alloc.studentName}}</div>
@@ -161,8 +192,261 @@
                 'bg-yellow-100 text-yellow-800': alloc.status==='suspended'
               }">{{alloc.status}}</span>
                     </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <div class="flex items-center gap-1">
+                            <button (click)="viewAllocation(alloc)" class="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 transition-colors" title="View">
+                                <i class="ri-eye-line"></i>
+                            </button>
+                            <button (click)="editAllocation(alloc)" class="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 transition-colors" title="Edit">
+                                <i class="ri-edit-line"></i>
+                            </button>
+                            <button *ngIf="alloc.status === 'active'" (click)="checkoutStudent(alloc.id)" class="text-orange-600 hover:text-orange-800 p-1 rounded hover:bg-orange-50 transition-colors" title="Checkout">
+                                <i class="ri-logout-box-line"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="filteredAllocations.length === 0">
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">
+                        <i class="ri-user-search-line text-4xl mb-2 block"></i>
+                        <p>No allocations found</p>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <!-- Pagination for Rooms -->
+    <div *ngIf="activeTab === 'rooms' && filteredRooms.length > 0" class="px-4 sm:px-6 py-5 sm:py-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 via-white to-purple-50/30">
+        <div class="flex flex-col gap-4 lg:gap-0 lg:flex-row items-center justify-between">
+            
+            <!-- Results Info Section -->
+            <div class="flex items-center gap-3 flex-wrap justify-center lg:justify-start w-full lg:w-auto">
+                <!-- Records Count Card -->
+                <div class="flex items-center gap-3 px-4 py-2.5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
+                    <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+                        <i class="ri-file-list-3-line text-sm"></i>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-sm font-semibold text-gray-700">{{ getStartIndex() }}</span>
+                        <span class="text-gray-400 text-xs">-</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ getEndIndex() }}</span>
+                        <span class="text-gray-500 text-xs mx-1">of</span>
+                        <span class="text-sm font-bold text-purple-600">{{ filteredRooms.length }}</span>
+                    </div>
+                </div>
+
+                <!-- Total Records Badge -->
+                <div class="hidden md:flex items-center gap-2 px-3 py-2 bg-purple-50 rounded-lg border border-purple-100">
+                    <i class="ri-database-2-line text-purple-600 text-sm"></i>
+                    <span class="text-xs font-medium text-purple-700">Total Records</span>
+                </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex items-center gap-2 w-full lg:w-auto justify-center">
+                <!-- Navigation Buttons Container -->
+                <div class="flex items-center gap-1.5 bg-white rounded-xl border border-gray-200 shadow-sm p-1">
+                    
+                    <!-- First Page Button -->
+                    <button 
+                        (click)="goToPage(1)"
+                        [disabled]="currentPage === 1"
+                        [title]="'First Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== 1
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-left-double-line text-base"></i>
+                    </button>
+
+                    <!-- Previous Button -->
+                    <button 
+                        (click)="previousPage()"
+                        [disabled]="currentPage === 1"
+                        [title]="'Previous Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== 1
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-left-s-line text-base"></i>
+                    </button>
+
+                    <!-- Page Numbers -->
+                    <div class="flex items-center gap-1 mx-1">
+                        <button
+                            *ngFor="let page of pageNumbers"
+                            (click)="page !== -1 && goToPage(page)"
+                            [ngClass]="{
+                                'bg-gradient-to-br from-purple-600 to-indigo-600 text-white shadow-md scale-105 border-purple-500': page === currentPage,
+                                'bg-white text-gray-700 border-gray-200 hover:bg-purple-50 hover:text-purple-600 hover:border-purple-300 active:scale-95': page !== currentPage && page !== -1,
+                                'cursor-default pointer-events-none bg-transparent border-transparent': page === -1
+                            }"
+                            [disabled]="page === -1"
+                            [title]="page !== -1 ? 'Go to page ' + page : ''"
+                            class="min-w-[2.5rem] h-9 px-3 border rounded-lg text-sm font-semibold transition-all duration-200 disabled:pointer-events-none">
+                            <span *ngIf="page !== -1">{{ page }}</span>
+                            <span *ngIf="page === -1" class="text-gray-400">⋯</span>
+                        </button>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button 
+                        (click)="nextPage()"
+                        [disabled]="currentPage === totalPages"
+                        [title]="'Next Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== totalPages
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-right-s-line text-base"></i>
+                    </button>
+
+                    <!-- Last Page Button -->
+                    <button 
+                        (click)="goToPage(totalPages)"
+                        [disabled]="currentPage === totalPages"
+                        [title]="'Last Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== totalPages
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-right-double-line text-base"></i>
+                    </button>
+                </div>
+
+                <!-- Page Info Badge -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-100">
+                    <i class="ri-file-list-line text-purple-600 text-sm"></i>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-medium text-gray-600">Page</span>
+                        <span class="text-sm font-bold text-purple-600">{{ currentPage }}</span>
+                        <span class="text-gray-400 text-xs">/</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ totalPages }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination for Allocations -->
+    <div *ngIf="activeTab === 'allocations' && filteredAllocations.length > 0" class="px-4 sm:px-6 py-5 sm:py-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 via-white to-purple-50/30">
+        <div class="flex flex-col gap-4 lg:gap-0 lg:flex-row items-center justify-between">
+            
+            <!-- Results Info Section -->
+            <div class="flex items-center gap-3 flex-wrap justify-center lg:justify-start w-full lg:w-auto">
+                <!-- Records Count Card -->
+                <div class="flex items-center gap-3 px-4 py-2.5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
+                    <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+                        <i class="ri-file-list-3-line text-sm"></i>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-sm font-semibold text-gray-700">{{ getStartIndex() }}</span>
+                        <span class="text-gray-400 text-xs">-</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ getEndIndex() }}</span>
+                        <span class="text-gray-500 text-xs mx-1">of</span>
+                        <span class="text-sm font-bold text-purple-600">{{ filteredAllocations.length }}</span>
+                    </div>
+                </div>
+
+                <!-- Total Records Badge -->
+                <div class="hidden md:flex items-center gap-2 px-3 py-2 bg-purple-50 rounded-lg border border-purple-100">
+                    <i class="ri-database-2-line text-purple-600 text-sm"></i>
+                    <span class="text-xs font-medium text-purple-700">Total Records</span>
+                </div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex items-center gap-2 w-full lg:w-auto justify-center">
+                <!-- Navigation Buttons Container -->
+                <div class="flex items-center gap-1.5 bg-white rounded-xl border border-gray-200 shadow-sm p-1">
+                    
+                    <!-- First Page Button -->
+                    <button 
+                        (click)="goToPage(1)"
+                        [disabled]="currentPage === 1"
+                        [title]="'First Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== 1
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-left-double-line text-base"></i>
+                    </button>
+
+                    <!-- Previous Button -->
+                    <button 
+                        (click)="previousPage()"
+                        [disabled]="currentPage === 1"
+                        [title]="'Previous Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== 1
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-left-s-line text-base"></i>
+                    </button>
+
+                    <!-- Page Numbers -->
+                    <div class="flex items-center gap-1 mx-1">
+                        <button
+                            *ngFor="let page of pageNumbers"
+                            (click)="page !== -1 && goToPage(page)"
+                            [ngClass]="{
+                                'bg-gradient-to-br from-purple-600 to-indigo-600 text-white shadow-md scale-105 border-purple-500': page === currentPage,
+                                'bg-white text-gray-700 border-gray-200 hover:bg-purple-50 hover:text-purple-600 hover:border-purple-300 active:scale-95': page !== currentPage && page !== -1,
+                                'cursor-default pointer-events-none bg-transparent border-transparent': page === -1
+                            }"
+                            [disabled]="page === -1"
+                            [title]="page !== -1 ? 'Go to page ' + page : ''"
+                            class="min-w-[2.5rem] h-9 px-3 border rounded-lg text-sm font-semibold transition-all duration-200 disabled:pointer-events-none">
+                            <span *ngIf="page !== -1">{{ page }}</span>
+                            <span *ngIf="page === -1" class="text-gray-400">⋯</span>
+                        </button>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button 
+                        (click)="nextPage()"
+                        [disabled]="currentPage === totalPages"
+                        [title]="'Next Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== totalPages
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-right-s-line text-base"></i>
+                    </button>
+
+                    <!-- Last Page Button -->
+                    <button 
+                        (click)="goToPage(totalPages)"
+                        [disabled]="currentPage === totalPages"
+                        [title]="'Last Page'"
+                        [ngClass]="{
+                            'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
+                            'hover:bg-purple-50 hover:text-purple-600 hover:border-purple-200 active:scale-95': currentPage !== totalPages
+                        }"
+                        class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+                        <i class="ri-arrow-right-double-line text-base"></i>
+                    </button>
+                </div>
+
+                <!-- Page Info Badge -->
+                <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-100">
+                    <i class="ri-file-list-line text-purple-600 text-sm"></i>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-medium text-gray-600">Page</span>
+                        <span class="text-sm font-bold text-purple-600">{{ currentPage }}</span>
+                        <span class="text-gray-400 text-xs">/</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ totalPages }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

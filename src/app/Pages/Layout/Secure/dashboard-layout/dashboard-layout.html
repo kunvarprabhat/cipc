@@ -4,7 +4,7 @@
     <!-- Sidebar - Mobile: Toggle, Desktop: Always visible -->
     <app-dashboard-sidebar 
       [activeModule]="activeModule" 
-      [userRole]="userInfo?.role" 
+      [userRole]="userInfo?.role || ''" 
       [userInfo]="userInfo"
       [setActiveModule]="setActiveModule.bind(this)">
     </app-dashboard-sidebar>

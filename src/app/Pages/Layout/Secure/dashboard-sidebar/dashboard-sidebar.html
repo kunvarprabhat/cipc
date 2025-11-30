@@ -14,7 +14,7 @@
                 <i class="ri-user-line mr-2 text-sm"></i> 
                 <span class="truncate no-underline">{{ userInfo?.role || 'No role' }}</span>
             </div>
-            <p class="text-sm sm:text-base text-gray-800 font-semibold truncate no-underline mt-2" title="{{ userInfo?.name || 'Guest' }}">{{ userInfo?.name || 'Guest' }}</p>
+            <p class="text-sm sm:text-base text-gray-800 font-semibold truncate no-underline mt-2" title="{{ (userInfo?.name) || 'Guest' }}">{{ (userInfo?.name) || 'Guest' }}</p>
         </div>
     </div>
 

@@ -36,6 +36,10 @@ export class LibraryList {
   showAddBookForm: boolean = false;
   showIssueForm: boolean = false;
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
   categories = ['Nursing', 'Medical Laboratory', 'Physiotherapy', 'Radiology', 'Pharmacy', 'General Medicine'];
 
   books: Book[] = [
@@ -98,7 +102,133 @@ export class LibraryList {
     );
   }
 
+  get paginatedBooks(): Book[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredBooks.slice(startIndex, endIndex);
+  }
+
+  get paginatedIssues(): BookIssue[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredIssues.slice(startIndex, endIndex);
+  }
+
+  get currentData() {
+    return this.activeTab === 'books' ? this.filteredBooks : this.filteredIssues;
+  }
+
+  get paginatedData() {
+    return this.activeTab === 'books' ? this.paginatedBooks : this.paginatedIssues;
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.currentData.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    const pages: number[] = [];
+    const total = this.totalPages;
+    const current = this.currentPage;
+    
+    if (total <= 7) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (current > 3) {
+        pages.push(-1);
+      }
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (current < total - 2) {
+        pages.push(-1);
+      }
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onSearchOrFilterChange() {
+    this.currentPage = 1;
+  }
+
+  getStartIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  getEndIndex(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.currentData.length);
+  }
+
+  getSerialNumber(index: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+  }
+
   switchTab(tab: 'books' | 'issues') {
     this.activeTab = tab;
+    this.currentPage = 1;
+  }
+
+  // Action button methods
+  viewBook(book: Book) {
+    console.log('View book:', book);
+    // Implement view book functionality
+  }
+
+  editBook(book: Book) {
+    console.log('Edit book:', book);
+    // Implement edit book functionality
+  }
+
+  issueBook(book: Book) {
+    console.log('Issue book:', book);
+    this.showIssueForm = true;
+  }
+
+  deleteBook(bookId: string) {
+    if (confirm('Are you sure you want to delete this book?')) {
+      this.books = this.books.filter(b => b.id !== bookId);
+    }
+  }
+
+  returnBook(issueId: string) {
+    console.log('Return book:', issueId);
+    // Implement return book functionality
+  }
+
+  renewBook(issueId: string) {
+    console.log('Renew book:', issueId);
+    // Implement renew book functionality
+  }
+
+  viewFine(issueId: string) {
+    console.log('View fine:', issueId);
+    // Implement view fine functionality
   }
 }

@@ -50,6 +50,10 @@ exams: Exam[] = [
   searchTerm = '';
   selectedType = '';
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
   examTypes = ['internal', 'mid-term', 'final', 'practical'];
   courses = [
     'NUR101 - Fundamentals of Nursing',
@@ -66,7 +70,102 @@ exams: Exam[] = [
     });
   }
 
+  get paginatedExams(): Exam[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredExams.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredExams.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    const pages: number[] = [];
+    const total = this.totalPages;
+    const current = this.currentPage;
+    
+    if (total <= 7) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (current > 3) {
+        pages.push(-1);
+      }
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (current < total - 2) {
+        pages.push(-1);
+      }
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onSearchOrFilterChange() {
+    this.currentPage = 1;
+  }
+
+  getStartIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  getEndIndex(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.filteredExams.length);
+  }
+
   toggleAddForm() {
     this.showAddForm = !this.showAddForm;
+  }
+
+  getSerialNumber(index: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+  }
+
+  // Action button methods
+  viewDetails(exam: Exam) {
+    console.log('View exam details:', exam);
+    // Implement view details functionality
+  }
+
+  editExam(exam: Exam) {
+    console.log('Edit exam:', exam);
+    // Implement edit exam functionality
+  }
+
+  viewQuestionPaper(examId: string) {
+    console.log('View question paper for:', examId);
+    // Implement view question paper functionality
+  }
+
+  viewResults(examId: string) {
+    console.log('View results for:', examId);
+    // Implement view results functionality
   }
 }

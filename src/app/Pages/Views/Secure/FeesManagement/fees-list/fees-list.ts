@@ -31,6 +31,10 @@ export class FeesList {
   searchTerm = '';
   selectedStatus = '';
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
   feeTypes = ['Tuition Fee', 'Hostel Fee', 'Library Fee', 'Laboratory Fee', 'Examination Fee', 'Development Fee'];
   paymentStatuses = ['pending', 'partial', 'paid', 'overdue'];
 
@@ -47,6 +51,76 @@ export class FeesList {
     });
   }
 
+  get paginatedFees(): Fee[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredFees.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredFees.length / this.itemsPerPage);
+  }
+
+  get pageNumbers(): number[] {
+    const pages: number[] = [];
+    const total = this.totalPages;
+    const current = this.currentPage;
+    
+    if (total <= 7) {
+      for (let i = 1; i <= total; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1);
+      if (current > 3) {
+        pages.push(-1);
+      }
+      const start = Math.max(2, current - 1);
+      const end = Math.min(total - 1, current + 1);
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      if (current < total - 2) {
+        pages.push(-1);
+      }
+      pages.push(total);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onSearchOrFilterChange() {
+    this.currentPage = 1;
+  }
+
+  getStartIndex(): number {
+    return (this.currentPage - 1) * this.itemsPerPage + 1;
+  }
+
+  getEndIndex(): number {
+    return Math.min(this.currentPage * this.itemsPerPage, this.filteredFees.length);
+  }
+
   get totalAmount(): number {
     return this.fees.reduce((sum, fee) => sum + fee.amount, 0);
   }
@@ -57,5 +131,30 @@ export class FeesList {
 
   get totalPending(): number {
     return this.totalAmount - this.totalPaid;
+  }
+
+  getSerialNumber(index: number): number {
+    return (this.currentPage - 1) * this.itemsPerPage + index + 1;
+  }
+
+  // Action button methods
+  collectPayment(fee: Fee) {
+    console.log('Collect payment for:', fee);
+    this.showCollectForm = true;
+  }
+
+  viewReceipt(feeId: string) {
+    console.log('View receipt for:', feeId);
+    // Implement view receipt functionality
+  }
+
+  sendReminder(feeId: string) {
+    console.log('Send reminder for:', feeId);
+    // Implement send reminder functionality
+  }
+
+  viewHistory(feeId: string) {
+    console.log('View payment history for:', feeId);
+    // Implement view history functionality
   }
 }

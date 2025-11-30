@@ -4,6 +4,13 @@ import { RouterOutlet } from '@angular/router';
 import { DashBoardHeader } from '../dash-board-header/dash-board-header';
 import { DashboardSidebar } from '../dashboard-sidebar/dashboard-sidebar';
 
+interface UserInfo {
+  name?: string;
+  role?: string;
+  loginType?: 'student' | 'admin' | 'teacher' | 'affiliation';
+  email?: string;
+}
+
 @Component({
   selector: 'app-dashboard-layout',
   imports: [CommonModule, RouterOutlet, DashboardSidebar, DashBoardHeader],
@@ -11,7 +18,10 @@ import { DashboardSidebar } from '../dashboard-sidebar/dashboard-sidebar';
   styleUrl: './dashboard-layout.css'
 })
 export class DashboardLayout {
- userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+  userInfo: UserInfo | null = (() => {
+    const stored = localStorage.getItem('userInfo');
+    return stored ? JSON.parse(stored) : null;
+  })();
 
   activeModule = 'overview';
 
