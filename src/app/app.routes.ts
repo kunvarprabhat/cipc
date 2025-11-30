@@ -27,6 +27,7 @@ import { Gallary } from './Pages/Views/Public/gallary/gallary';
 import { AdmissionForm } from './Pages/Views/Public/forms/admission/admission';
 import { ExaminationForm } from './Pages/Views/Public/forms/examination/examination';
 import { CertificationForm } from './Pages/Views/Public/forms/certification/certification';
+import { ResultList } from './Pages/Views/Secure/ResultManagement/result-list/result-list';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -59,6 +60,7 @@ export const routes: Routes = [
   { path: 'hostel', component: HostelList, canActivate: [AuthGuard] },
   { path: 'transport', component: TransportList, canActivate: [AuthGuard] },
   { path: 'events', component: EventList, canActivate: [AuthGuard] },
+  { path: 'results', component: ResultList, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login' } // wildcard always last
 ];
 

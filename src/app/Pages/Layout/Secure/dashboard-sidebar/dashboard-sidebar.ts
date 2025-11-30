@@ -73,6 +73,7 @@ export class DashboardSidebar implements OnInit {
     { id: 'attendance', label: 'Attendance Management', icon: 'ri-calendar-check-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/attendance' },
     { id: 'leave', label: 'Leave Management', icon: 'ri-calendar-todo-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/leave' },
     { id: 'exams', label: 'Exam Management', icon: 'ri-file-list-3-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/exams' },
+    { id: 'results', label: 'Result Management', icon: 'ri-file-list-3-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/results' },
     { id: 'fees', label: 'Fees Management', icon: 'ri-money-dollar-circle-line',  roles: ['admin', 'teacher', 'student', 'affiliation']  ,route:'/fees' },
     { id: 'library', label: 'Library Management', icon: 'ri-book-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/library' },
     { id: 'lms', label: 'Learning Management', icon: 'ri-graduation-cap-fill',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/lms' },
