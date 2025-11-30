@@ -1,44 +1,58 @@
 <div class="bg-white rounded-lg shadow-sm">
   <!-- Header -->
-  <div class="p-4 sm:p-6 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <div
+    class="p-4 sm:p-6 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+  >
     <div>
       <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Faculty Management</h2>
-      <p class="text-sm sm:text-base text-gray-600 mt-1">Manage faculty recruitment, profiles, and performance</p>
+      <p class="text-sm sm:text-base text-gray-600 mt-1">
+        Manage faculty recruitment, profiles, and performance
+      </p>
     </div>
     <button
       (click)="toggleAddForm()"
-      class="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center whitespace-nowrap w-full sm:w-auto justify-center">
+      class="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center whitespace-nowrap w-full sm:w-auto justify-center"
+    >
       <i class="ri-user-star-line mr-2"></i>
       <span class="text-sm sm:text-base">Add Faculty Member</span>
     </button>
   </div>
 
   <!-- Filters -->
-  <div class="p-4 sm:p-6 border-b border-gray-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div
+    class="p-4 sm:p-6 border-b border-gray-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+  >
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-2">Search Faculty</label>
       <div class="relative">
-        <input type="text" placeholder="Search by name, ID, or email..."
-               [(ngModel)]="searchTerm"
-               (ngModelChange)="onSearchOrFilterChange()"
-               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+        <input
+          type="text"
+          placeholder="Search by name, ID, or email..."
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchOrFilterChange()"
+          class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+        />
         <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
       </div>
     </div>
 
     <div>
       <label class="block text-sm font-medium text-gray-700 mb-2">Department</label>
-      <select [(ngModel)]="selectedDepartment"
-              (ngModelChange)="onSearchOrFilterChange()"
-              class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+      <select
+        [(ngModel)]="selectedDepartment"
+        (ngModelChange)="onSearchOrFilterChange()"
+        class="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+      >
         <option value="">All Departments</option>
         <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
       </select>
     </div>
 
     <div class="flex items-end">
-      <button (click)="exportData()"
-        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center whitespace-nowrap">
+      <button
+        (click)="exportData()"
+        class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center whitespace-nowrap"
+      >
         <i class="ri-file-excel-line mr-2"></i>
         <span class="text-sm sm:text-base">Export Data</span>
       </button>
@@ -50,65 +64,110 @@
     <table class="w-full min-w-[600px] text-xs sm:text-sm">
       <thead class="bg-gray-50">
         <tr>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-12">Sr.</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase min-w-[150px]">Faculty Info</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden md:table-cell">Department</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Designation</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Exp.</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">Actions</th>
+          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-12">
+            Sr.
+          </th>
+          <th
+            class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase min-w-[150px]"
+          >
+            Faculty Info
+          </th>
+          <th
+            class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden md:table-cell"
+          >
+            Department
+          </th>
+          <th
+            class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell"
+          >
+            Designation
+          </th>
+          <th
+            class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell"
+          >
+            Exp.
+          </th>
+          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
+            Status
+          </th>
+          <th class="px-2 sm:px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let member of paginatedFaculty; let i = index" class="hover:bg-gray-50 transition-colors">
+        <tr
+          *ngFor="let member of paginatedFaculty; let i = index"
+          class="hover:bg-gray-50 transition-colors"
+        >
           <td class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs font-medium text-gray-900">
             {{ getSerialNumber(i) }}
           </td>
           <td class="px-2 sm:px-3 py-2">
-            <div class="text-xs sm:text-sm font-medium text-gray-900 truncate max-w-[150px]">{{ member.name }}</div>
+            <div class="text-xs sm:text-sm font-medium text-gray-900 truncate max-w-[150px]">
+              {{ member.name }}
+            </div>
             <div class="text-xs text-gray-500 truncate max-w-[150px]">{{ member.employeeId }}</div>
-            <div class="text-xs text-gray-500 truncate max-w-[150px] hidden sm:block">{{ member.email }}</div>
-            <div class="text-xs text-gray-500 truncate max-w-[150px] hidden md:block">{{ member.qualification }}</div>
+            <div class="text-xs text-gray-500 truncate max-w-[150px] hidden sm:block">
+              {{ member.email }}
+            </div>
+            <div class="text-xs text-gray-500 truncate max-w-[150px] hidden md:block">
+              {{ member.qualification }}
+            </div>
             <div class="text-xs text-gray-500 md:hidden">
               <span class="inline-block mr-2">{{ member.department }}</span>
               <span class="hidden sm:inline">{{ member.designation }}</span>
             </div>
           </td>
-          <td class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden md:table-cell">
+          <td
+            class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden md:table-cell"
+          >
             <div class="truncate max-w-[120px]">{{ member.department }}</div>
           </td>
-          <td class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden lg:table-cell">
+          <td
+            class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden lg:table-cell"
+          >
             <div class="truncate max-w-[120px]">{{ member.designation }}</div>
           </td>
-          <td class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden sm:table-cell">
+          <td
+            class="px-2 sm:px-3 py-2 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden sm:table-cell"
+          >
             {{ member.experience }}y
           </td>
           <td class="px-2 sm:px-3 py-2 whitespace-nowrap">
-            <button (click)="toggleStatus(member)"
+            <button
+              (click)="toggleStatus(member)"
               [ngClass]="{
                 'bg-green-100 text-green-800 hover:bg-green-200': member.status === 'active',
                 'bg-red-100 text-red-800 hover:bg-red-200': member.status === 'inactive'
               }"
-              class="inline-flex px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs font-semibold rounded-full transition-colors cursor-pointer">
+              class="inline-flex px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs font-semibold rounded-full transition-colors cursor-pointer"
+            >
               <span class="hidden sm:inline">{{ member.status }}</span>
               <span class="sm:hidden">{{ member.status === 'active' ? 'A' : 'I' }}</span>
             </button>
           </td>
           <td class="px-2 sm:px-3 py-2 whitespace-nowrap">
             <div class="flex items-center gap-1">
-              <button (click)="viewFaculty(member)" 
-                class="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 transition-colors" 
-                title="View Details">
+              <button
+                (click)="viewFaculty(member)"
+                class="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 transition-colors"
+                title="View Details"
+              >
                 <i class="ri-eye-line text-sm sm:text-base"></i>
               </button>
-              <button (click)="editFaculty(member)" 
-                class="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 transition-colors" 
-                title="Edit">
+              <button
+                (click)="editFaculty(member)"
+                class="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 transition-colors"
+                title="Edit"
+              >
                 <i class="ri-edit-line text-sm sm:text-base"></i>
               </button>
-              <button (click)="deleteFaculty(member.id)" 
-                class="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-50 transition-colors" 
-                title="Delete">
+              <button
+                (click)="deleteFaculty(member.id)"
+                class="text-red-600 hover:text-red-800 p-1 rounded hover:bg-red-50 transition-colors"
+                title="Delete"
+              >
                 <i class="ri-delete-bin-line text-sm sm:text-base"></i>
               </button>
             </div>
@@ -125,14 +184,22 @@
   </div>
 
   <!-- Pagination -->
-  <div *ngIf="filteredFaculty.length > 0" class="px-4 sm:px-6 py-5 sm:py-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+  <div
+    *ngIf="filteredFaculty.length > 0"
+    class="px-4 sm:px-6 py-5 sm:py-6 border-t border-gray-200 bg-gradient-to-br from-gray-50 via-white to-blue-50/30"
+  >
     <div class="flex flex-col gap-4 lg:gap-0 lg:flex-row items-center justify-between">
-      
       <!-- Results Info Section -->
-      <div class="flex items-center gap-3 flex-wrap justify-center lg:justify-start w-full lg:w-auto">
+      <div
+        class="flex items-center gap-3 flex-wrap justify-center lg:justify-start w-full lg:w-auto"
+      >
         <!-- Records Count Card -->
-        <div class="flex items-center gap-3 px-4 py-2.5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
-          <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white">
+        <div
+          class="flex items-center gap-3 px-4 py-2.5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200"
+        >
+          <div
+            class="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white"
+          >
             <i class="ri-file-list-3-line text-sm"></i>
           </div>
           <div class="flex items-center gap-1.5">
@@ -145,7 +212,9 @@
         </div>
 
         <!-- Total Records Badge -->
-        <div class="hidden md:flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-100">
+        <div
+          class="hidden md:flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-100"
+        >
           <i class="ri-database-2-line text-blue-600 text-sm"></i>
           <span class="text-xs font-medium text-blue-700">Total Records</span>
         </div>
@@ -154,31 +223,36 @@
       <!-- Pagination Controls -->
       <div class="flex items-center gap-2 w-full lg:w-auto justify-center">
         <!-- Navigation Buttons Container -->
-        <div class="flex items-center gap-1.5 bg-white rounded-xl border border-gray-200 shadow-sm p-1">
-          
+        <div
+          class="flex items-center gap-1.5 bg-white rounded-xl border border-gray-200 shadow-sm p-1"
+        >
           <!-- First Page Button -->
-          <button 
+          <button
             (click)="goToPage(1)"
             [disabled]="currentPage === 1"
             [title]="'First Page'"
             [ngClass]="{
               'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
-              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95': currentPage !== 1
+              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95':
+                currentPage !== 1
             }"
-            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none"
+          >
             <i class="ri-arrow-left-double-line text-base"></i>
           </button>
 
           <!-- Previous Button -->
-          <button 
+          <button
             (click)="previousPage()"
             [disabled]="currentPage === 1"
             [title]="'Previous Page'"
             [ngClass]="{
               'opacity-40 cursor-not-allowed bg-gray-50': currentPage === 1,
-              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95': currentPage !== 1
+              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95':
+                currentPage !== 1
             }"
-            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none"
+          >
             <i class="ri-arrow-left-s-line text-base"></i>
           </button>
 
@@ -188,47 +262,56 @@
               *ngFor="let page of pageNumbers"
               (click)="page !== -1 && goToPage(page)"
               [ngClass]="{
-                'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md scale-105 border-blue-500': page === currentPage,
-                'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 active:scale-95': page !== currentPage && page !== -1,
+                'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md scale-105 border-blue-500':
+                  page === currentPage,
+                'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 active:scale-95':
+                  page !== currentPage && page !== -1,
                 'cursor-default pointer-events-none bg-transparent border-transparent': page === -1
               }"
               [disabled]="page === -1"
               [title]="page !== -1 ? 'Go to page ' + page : ''"
-              class="min-w-[2.5rem] h-9 px-3 border rounded-lg text-sm font-semibold transition-all duration-200 disabled:pointer-events-none">
+              class="min-w-[2.5rem] h-9 px-3 border rounded-lg text-sm font-semibold transition-all duration-200 disabled:pointer-events-none"
+            >
               <span *ngIf="page !== -1">{{ page }}</span>
               <span *ngIf="page === -1" class="text-gray-400">⋯</span>
             </button>
           </div>
 
           <!-- Next Button -->
-          <button 
+          <button
             (click)="nextPage()"
             [disabled]="currentPage === totalPages"
             [title]="'Next Page'"
             [ngClass]="{
               'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
-              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95': currentPage !== totalPages
+              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95':
+                currentPage !== totalPages
             }"
-            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none"
+          >
             <i class="ri-arrow-right-s-line text-base"></i>
           </button>
 
           <!-- Last Page Button -->
-          <button 
+          <button
             (click)="goToPage(totalPages)"
             [disabled]="currentPage === totalPages"
             [title]="'Last Page'"
             [ngClass]="{
               'opacity-40 cursor-not-allowed bg-gray-50': currentPage === totalPages,
-              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95': currentPage !== totalPages
+              'hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 active:scale-95':
+                currentPage !== totalPages
             }"
-            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none">
+            class="flex items-center justify-center w-9 h-9 rounded-lg border border-transparent text-gray-600 transition-all duration-200 disabled:pointer-events-none"
+          >
             <i class="ri-arrow-right-double-line text-base"></i>
           </button>
         </div>
 
         <!-- Page Info Badge -->
-        <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+        <div
+          class="hidden sm:flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100"
+        >
           <i class="ri-file-list-line text-blue-600 text-sm"></i>
           <div class="flex items-center gap-1.5">
             <span class="text-xs font-medium text-gray-600">Page</span>
@@ -242,93 +325,164 @@
   </div>
 
   <!-- Add Faculty Modal -->
-  <div *ngIf="showAddForm" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div
+    *ngIf="showAddForm"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+  >
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-      <div class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10">
+      <div
+        class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10"
+      >
         <h3 class="text-lg sm:text-xl font-bold text-gray-800">Add Faculty Member</h3>
-        <button (click)="toggleAddForm()" class="text-gray-400 hover:text-gray-600 p-2 transition-colors">
+        <button
+          (click)="toggleAddForm()"
+          class="text-gray-400 hover:text-gray-600 p-2 transition-colors"
+        >
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
 
-      <form #facultyForm="ngForm" (ngSubmit)="onSubmitFaculty(facultyForm)" class="p-4 sm:p-6 space-y-4 sm:space-y-6">
+      <form
+        #facultyForm="ngForm"
+        (ngSubmit)="onSubmitFaculty(facultyForm)"
+        class="p-4 sm:p-6 space-y-4 sm:space-y-6"
+      >
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-            <input type="text" name="name" ngModel required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="text"
+              name="name"
+              ngModel
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-            <input type="email" name="email" ngModel required
+            <input
+              type="email"
+              name="email"
+              ngModel
+              required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
             <p class="text-xs text-gray-500 mt-1">e.g., name@cipc.edu</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-            <input type="tel" name="phone" ngModel required
+            <input
+              type="tel"
+              name="phone"
+              ngModel
+              required
               pattern="[0-9\s\-\+\(\)]+"
               minlength="10"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
             <p class="text-xs text-gray-500 mt-1">e.g., +91 9876543210</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Employee ID *</label>
-            <input type="text" name="employeeId" ngModel required
+            <input
+              type="text"
+              name="employeeId"
+              ngModel
+              required
               pattern="[A-Z0-9]+"
               placeholder="EMP001"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm uppercase" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm uppercase"
+            />
             <p class="text-xs text-gray-500 mt-1">e.g., EMP001</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Department *</label>
-            <select name="department" ngModel required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <select
+              name="department"
+              ngModel
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
               <option value="">Select Department</option>
               <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Designation *</label>
-            <select name="designation" ngModel required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <select
+              name="designation"
+              ngModel
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
               <option value="">Select Designation</option>
               <option *ngFor="let desig of designations" [value]="desig">{{ desig }}</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Qualification *</label>
-            <input type="text" name="qualification" ngModel required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="text"
+              name="qualification"
+              ngModel
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Experience (Years) *</label>
-            <input type="number" name="experience" ngModel required min="0" max="50"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="number"
+              name="experience"
+              ngModel
+              required
+              min="0"
+              max="50"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
             <p class="text-xs text-gray-500 mt-1">Enter years of experience (0-50)</p>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Join Date *</label>
-            <input type="date" name="joinDate" ngModel required
+            <input
+              type="date"
+              name="joinDate"
+              ngModel
+              required
               [max]="maxDate"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Salary (₹) *</label>
-            <input type="number" name="salary" ngModel required min="0" step="1000"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="number"
+              name="salary"
+              ngModel
+              required
+              min="0"
+              step="1000"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
             <p class="text-xs text-gray-500 mt-1">Enter monthly salary in rupees</p>
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200">
-          <button type="button" (click)="toggleAddForm()"
-            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
+        <div
+          class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200"
+        >
+          <button
+            type="button"
+            (click)="toggleAddForm()"
+            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
+          >
             Cancel
           </button>
-          <button type="submit"
-            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base">
+          <button
+            type="submit"
+            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base"
+          >
             Add Faculty
           </button>
         </div>
@@ -337,87 +491,158 @@
   </div>
 
   <!-- Edit Faculty Modal -->
-  <div *ngIf="showEditForm && editingFaculty" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div
+    *ngIf="showEditForm && editingFaculty"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+  >
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-      <div class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10">
+      <div
+        class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10"
+      >
         <h3 class="text-lg sm:text-xl font-bold text-gray-800">Edit Faculty Member</h3>
-        <button (click)="closeEditForm()" class="text-gray-400 hover:text-gray-600 p-2 transition-colors">
+        <button
+          (click)="closeEditForm()"
+          class="text-gray-400 hover:text-gray-600 p-2 transition-colors"
+        >
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
 
-      <form #editForm="ngForm" (ngSubmit)="onSubmitFaculty(editForm)" class="p-4 sm:p-6 space-y-4 sm:space-y-6">
+      <form
+        #editForm="ngForm"
+        (ngSubmit)="onSubmitFaculty(editForm)"
+        class="p-4 sm:p-6 space-y-4 sm:space-y-6"
+      >
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-            <input type="text" name="name" [ngModel]="editingFaculty.name" required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="text"
+              name="name"
+              [ngModel]="editingFaculty.name"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-            <input type="email" name="email" [ngModel]="editingFaculty.email" required
+            <input
+              type="email"
+              name="email"
+              [ngModel]="editingFaculty.email"
+              required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
-            <input type="tel" name="phone" [ngModel]="editingFaculty.phone" required
+            <input
+              type="tel"
+              name="phone"
+              [ngModel]="editingFaculty.phone"
+              required
               pattern="[0-9\s\-\+\(\)]+"
               minlength="10"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Employee ID *</label>
-            <input type="text" name="employeeId" [ngModel]="editingFaculty.employeeId" required
+            <input
+              type="text"
+              name="employeeId"
+              [ngModel]="editingFaculty.employeeId"
+              required
               pattern="[A-Z0-9]+"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm uppercase" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm uppercase"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Department *</label>
-            <select name="department" [ngModel]="editingFaculty.department" required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <select
+              name="department"
+              [ngModel]="editingFaculty.department"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
               <option value="">Select Department</option>
               <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Designation *</label>
-            <select name="designation" [ngModel]="editingFaculty.designation" required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <select
+              name="designation"
+              [ngModel]="editingFaculty.designation"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
               <option value="">Select Designation</option>
               <option *ngFor="let desig of designations" [value]="desig">{{ desig }}</option>
             </select>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Qualification *</label>
-            <input type="text" name="qualification" [ngModel]="editingFaculty.qualification" required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="text"
+              name="qualification"
+              [ngModel]="editingFaculty.qualification"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Experience (Years) *</label>
-            <input type="number" name="experience" [ngModel]="editingFaculty.experience" required min="0" max="50"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="number"
+              name="experience"
+              [ngModel]="editingFaculty.experience"
+              required
+              min="0"
+              max="50"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Join Date *</label>
-            <input type="date" name="joinDate" [ngModel]="editingFaculty.joinDate" required
+            <input
+              type="date"
+              name="joinDate"
+              [ngModel]="editingFaculty.joinDate"
+              required
               [max]="maxDate"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Salary (₹) *</label>
-            <input type="number" name="salary" [ngModel]="editingFaculty.salary" required min="0" step="1000"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            <input
+              type="number"
+              name="salary"
+              [ngModel]="editingFaculty.salary"
+              required
+              min="0"
+              step="1000"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200">
-          <button type="button" (click)="closeEditForm()"
-            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
+        <div
+          class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200"
+        >
+          <button
+            type="button"
+            (click)="closeEditForm()"
+            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
+          >
             Cancel
           </button>
-          <button type="submit"
-            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base">
+          <button
+            type="submit"
+            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base"
+          >
             Update Faculty
           </button>
         </div>
@@ -426,11 +651,19 @@
   </div>
 
   <!-- View Faculty Modal -->
-  <div *ngIf="showViewModal && viewingFaculty" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div
+    *ngIf="showViewModal && viewingFaculty"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+  >
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-      <div class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10">
+      <div
+        class="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center z-10"
+      >
         <h3 class="text-lg sm:text-xl font-bold text-gray-800">Faculty Details</h3>
-        <button (click)="closeViewModal()" class="text-gray-400 hover:text-gray-600 p-2 transition-colors">
+        <button
+          (click)="closeViewModal()"
+          class="text-gray-400 hover:text-gray-600 p-2 transition-colors"
+        >
           <i class="ri-close-line text-2xl"></i>
         </button>
       </div>
@@ -439,11 +672,17 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Full Name</label>
-            <p class="text-sm sm:text-base font-semibold text-gray-900">{{ viewingFaculty.name }}</p>
+            <p class="text-sm sm:text-base font-semibold text-gray-900">
+              {{ viewingFaculty.name }}
+            </p>
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Employee ID</label>
-            <p class="text-sm sm:text-base font-semibold text-gray-900">{{ viewingFaculty.employeeId }}</p>
+            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1"
+              >Employee ID</label
+            >
+            <p class="text-sm sm:text-base font-semibold text-gray-900">
+              {{ viewingFaculty.employeeId }}
+            </p>
           </div>
           <div>
             <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Email</label>
@@ -454,19 +693,27 @@
             <p class="text-sm sm:text-base text-gray-900">{{ viewingFaculty.phone }}</p>
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Department</label>
+            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1"
+              >Department</label
+            >
             <p class="text-sm sm:text-base text-gray-900">{{ viewingFaculty.department }}</p>
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Designation</label>
+            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1"
+              >Designation</label
+            >
             <p class="text-sm sm:text-base text-gray-900">{{ viewingFaculty.designation }}</p>
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Qualification</label>
+            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1"
+              >Qualification</label
+            >
             <p class="text-sm sm:text-base text-gray-900">{{ viewingFaculty.qualification }}</p>
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Experience</label>
+            <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1"
+              >Experience</label
+            >
             <p class="text-sm sm:text-base text-gray-900">{{ viewingFaculty.experience }} years</p>
           </div>
           <div>
@@ -475,27 +722,37 @@
           </div>
           <div>
             <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Salary</label>
-            <p class="text-sm sm:text-base text-gray-900">₹{{ viewingFaculty.salary?.toLocaleString('en-IN') || 'N/A' }}</p>
+            <p class="text-sm sm:text-base text-gray-900">
+              ₹{{ viewingFaculty.salary?.toLocaleString('en-IN') || 'N/A' }}
+            </p>
           </div>
           <div>
             <label class="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Status</label>
-            <span [ngClass]="{
-              'bg-green-100 text-green-800': viewingFaculty.status === 'active',
-              'bg-red-100 text-red-800': viewingFaculty.status === 'inactive'
-            }"
-            class="inline-flex px-2 py-1 text-xs font-semibold rounded-full">
+            <span
+              [ngClass]="{
+                'bg-green-100 text-green-800': viewingFaculty.status === 'active',
+                'bg-red-100 text-red-800': viewingFaculty.status === 'inactive'
+              }"
+              class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+            >
               {{ viewingFaculty.status }}
             </span>
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200">
-          <button (click)="closeViewModal()"
-            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
+        <div
+          class="flex flex-col sm:flex-row justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200"
+        >
+          <button
+            (click)="closeViewModal()"
+            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
+          >
             Close
           </button>
-          <button (click)="editFaculty(viewingFaculty); closeViewModal()"
-            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base">
+          <button
+            (click)="editFaculty(viewingFaculty); closeViewModal()"
+            class="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm sm:text-base"
+          >
             Edit Details
           </button>
         </div>
@@ -504,7 +761,10 @@
   </div>
 
   <!-- Delete Confirmation Modal -->
-  <div *ngIf="deleteConfirmId" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div
+    *ngIf="deleteConfirmId"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+  >
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
       <div class="p-4 sm:p-6">
         <div class="flex items-center mb-4">
@@ -517,15 +777,20 @@
           </div>
         </div>
         <p class="text-sm sm:text-base text-gray-700 mb-6">
-          Are you sure you want to delete this faculty member? All associated data will be permanently removed.
+          Are you sure you want to delete this faculty member? All associated data will be
+          permanently removed.
         </p>
         <div class="flex flex-col sm:flex-row justify-end gap-3">
-          <button (click)="cancelDelete()"
-            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
+          <button
+            (click)="cancelDelete()"
+            class="px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base"
+          >
             Cancel
           </button>
-          <button (click)="confirmDelete()"
-            class="px-4 sm:px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm sm:text-base">
+          <button
+            (click)="confirmDelete()"
+            class="px-4 sm:px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors text-sm sm:text-base"
+          >
             Delete
           </button>
         </div>
