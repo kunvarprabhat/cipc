@@ -1,50 +1,150 @@
-<section class="p-4 sm:p-8 bg-gray-100">
-  <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Image Gallery</h2>
+<!-- Gallery Section -->
+<section class="py-8 sm:py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    <!-- Header -->
+    <div class="text-center mb-8 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">Image Gallery</h2>
+      <div class="w-20 sm:w-24 h-1 bg-green-600 mx-auto mb-4"></div>
+      <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+        Explore our campus, facilities, and student life through our photo gallery
+      </p>
+    </div>
 
-  <!-- Gallery Grid -->
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-    <div
-      *ngFor="let image of images; let i = index"
-      class="rounded-xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer transition transform hover:scale-[1.03]"
-      (click)="openLightbox(i)"
-    >
-      <img [src]="image.url" [alt]="image.alt" class="w-full h-48 object-cover" />
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+      <div
+        *ngFor="let image of images; let i = index"
+        class="group cursor-pointer transition-all duration-300"
+        (click)="openLightbox(i)"
+      >
+        <!-- Image Container -->
+        <div class="relative rounded-lg sm:rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:scale-105 aspect-square mb-2 sm:mb-3">
+          <img 
+            [src]="image.url" 
+            [alt]="image.alt" 
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 select-none pointer-events-none"
+            loading="lazy"
+            draggable="false"
+            (error)="onImageError($event)"
+          />
+          <!-- Overlay on hover -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+            <i class="ri-zoom-in-line text-white text-3xl sm:text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+          </div>
+        </div>
+        <!-- Image Name/Caption -->
+        <div class="text-center">
+          <p class="text-xs sm:text-sm font-semibold text-gray-700 group-hover:text-green-600 transition-colors duration-300 line-clamp-2">
+            {{image.name}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Counter -->
+    <div class="text-center mt-8 sm:mt-12 text-gray-600">
+      <p class="text-sm sm:text-base">
+        Showing <span class="font-semibold text-green-600">{{images.length}}</span> images
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Lightbox -->
+<!-- Enhanced Lightbox Modal -->
 <div
   *ngIf="lightboxOpen"
-  class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+  class="fixed inset-0 bg-gradient-to-br from-black/95 via-black/90 to-black/95 backdrop-blur-md flex items-center justify-center z-50 p-2 sm:p-4 animate-fade-in"
+  (click)="closeLightbox()"
 >
-  <!-- Close -->
+  <!-- Top Bar with Close and Info -->
+  <div class="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-4 sm:p-6 z-20 flex justify-between items-center">
+    <!-- Image Info -->
+    <div class="flex-1 text-white">
+      <h3 class="text-sm sm:text-base md:text-lg font-semibold mb-1">{{images[currentIndex].alt}}</h3>
+      <p class="text-xs sm:text-sm text-gray-300">Image {{currentIndex + 1}} of {{images.length}}</p>
+    </div>
+    
+    <!-- Close Button -->
+    <button
+      class="group relative text-white hover:text-white text-lg sm:text-xl font-semibold hover:scale-110 active:scale-95 transition-all duration-200 z-10 bg-gradient-to-br from-red-500/85 to-red-600/85 hover:from-red-400 hover:to-red-500 rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-400/60 shadow-lg hover:shadow-red-500/40 backdrop-blur-sm border border-red-400/40 hover:border-red-300"
+      (click)="closeLightbox(); $event.stopPropagation()"
+      aria-label="Close lightbox"
+    >
+      <i class="ri-close-line relative z-10"></i>
+    </button>
+  </div>
+
+  <!-- Previous Button -->
   <button
-    class="absolute top-5 right-5 text-white text-4xl font-semibold hover:scale-110 transition"
-    (click)="closeLightbox()"
+    class="group absolute left-2 sm:left-3 md:left-4 top-1/2 -translate-y-1/2 text-white hover:text-white bg-gradient-to-r from-green-500/85 via-green-400/85 to-green-500/85 hover:from-green-400 hover:via-green-300 hover:to-green-400 text-xl sm:text-2xl md:text-2xl font-semibold hover:scale-110 active:scale-95 transition-all duration-200 z-10 rounded-full w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-400/60 shadow-lg hover:shadow-green-500/50 backdrop-blur-sm border border-green-400/50 hover:border-green-300"
+    (click)="prevImage(); $event.stopPropagation()"
+    aria-label="Previous image"
   >
-    ✕
+    <i class="ri-arrow-left-s-line relative z-10"></i>
   </button>
 
-  <!-- Prev -->
+  <!-- Main Image Container -->
+  <div class="relative w-full h-full flex items-center justify-center mt-16 sm:mt-20 mb-24 sm:mb-28 px-2 sm:px-4" (click)="$event.stopPropagation()">
+    <div class="relative max-w-full max-h-full flex items-center justify-center">
+      <!-- Image with smooth transition -->
+      <img
+        [src]="images[currentIndex].url"
+        [alt]="images[currentIndex].alt"
+        class="max-w-full max-h-[70vh] sm:max-h-[75vh] md:max-h-[80vh] rounded-lg sm:rounded-xl lg:rounded-2xl shadow-2xl object-contain select-none pointer-events-none animate-scale-in border-4 border-white/10"
+        draggable="false"
+        (error)="onImageError($event)"
+      />
+      
+      <!-- Loading indicator (optional) -->
+      <div *ngIf="imageLoading" class="absolute inset-0 flex items-center justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Button -->
   <button
-    class="absolute left-5 text-white text-5xl font-bold hover:scale-110 transition"
-    (click)="prevImage()"
+    class="group absolute right-2 sm:right-3 md:right-4 top-1/2 -translate-y-1/2 text-white hover:text-white bg-gradient-to-l from-green-500/85 via-green-400/85 to-green-500/85 hover:from-green-400 hover:via-green-300 hover:to-green-400 text-xl sm:text-2xl md:text-2xl font-semibold hover:scale-110 active:scale-95 transition-all duration-200 z-10 rounded-full w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-400/60 shadow-lg hover:shadow-green-500/50 backdrop-blur-sm border border-green-400/50 hover:border-green-300"
+    (click)="nextImage(); $event.stopPropagation()"
+    aria-label="Next image"
   >
-    ‹
+    <i class="ri-arrow-right-s-line relative z-10"></i>
   </button>
 
-  <!-- MAIN IMAGE -->
-  <img
-    [src]="images[currentIndex].url"
-    class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl animate-fade"
-  />
+  <!-- Bottom Bar with Thumbnails and Counter -->
+  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 sm:p-4 md:p-6 z-20">
+    <!-- Image Counter Badge -->
+    <div class="flex justify-center mb-3 sm:mb-4">
+      <div class="bg-black/70 backdrop-blur-md text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-semibold shadow-lg border border-white/10">
+        <span class="text-green-400">{{currentIndex + 1}}</span> / <span>{{images.length}}</span>
+      </div>
+    </div>
 
-  <!-- Next -->
-  <button
-    class="absolute right-5 text-white text-5xl font-bold hover:scale-110 transition"
-    (click)="nextImage()"
-  >
-    ›
-  </button>
+    <!-- Thumbnail Navigation -->
+    <div class="flex justify-center gap-2 sm:gap-3 overflow-x-auto pb-2 scrollbar-hide">
+      <button
+        *ngFor="let image of images; let i = index"
+        [ngClass]="{
+          'ring-2 ring-green-400 scale-110': i === currentIndex,
+          'opacity-50 hover:opacity-75': i !== currentIndex
+        }"
+        class="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg sm:rounded-xl overflow-hidden border-2 border-white/20 hover:border-green-400/50 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-400"
+        (click)="goToImage(i); $event.stopPropagation()"
+      >
+        <img
+          [src]="image.url"
+          [alt]="'Thumbnail ' + (i + 1)"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </button>
+    </div>
+
+    <!-- Navigation Hints -->
+    <div class="text-center mt-2 sm:mt-3">
+      <p class="text-xs sm:text-sm text-gray-400">
+        <span class="hidden sm:inline">Use arrow keys to navigate • </span>Click outside to close
+      </p>
+    </div>
+  </div>
 </div>

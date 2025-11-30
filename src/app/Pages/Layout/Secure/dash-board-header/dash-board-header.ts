@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 interface UserInfo {
@@ -16,12 +16,10 @@ interface UserInfo {
   templateUrl: './dash-board-header.html',
   styleUrls: ['./dash-board-header.css']
 })
-export class DashBoardHeader {
-
+export class DashBoardHeader implements OnInit {
   @Input() user: UserInfo | null = null;
 
-  // Sidebar, Menu, Notifications
-  isSidebarOpen = false;
+  // Menu, Notifications
   isMenuOpen = false;
   isNotificationOpen = false;
   unreadCount = 5;
@@ -47,8 +45,19 @@ export class DashBoardHeader {
 
   constructor(private router: Router) { }
 
+  ngOnInit() {
+    // Get user info from localStorage if not provided via Input
+    if (!this.user) {
+      const userInfo = localStorage.getItem('userInfo');
+      if (userInfo) {
+        this.user = JSON.parse(userInfo);
+      }
+    }
+  }
+
   toggleMobileSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+    // Dispatch event to toggle sidebar in dashboard-sidebar component
+    window.dispatchEvent(new Event('toggleSidebar'));
   }
 
   toggleMenu() {
@@ -67,7 +76,7 @@ export class DashBoardHeader {
 
   logout() {
     localStorage.removeItem('userInfo');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
   }
 
   getRoleColor(): string {

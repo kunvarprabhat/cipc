@@ -1,0 +1,21 @@
+<div class="fixed top-20 right-4 z-[9999] space-y-2 max-w-sm w-full">
+  <div *ngFor="let toast of toasts" 
+       [ngClass]="{
+         'bg-green-50 border-green-200 text-green-800': toast.type === 'success',
+         'bg-red-50 border-red-200 text-red-800': toast.type === 'error',
+         'bg-blue-50 border-blue-200 text-blue-800': toast.type === 'info',
+         'bg-yellow-50 border-yellow-200 text-yellow-800': toast.type === 'warning'
+       }"
+       class="border rounded-lg shadow-lg p-4 flex items-start gap-3 animate-slide-in-right">
+    <i [ngClass]="getToastIcon(toast.type)" 
+       class="text-xl flex-shrink-0 mt-0.5"></i>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-medium break-words">{{ toast.message }}</p>
+    </div>
+    <button (click)="removeToast(toast.id)" 
+            class="text-gray-400 hover:text-gray-600 flex-shrink-0 ml-2">
+      <i class="ri-close-line text-lg"></i>
+    </button>
+  </div>
+</div>
+

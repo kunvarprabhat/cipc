@@ -1,51 +1,55 @@
 <!-- MAIN HEADER -->
-<div class="bg-gradient-to-r from-green-50 to-blue-50 shadow px-4 py-2 flex items-center justify-between relative z-20">
+<div class="fixed top-0 left-0 right-0 bg-gradient-to-r from-green-50 to-blue-50 shadow-md px-2 xs:px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 flex items-center justify-between z-30 h-14 sm:h-16">
 
   <!-- Logo + Institute -->
-  <div class="flex items-center space-x-3">
-    <img src="https://static.readdy.ai/image/85111bce17a3a7cabcbbff1d4ebbc787/d0d778464cf62505f63f8e8ff6cc0ba7.png"
-         alt="CIPC Logo" class="w-10 h-10 rounded-full shadow-sm" />
-    <div class="hidden sm:block">
-      <h1 class="text-sm sm:text-base font-bold text-gray-800 leading-tight">CIPC PARAMEDICAL COUNCIL</h1>
-      <p class="text-xs sm:text-sm text-gray-500">ISO 9001 : 2015 Certified</p>
+  <div class="flex items-center space-x-1.5 xs:space-x-2 sm:space-x-3 flex-shrink-0 min-w-0">
+    <div class="bg-transparent p-0.5 xs:p-1 rounded-full flex-shrink-0">
+      <img src="Assets/logos/image.png"
+           alt="CIPC Logo" class="w-7 h-7 xs:w-8 xs:h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 rounded-full shadow-sm object-contain"
+           style="background: transparent; mix-blend-mode: multiply;"
+           onerror="this.style.display='none';" />
+    </div>
+    <div class="hidden xs:block min-w-0">
+      <h1 class="text-[10px] xs:text-xs sm:text-sm md:text-base font-bold text-gray-800 leading-tight truncate">CIPC PARAMEDICAL COUNCIL</h1>
+      <p class="text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-gray-500 truncate">ISO 9001 : 2015 Certified</p>
     </div>
   </div>
 
   <!-- User Actions -->
-  <div class="flex items-center space-x-3">
+  <div class="flex items-center space-x-1.5 xs:space-x-2 sm:space-x-3 flex-shrink-0">
 
     <!-- Greeting -->
-    <div class="hidden sm:flex flex-col text-right">
-      <span class="font-semibold text-gray-800 text-sm sm:text-base">Hello, {{ user?.name || "Guest"}}</span>
-      <span class="text-xs sm:text-sm text-gray-500">Super Admin {{ user?.role }}</span>
+    <div class="hidden lg:flex flex-col text-right min-w-0">
+      <span class="font-semibold text-gray-800 text-sm xl:text-base truncate">Hello, {{ user?.name || "Guest"}}</span>
+      <span class="text-xs xl:text-sm text-gray-500 truncate">{{ user?.role || "User" }}</span>
     </div>
 
     <!-- Notifications -->
     <div class="relative">
       <button (click)="toggleNotifications()"
-              class="p-2 rounded-full hover:bg-gray-200 transition-colors relative">
-        <i class="ri-notification-line text-lg text-gray-700"></i>
+              class="p-1.5 sm:p-2 rounded-full hover:bg-gray-200 transition-colors relative">
+        <i class="ri-notification-line text-base sm:text-lg text-gray-700"></i>
         <span *ngIf="unreadCount > 0"
-              class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold animate-pulse">
+              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold">
           {{ unreadCount }}
         </span>
       </button>
 
       <!-- Notification List -->
       <div *ngIf="isNotificationOpen"
-           class="absolute right-0 mt-1 w-64 max-h-80 bg-white border rounded-lg shadow-lg z-50 flex flex-col animate-fadeIn">
-        <div class="p-2 border-b text-gray-700 font-semibold">Notifications</div>
-        <ul class="overflow-y-auto flex-1">
+           class="absolute right-0 mt-2 w-[calc(100vw-2rem)] xs:w-72 sm:w-80 max-w-sm max-h-[calc(100vh-5rem)] bg-white border border-gray-200 rounded-lg shadow-xl z-50 flex flex-col overflow-hidden">
+        <div class="p-2.5 sm:p-3 border-b border-gray-200 text-gray-700 font-semibold text-xs sm:text-sm md:text-base flex-shrink-0">Notifications</div>
+        <ul class="overflow-y-auto flex-1 max-h-64 min-h-0">
           <li *ngFor="let note of notifications"
-              class="px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-start text-sm transition-colors duration-200">
-            <i [ngClass]="note.icon + ' mr-2 mt-0.5 text-' + note.color + '-500'"></i>
-            <div class="flex-1">
-              <p class="truncate">{{ note.message }}</p>
-              <span class="text-xs text-gray-400">{{ note.time }}</span>
+              class="px-2.5 sm:px-3 py-2 sm:py-2.5 hover:bg-gray-50 cursor-pointer flex items-start text-xs sm:text-sm transition-colors duration-200 border-b border-gray-100 last:border-b-0">
+            <i [ngClass]="note.icon + ' mr-2 mt-0.5 text-' + note.color + '-500 text-sm sm:text-base flex-shrink-0'"></i>
+            <div class="flex-1 min-w-0">
+              <p class="text-gray-800 truncate text-xs sm:text-sm">{{ note.message }}</p>
+              <span class="text-[10px] xs:text-xs text-gray-400 mt-0.5 block">{{ note.time }}</span>
             </div>
           </li>
         </ul>
-        <div class="text-center text-xs text-gray-500 py-2 border-t cursor-pointer hover:bg-gray-100">
+        <div class="text-center text-[10px] xs:text-xs sm:text-sm text-gray-500 py-2 sm:py-2.5 border-t border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors flex-shrink-0">
           View All Notifications
         </div>
       </div>
@@ -54,72 +58,26 @@
     <!-- Profile Dropdown -->
     <div class="relative">
       <button (click)="toggleMenu()"
-              class="flex items-center space-x-2 p-1.5 rounded-full hover:bg-gray-200 transition-colors">
-        <img src="https://i.pravatar.cc/32" alt="User Image" class="w-6 h-6 rounded-full object-cover" />
-        <!-- <span class="hidden md:block text-gray-800 font-medium text-sm sm:text-base">{{ user?.name || "Guest" }}</span> -->
-        <i class="ri-arrow-down-s-line ml-0.5 text-gray-500 text-sm"></i>
+              class="flex items-center space-x-1.5 sm:space-x-2 p-1 sm:p-1.5 rounded-full hover:bg-gray-200 transition-colors">
+        <img src="https://i.pravatar.cc/32" alt="User Image" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover border-2 border-gray-300" />
+        <i class="ri-arrow-down-s-line ml-0.5 text-gray-500 text-xs sm:text-sm hidden sm:block"></i>
       </button>
 
       <div *ngIf="isMenuOpen"
-           class="absolute right-0 mt-1 w-36 bg-white border rounded-lg shadow-lg z-50 animate-fadeIn">
+           class="absolute right-0 mt-2 w-36 xs:w-40 sm:w-44 bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden">
         <button (click)="logout()"
-                class="w-full text-left px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded-t-lg text-sm sm:text-base flex items-center">
-          <i class="ri-logout-box-line mr-2"></i> Logout
+                class="w-full text-left px-2.5 sm:px-3 py-2 sm:py-2.5 text-gray-700 hover:bg-gray-50 text-xs sm:text-sm md:text-base flex items-center transition-colors">
+          <i class="ri-logout-box-line mr-2 text-sm sm:text-base"></i> <span>Logout</span>
         </button>
-        <button class="w-full text-left px-3 py-1.5 text-gray-700 hover:bg-gray-100 rounded-b-lg text-sm sm:text-base flex items-center">
-          <i class="ri-settings-3-line mr-2"></i> Settings
+        <button class="w-full text-left px-2.5 sm:px-3 py-2 sm:py-2.5 text-gray-700 hover:bg-gray-50 text-xs sm:text-sm md:text-base flex items-center transition-colors border-t border-gray-100">
+          <i class="ri-settings-3-line mr-2 text-sm sm:text-base"></i> <span>Settings</span>
         </button>
       </div>
     </div>
 
     <!-- Mobile Hamburger -->
-    <button (click)="toggleMobileSidebar()" class="md:hidden p-2 rounded-full hover:bg-gray-200 transition-colors">
-      <i class="ri-menu-line text-lg text-gray-700"></i>
-    </button>
-  </div>
-</div>
-
-<!-- OVERLAY FOR MOBILE SIDEBAR -->
-<div *ngIf="isSidebarOpen"
-     (click)="toggleMobileSidebar()"
-     class="fixed inset-0 bg-black/30 z-10 md:hidden"></div>
-
-<!-- SIDEBAR -->
-<div [ngClass]="{'translate-x-0': isSidebarOpen, '-translate-x-full': !isSidebarOpen}"
-     class="fixed top-0 left-0 w-64 h-screen bg-white shadow-lg border-r border-gray-200 flex flex-col overflow-hidden z-20 transform transition-transform duration-300">
-
-  <!-- User Info -->
-  <div class="p-4 border-b flex-shrink-0">
-    <h2 class="text-lg font-bold text-gray-800">Management System</h2>
-    <div class="mt-2">
-      <div [ngClass]="'inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium ' + getRoleColor()">
-        <i class="ri-user-line mr-1"></i> {{ user?.role || 'No role' }}
-      </div>
-      <p class="text-sm sm:text-base text-gray-600 mt-1 truncate">{{ user?.name || 'Guest' }}</p>
-    </div>
-  </div>
-
-  <!-- Menu Items -->
-  <nav class="px-2 py-3 flex-1 overflow-y-auto">
-    <ul class="space-y-1">
-      <li *ngFor="let item of menuItems">
-        <button (click)="setActiveModule(item.id)"
-                [ngClass]="{'bg-green-100 text-green-700 border-l-4 border-green-600': activeModule === item.id,
-                            'text-gray-600 hover:bg-gray-100 hover:text-gray-800': activeModule !== item.id}"
-                class="w-full flex items-center px-3 py-2 rounded transition-all duration-200 text-left text-sm sm:text-base">
-          <i [class]="item.icon + ' text-xl mr-3'"></i>
-          <span class="font-medium">{{ item.label }}</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- Logout -->
-  <div class="p-4 border-t mt-auto flex-shrink-0">
-    <button (click)="logout()"
-            class="w-full flex items-center px-3 py-2 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded transition-colors duration-200 text-sm sm:text-base">
-      <i class="ri-logout-box-line text-xl mr-2"></i>
-      <span class="font-medium">Logout</span>
+    <button (click)="toggleMobileSidebar()" class="lg:hidden p-1.5 sm:p-2 rounded-full hover:bg-gray-200 transition-colors">
+      <i class="ri-menu-line text-lg sm:text-xl text-gray-700"></i>
     </button>
   </div>
 </div>

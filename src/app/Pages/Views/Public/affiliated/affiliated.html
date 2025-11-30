@@ -1,69 +1,96 @@
 <div class="min-h-screen bg-gradient-to-b from-green-50 to-white">
-    <main>
+  <main>
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-6xl font-bold mb-6">Affiliated Institutions</h1>
-        <p class="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto">
+    <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-12 sm:py-16 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+          Affiliated Institutions
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
           Our network of affiliated institutions across Uttar Pradesh, delivering quality paramedical education with CIPC standards
         </p>
       </div>
     </div>
 
     <!-- Benefits -->
-    <div class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Our Affiliated Network?</h2>
-          <div class="w-24 h-1 bg-green-600 mx-auto"></div>
+    <div class="py-12 sm:py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
+            Why Choose Our Affiliated Network?
+          </h2>
+          <div class="w-20 sm:w-24 h-1 bg-green-600 mx-auto"></div>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div *ngFor="let benefit of benefits" class="text-center group">
-            <div class="w-20 h-20 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-full mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-              <i class="{{ benefit.icon }} text-3xl text-white"></i>
+            <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-full mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+              <i class="{{ benefit.icon }} text-2xl sm:text-3xl text-white"></i>
             </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ benefit.title }}</h3>
-            <p class="text-gray-600">{{ benefit.description }}</p>
+            <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{{ benefit.title }}</h3>
+            <p class="text-sm sm:text-base text-gray-600 px-2">{{ benefit.description }}</p>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Institutions Grid -->
-    <div class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Partner Institutions</h2>
-          <p class="text-xl text-gray-600">Strategically located across Uttar Pradesh for easy accessibility</p>
+    <div class="py-12 sm:py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
+            Our Partner Institutions
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            Strategically located across Uttar Pradesh for easy accessibility
+          </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div *ngFor="let institution of affiliatedInstitutions" class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <div class="relative">
-              <img [src]="institution.image" [alt]="institution.name" class="w-full h-48 object-cover">
-              <div class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div *ngFor="let institution of affiliatedInstitutions" 
+            class="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group">
+            <div class="relative overflow-hidden bg-gray-200">
+              <img 
+                [src]="institution.image" 
+                [alt]="institution.name" 
+                class="w-full h-56 sm:h-64 md:h-72 object-cover transition-transform duration-500 group-hover:scale-110 brightness-100 group-hover:brightness-110"
+                loading="lazy"
+                onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Available'"
+              />
+              <!-- Gradient Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <!-- Established Badge -->
+              <div class="absolute top-3 sm:top-4 right-3 sm:right-4 bg-green-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold shadow-lg z-10">
                 Est. {{ institution.established }}
+              </div>
+              <!-- Hover Overlay with Institution Name -->
+              <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                <h3 class="text-white font-bold text-lg sm:text-xl mb-1">{{ institution.name }}</h3>
+                <p class="text-green-200 text-sm flex items-center">
+                  <i class="ri-map-pin-line mr-2"></i>
+                  {{ institution.location }}
+                </p>
               </div>
             </div>
             
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-gray-800 mb-2">{{ institution.name }}</h3>
-              <div class="flex items-center text-gray-600 mb-4">
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-bold text-gray-800 mb-2">{{ institution.name }}</h3>
+              <div class="flex items-center text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
                 <i class="ri-map-pin-line mr-2 text-green-600"></i>
                 {{ institution.location }}
               </div>
 
-              <div class="mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2">Courses Offered:</h4>
+              <div class="mb-3 sm:mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Courses Offered:</h4>
                 <div class="flex flex-wrap gap-2">
-                  <span *ngFor="let course of institution.courses" class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                  <span *ngFor="let course of institution.courses" 
+                    class="bg-green-100 text-green-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
                     {{ course }}
                   </span>
                 </div>
               </div>
 
-              <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                 <div class="flex items-center">
                   <i class="ri-group-line mr-2 text-blue-600"></i>
                   {{ institution.students }} Students
@@ -74,11 +101,11 @@
                 </div>
               </div>
 
-              <div class="flex gap-3">
-                <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-300 whitespace-nowrap">
+              <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <button class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 sm:py-2.5 px-4 rounded-lg font-semibold transition-colors duration-300 text-sm sm:text-base">
                   Learn More
                 </button>
-                <button class="flex-1 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 whitespace-nowrap">
+                <button class="flex-1 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-2 sm:py-2.5 px-4 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base">
                   Contact
                 </button>
               </div>
@@ -89,46 +116,50 @@
     </div>
 
     <!-- Stats Section -->
-    <div class="py-16 bg-gradient-to-r from-green-600 to-green-800 text-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid md:grid-cols-4 gap-8 text-center">
+    <div class="py-12 sm:py-16 bg-gradient-to-r from-green-600 to-green-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">6+</div>
-            <div class="text-green-100">Affiliated Institutions</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">6+</div>
+            <div class="text-sm sm:text-base text-green-100">Affiliated Institutions</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">1,000+</div>
-            <div class="text-green-100">Students Enrolled</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">1,000+</div>
+            <div class="text-sm sm:text-base text-green-100">Students Enrolled</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">15+</div>
-            <div class="text-green-100">Course Programs</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">15+</div>
+            <div class="text-sm sm:text-base text-green-100">Course Programs</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-bold mb-2">95%</div>
-            <div class="text-green-100">Success Rate</div>
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">95%</div>
+            <div class="text-sm sm:text-base text-green-100">Success Rate</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Affiliation Process -->
-    <div class="py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Affiliation Process</h2>
-          <p class="text-xl text-gray-600">Simple steps to become a CIPC affiliated institution</p>
+    <div class="py-12 sm:py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">
+            Affiliation Process
+          </h2>
+          <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            Simple steps to become a CIPC affiliated institution
+          </p>
         </div>
 
-        <div class="grid md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div class="text-center" *ngFor="let step of [1,2,3,4]; let i = index">
-            <div class="w-16 h-16 flex items-center justify-center bg-green-100 rounded-full mx-auto mb-4">
-              <span class="text-2xl font-bold text-green-600">{{ step }}</span>
+            <div class="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-green-100 rounded-full mx-auto mb-3 sm:mb-4">
+              <span class="text-xl sm:text-2xl font-bold text-green-600">{{ step }}</span>
             </div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            <h3 class="text-base sm:text-lg font-semibold text-gray-800 mb-2">
               {{ ['Application','Assessment','Approval','Launch'][i] }}
             </h3>
-            <p class="text-gray-600">
+            <p class="text-sm sm:text-base text-gray-600 px-2">
               {{ [
                 'Submit your affiliation application with required documents',
                 'Our team conducts facility and quality assessment',
@@ -139,8 +170,8 @@
           </div>
         </div>
 
-        <div class="text-center mt-12">
-          <button class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 whitespace-nowrap">
+        <div class="text-center mt-8 sm:mt-12">
+          <button class="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-105">
             Apply for Affiliation
           </button>
         </div>
@@ -148,26 +179,30 @@
     </div>
 
     <!-- Contact CTA -->
-    <div class="py-16 bg-gray-50">
-      <div class="max-w-4xl mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Ready to Join Our Network?</h2>
-        <p class="text-xl text-gray-600 mb-8">Contact us today to learn more about becoming a CIPC affiliated institution</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <div class="flex items-center justify-center mb-4">
-              <i class="ri-phone-line text-3xl text-green-600 mr-3"></i>
-              <div>
-                <div class="text-2xl font-bold text-gray-800">7275380105</div>
-                <div class="text-gray-600">Call for Enquiry</div>
+    <div class="py-12 sm:py-16 bg-gray-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">
+          Ready to Join Our Network?
+        </h2>
+        <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">
+          Contact us today to learn more about becoming a CIPC affiliated institution
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+          <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg w-full sm:w-auto">
+            <div class="flex flex-col sm:flex-row items-center justify-center mb-2 sm:mb-4">
+              <i class="ri-phone-line text-2xl sm:text-3xl text-green-600 mb-2 sm:mb-0 sm:mr-3"></i>
+              <div class="text-center sm:text-left">
+                <div class="text-xl sm:text-2xl font-bold text-gray-800">7275380105</div>
+                <div class="text-sm sm:text-base text-gray-600">Call for Enquiry</div>
               </div>
             </div>
           </div>
-          <div class="bg-white p-6 rounded-xl shadow-lg">
-            <div class="flex items-center justify-center mb-4">
-              <i class="ri-mail-line text-3xl text-green-600 mr-3"></i>
-              <div>
-                <div class="text-2xl font-bold text-gray-800">cipcvns@gmail.com</div>
-                <div class="text-gray-600">Email Support</div>
+          <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg w-full sm:w-auto">
+            <div class="flex flex-col sm:flex-row items-center justify-center mb-2 sm:mb-4">
+              <i class="ri-mail-line text-2xl sm:text-3xl text-green-600 mb-2 sm:mb-0 sm:mr-3"></i>
+              <div class="text-center sm:text-left">
+                <div class="text-lg sm:text-2xl font-bold text-gray-800 break-all">cipcvns@gmail.com</div>
+                <div class="text-sm sm:text-base text-gray-600">Email Support</div>
               </div>
             </div>
           </div>
@@ -175,6 +210,4 @@
       </div>
     </div>
   </main>
-
-  
 </div>

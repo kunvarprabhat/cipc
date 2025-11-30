@@ -3,6 +3,7 @@ import { Login } from './Pages/Layout/Public/login/login';
 import { Courses } from './Pages/Views/Public/courses/courses';
 import { About } from './Pages/Views/Public/about/about';
 import { AuthGuard } from './Guards/auth-guard';
+import { PublicGuard } from './Guards/public-guard';
 import { Affiliated } from './Pages/Views/Public/affiliated/affiliated';
 import { Contact } from './Pages/Views/Public/contact/contact';
 import { Faculty } from './Pages/Views/Public/faculty/faculty';
@@ -21,34 +22,43 @@ import { LearningList } from './Pages/Views/Secure/LearningManagement/learning-l
 import { HostelList } from './Pages/Views/Secure/HostelManagement/hostel-list/hostel-list';
 import { TransportList } from './Pages/Views/Secure/TransportManagement/transport-list/transport-list';
 import { EventList } from './Pages/Views/Secure/EventManagement/event-list/event-list';
+import { DashboardOverview } from './Pages/Views/Secure/DashboardOverview/dashboard-overview';
 import { Gallary } from './Pages/Views/Public/gallary/gallary';
+import { AdmissionForm } from './Pages/Views/Public/forms/admission/admission';
+import { ExaminationForm } from './Pages/Views/Public/forms/examination/examination';
+import { CertificationForm } from './Pages/Views/Public/forms/certification/certification';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: Login },
-  //{ path: 'dashboard', component: DashboardLayout, canActivate: [AuthGuard] },
-  { path: 'courses', component: Courses },
-  {path: 'home', component: Home },
-  { path: 'about', component: About },
-  { path: 'affiliated', component: Affiliated },
-  { path: 'contact', component: Contact },
-  { path: 'Training Pattern', component: Faculty },
-  { path: 'Our Achievements', component: News },
-  { path: 'gallary', component: Gallary },
-  // Secure pages
-  { path: 'dashboard', component: DashboardLayout, canActivate: [AuthGuard] },
-  { path: 'students', component: StudentList },
-  { path: 'faculty', component: FacultyList },
-  { path: 'courses/manage', component: Course },
-  { path: 'attendance', component: Attendance },
-  { path: 'leave', component: LeaveList },
-  { path: 'exams', component: ExamList },
-  { path: 'fees', component: FeesList },
-  { path: 'library', component: LibraryList },
-  { path: 'lms', component: LearningList },
-  { path: 'hostel', component: HostelList },
-  { path: 'transport', component: TransportList },
-  { path: 'events', component: EventList },
+  { path: 'login', component: Login, canActivate: [PublicGuard] },
+  // Public routes - redirect to dashboard if logged in
+  { path: 'courses', component: Courses, canActivate: [PublicGuard] },
+  { path: 'home', component: Home, canActivate: [PublicGuard] },
+  { path: 'about', component: About, canActivate: [PublicGuard] },
+  { path: 'affiliated', component: Affiliated, canActivate: [PublicGuard] },
+  { path: 'contact', component: Contact, canActivate: [PublicGuard] },
+  { path: 'Training Pattern', component: Faculty, canActivate: [PublicGuard] },
+  { path: 'Our Achievements', component: News, canActivate: [PublicGuard] },
+  { path: 'gallary', component: Gallary, canActivate: [PublicGuard] },
+  // Forms - accessible to all (no guard)
+  { path: 'forms/admission', component: AdmissionForm },
+  { path: 'forms/examination', component: ExaminationForm },
+  { path: 'forms/certification', component: CertificationForm },
+  // Secure pages - all require authentication
+  // DashboardLayout is shown conditionally in app.html, so routes just need the page components
+  { path: 'dashboard', component: DashboardOverview, canActivate: [AuthGuard] },
+  { path: 'students', component: StudentList, canActivate: [AuthGuard] },
+  { path: 'faculty', component: FacultyList, canActivate: [AuthGuard] },
+  { path: 'courses/manage', component: Course, canActivate: [AuthGuard] },
+  { path: 'attendance', component: Attendance, canActivate: [AuthGuard] },
+  { path: 'leave', component: LeaveList, canActivate: [AuthGuard] },
+  { path: 'exams', component: ExamList, canActivate: [AuthGuard] },
+  { path: 'fees', component: FeesList, canActivate: [AuthGuard] },
+  { path: 'library', component: LibraryList, canActivate: [AuthGuard] },
+  { path: 'lms', component: LearningList, canActivate: [AuthGuard] },
+  { path: 'hostel', component: HostelList, canActivate: [AuthGuard] },
+  { path: 'transport', component: TransportList, canActivate: [AuthGuard] },
+  { path: 'events', component: EventList, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'login' } // wildcard always last
 ];
 

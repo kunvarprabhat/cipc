@@ -1,0 +1,18 @@
+/* Logo styling to remove whitespace */
+img[alt*="CIPC Logo"] {
+  background: transparent !important;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  mix-blend-mode: multiply;
+}
+
+/* Remove any default image padding/margin */
+.logo-container img,
+header img[alt*="CIPC"] {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  object-fit: contain;
+}
+

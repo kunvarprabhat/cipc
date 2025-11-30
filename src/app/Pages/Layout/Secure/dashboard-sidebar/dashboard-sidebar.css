@@ -1,0 +1,41 @@
+/* Remove all lines, borders, and underlines from sidebar */
+app-dashboard-sidebar a,
+app-dashboard-sidebar a:hover,
+app-dashboard-sidebar a:focus,
+app-dashboard-sidebar a:active,
+app-dashboard-sidebar a:visited {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+app-dashboard-sidebar span,
+app-dashboard-sidebar p,
+app-dashboard-sidebar h2,
+app-dashboard-sidebar div {
+  text-decoration: none !important;
+  border: none !important;
+}
+
+/* Remove any default link styling */
+app-dashboard-sidebar a {
+  text-decoration: none !important;
+}
+
+/* Ensure no borders on active state */
+app-dashboard-sidebar a.router-link-active {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Remove focus outline lines */
+app-dashboard-sidebar a:focus,
+app-dashboard-sidebar button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+

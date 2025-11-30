@@ -16,18 +16,41 @@ type LoginType = 'student' | 'admin' | 'teacher' | 'affiliation';
 export class Header {
   isMenuOpen = false;
   loginModal = { isOpen: false, type: 'student' as LoginType };
+  isAcademicFormsOpen = false;
+  isAcademicFormsMobileOpen = false;
 
   navItems = [
     { name: 'Home', path: '/home' },
     { name: 'About Us', path: '/about' },
-    { name: 'Training Pattern', path: '/training' },
-    { name: 'Our Achievements', path: '/achievements' },
-    { name: 'Gallary', path: '/gallary' },
+    { name: 'Training Pattern', path: '/Training Pattern' },
+    { name: 'Our Achievements', path: '/Our Achievements' },
+    { name: 'Gallery', path: '/gallary' },
     { name: 'Affiliated Institutions', path: '/affiliated' },
     { name: 'Contact Us', path: '/contact' },
-    { name: 'Student Verification', path: '/verification' },
-    
   ];
+
+  academicForms = [
+    { name: 'Admission Form', path: '/forms/admission' },
+    { name: 'Certification Form', path: '/forms/certification' },
+    { name: 'Examination Form', path: '/forms/examination' },
+  ];
+
+  toggleAcademicForms() {
+    this.isAcademicFormsOpen = !this.isAcademicFormsOpen;
+  }
+
+  toggleAcademicFormsMobile() {
+    this.isAcademicFormsMobileOpen = !this.isAcademicFormsMobileOpen;
+  }
+
+  closeAcademicForms() {
+    this.isAcademicFormsOpen = false;
+  }
+
+  closeMobileMenu() {
+    this.isMenuOpen = false;
+    this.isAcademicFormsMobileOpen = false;
+  }
 
   openLogin(type: LoginType) {
     this.loginModal.isOpen = true;

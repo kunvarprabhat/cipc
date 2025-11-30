@@ -1,50 +1,47 @@
-<div class="w-64 bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col overflow-hidden">
+<!-- OVERLAY FOR MOBILE SIDEBAR -->
+<div *ngIf="isMobileSidebarOpen"
+     (click)="closeMobileSidebar()"
+     class="fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300"></div>
+
+<!-- SIDEBAR - Mobile/Desktop -->
+<div [ngClass]="{'translate-x-0': isMobileSidebarOpen || !isMobile, '-translate-x-full': !isMobileSidebarOpen && isMobile}"
+     class="fixed lg:static top-0 lg:top-16 left-0 w-[280px] sm:w-64 md:w-72 xl:w-72 bg-white shadow-lg lg:shadow-xl h-screen lg:h-[calc(100vh-4rem)] flex flex-col overflow-hidden z-50 lg:z-auto transform transition-transform duration-300">
     <!-- User Info -->
-    <div class="p-6 border-b border-gray-200 flex-shrink-0">
-        <h2 class="text-xl font-bold text-gray-800">Management System</h2>
-        <div class="mt-3">
-            <div [ngClass]="'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ' + getRoleColor()">
-                <i class="ri-user-line mr-1"></i> {{ userInfo.role || 'No role' }}
+    <div class="p-4 sm:p-5 xl:p-6 flex-shrink-0 bg-gradient-to-br from-green-50 to-blue-50">
+        <h2 class="text-base sm:text-lg xl:text-xl font-bold text-gray-800 mb-3 no-underline">Management System</h2>
+        <div class="space-y-2">
+            <div [ngClass]="'inline-flex items-center px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium shadow-sm ' + getRoleColor()">
+                <i class="ri-user-line mr-2 text-sm"></i> 
+                <span class="truncate no-underline">{{ userInfo?.role || 'No role' }}</span>
             </div>
-            <p class="text-sm text-gray-600 mt-2 truncate" title="{{ userInfo.name || 'Guest' }}">{{ userInfo.name ||
-                'Guest' }}</p>
-
-
+            <p class="text-sm sm:text-base text-gray-800 font-semibold truncate no-underline mt-2" title="{{ userInfo?.name || 'Guest' }}">{{ userInfo?.name || 'Guest' }}</p>
         </div>
     </div>
 
     <!-- Menu Items -->
-    <nav class="px-4 py-3 flex-1 overflow-y-auto" aria-label="Sidebar navigation">
-        <ul class="space-y-2 pb-6">
-            <!-- <li *ngFor="let item of filteredMenuItems">
-                <button type="button" (click)="setActiveModule(item.id)" [attr.aria-pressed]="activeModule === item.id"
-                    [ngClass]="{ 'w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200 bg-green-100 text-green-700 border-l-4 border-green-600': activeModule === item.id,
-            'w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200 text-gray-600 hover:bg-gray-100 hover:text-gray-800': activeModule !== item.id
-          }">
-                    <i [class]="item.icon + ' text-xl mr-3'"></i>
-                    <span class="font-medium text-sm">{{ item.label }}</span>
-                </button>
-            </li> -->
+    <nav class="px-3 sm:px-4 xl:px-5 py-3 sm:py-4 flex-1 overflow-y-auto" aria-label="Sidebar navigation">
+        <ul class="space-y-1.5 sm:space-y-2 pb-4">
             <li *ngFor="let item of filteredMenuItems">
-  <a 
-    [routerLink]="item.route" 
-    routerLinkActive="bg-green-100 text-green-700 border-l-4 border-green-600"
-    class="w-full flex items-center px-4 py-3 text-left rounded-lg transition-all duration-200 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
-  >
-    <i [class]="item.icon + ' text-xl mr-3'"></i>
-    <span class="font-medium text-sm">{{ item.label }}</span>
-  </a>
-</li>
-
+                <a 
+                    [routerLink]="item.route" 
+                    (click)="closeMobileSidebar()"
+                    routerLinkActive="bg-green-100 text-green-700 font-semibold shadow-sm"
+                    [routerLinkActiveOptions]="{exact: item.route === '/dashboard'}"
+                    class="w-full flex items-center px-3 sm:px-4 py-2.5 sm:py-3 text-left rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100 hover:text-gray-900 group no-underline"
+                >
+                    <i [class]="item.icon + ' text-lg sm:text-xl mr-3 group-hover:scale-110 transition-transform flex-shrink-0'"></i>
+                    <span class="font-medium text-xs sm:text-sm truncate no-underline">{{ item.label }}</span>
+                </a>
+            </li>
         </ul>
     </nav>
 
     <!-- Logout -->
-    <div class="p-4 border-t border-gray-200 bg-white flex-shrink-0 mt-auto">
+    <div class="p-3 sm:p-4 bg-gray-50 flex-shrink-0 mt-auto">
         <button (click)="handleLogout()"
-            class="w-full flex items-center px-4 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors duration-200">
-            <i class="ri-logout-box-line text-xl mr-3"></i>
-            <span class="font-medium">Logout</span>
+            class="w-full flex items-center justify-center px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors duration-200 text-sm sm:text-base font-medium shadow-sm hover:shadow-md no-underline">
+            <i class="ri-logout-box-line text-lg sm:text-xl mr-2 sm:mr-3 flex-shrink-0"></i>
+            <span class="no-underline">Logout</span>
         </button>
     </div>
 </div>

@@ -1,22 +1,14 @@
 <main class="main">
   <div class="content">
-    <!-- <app-header></app-header>
-    <router-outlet />
-    <app-footer></app-footer> -->
-    <app-public-layout></app-public-layout>
+    <!-- Show Public Layout when NOT authenticated -->
+    <app-public-layout *ngIf="!isAuthenticated" class="w-full"></app-public-layout>
+    
+    <!-- Show Secure Layout when authenticated -->
+    <app-dashboard-layout *ngIf="isAuthenticated" class="w-full"></app-dashboard-layout>
   </div>
+  
+  <!-- Global Toast Component -->
+  <app-toast></app-toast>
 </main>
-<!-- <main class="flex flex-col min-h-screen bg-gray-50">
-  
-  <app-header class="sticky top-0 z-50 shadow-md"></app-header>
-
- 
-  <div class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <router-outlet></router-outlet>
-  </div>
-
-  
-  <app-footer class="bg-white shadow-inner"></app-footer>
-</main> -->
 
 

@@ -1,0 +1,62 @@
+/* Minimal CSS for Angular Material component structure overrides - using Tailwind for styling */
+
+/* Hide Material form field default styling */
+mat-form-field.mat-mdc-form-field {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+mat-form-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+mat-form-field .mat-mdc-text-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+mat-form-field .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  border-top: none !important;
+  min-height: auto !important;
+}
+
+/* Datepicker toggle button sizing */
+.mat-datepicker-toggle .mat-mdc-icon-button {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+}
+
+.mat-datepicker-toggle .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Autocomplete panel max height and styling */
+.mat-mdc-autocomplete-panel {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+  z-index: 1000 !important;
+}
+
+.mat-mdc-autocomplete-panel .mat-mdc-option {
+  min-height: 40px !important;
+  line-height: 40px !important;
+}
+
+/* Datepicker panel styling */
+.mat-datepicker-popup {
+  z-index: 1000 !important;
+}
+
+.mat-calendar {
+  width: 100% !important;
+}
+
+/* Print styles - hide Material components */
+@media print {
+  mat-form-field {
+    display: none !important;
+  }
+}

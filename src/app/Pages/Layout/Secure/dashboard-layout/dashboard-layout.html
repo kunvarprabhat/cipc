@@ -1,21 +1,24 @@
 <app-dash-board-header></app-dash-board-header>
-<div class="h-screen flex flex-col">
-  <!-- Header -->
-
-  <div class="flex flex-1 overflow-hidden">
-    <!-- Sidebar -->
-    <app-dashboard-sidebar [activeModule]="activeModule" [userRole]="userInfo?.role" [userInfo]="userInfo"
+<div class="min-h-screen flex flex-col bg-gray-50">
+  <div class="flex flex-1 overflow-hidden pt-14 sm:pt-16 md:pt-16 lg:pt-16">
+    <!-- Sidebar - Mobile: Toggle, Desktop: Always visible -->
+    <app-dashboard-sidebar 
+      [activeModule]="activeModule" 
+      [userRole]="userInfo?.role" 
+      [userInfo]="userInfo"
       [setActiveModule]="setActiveModule.bind(this)">
     </app-dashboard-sidebar>
 
     <!-- Main Content -->
-    <main class="flex-1 bg-gray-50 p-6 overflow-y-auto">
-      <router-outlet></router-outlet>
+    <main class="flex-1 w-full min-w-0 bg-gray-50 p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6 overflow-y-auto transition-all duration-300 lg:h-[calc(100vh-4rem)]">
+      <div class="max-w-full lg:max-w-7xl mx-auto w-full h-full">
+        <router-outlet></router-outlet>
+      </div>
     </main>
   </div>
 
-</div>
-  <!-- Footer (optional) -->
-  <footer class="bg-gray-100 text-center py-2 text-sm text-gray-600">
-    © 2025 CIPC Paramedical Council
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t border-gray-200 text-center py-2 sm:py-3 px-3 sm:px-4 text-[10px] xs:text-xs sm:text-sm text-gray-600 mt-auto">
+    © 2025 CIPC Paramedical Council. All rights reserved.
   </footer>
+</div>

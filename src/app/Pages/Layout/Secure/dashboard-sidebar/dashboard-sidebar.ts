@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 interface UserInfo {
@@ -28,17 +28,48 @@ interface MenuItem {
 
 
 
-export class DashboardSidebar {
+export class DashboardSidebar implements OnInit {
   @Input() activeModule!: string;
   @Input() userRole!: string;
   @Input() userInfo!: UserInfo;
   @Input() setActiveModule!: (module: string) => void;
 
+  isMobileSidebarOpen = false;
+  isMobile = false;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    // Check if mobile on init and window resize
+    this.checkMobile();
+    window.addEventListener('resize', () => this.checkMobile());
+    
+    // Listen for sidebar toggle from header
+    window.addEventListener('toggleSidebar', () => {
+      this.toggleMobileSidebar();
+    });
+  }
+
+  checkMobile() {
+    this.isMobile = window.innerWidth < 1024; // lg breakpoint
+    if (!this.isMobile) {
+      this.isMobileSidebarOpen = false;
+    }
+  }
+
+  toggleMobileSidebar() {
+    this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
+  }
+
+  closeMobileSidebar() {
+    this.isMobileSidebarOpen = false;
+  }
+
   menuItems: MenuItem[] = [
-    { id: 'overview', label: 'Dashboard Overview', icon: 'ri-dashboard-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route: ''  },
+    { id: 'overview', label: 'Dashboard Overview', icon: 'ri-dashboard-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route: '/dashboard'  },
     { id: 'students', label: 'Student Management', icon: 'ri-graduation-cap-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/students' },
     { id: 'faculty', label: 'Faculty Management', icon: 'ri-user-star-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/faculty' },
-    { id: 'courses', label: 'Course Management', icon: 'ri-book-open-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/courses' },
+    { id: 'courses', label: 'Course Management', icon: 'ri-book-open-line',  roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/courses/manage' },
     { id: 'attendance', label: 'Attendance Management', icon: 'ri-calendar-check-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/attendance' },
     { id: 'leave', label: 'Leave Management', icon: 'ri-calendar-todo-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/leave' },
     { id: 'exams', label: 'Exam Management', icon: 'ri-file-list-3-line', roles: ['admin', 'teacher', 'student', 'affiliation'],route:'/exams' },
@@ -78,6 +109,11 @@ export class DashboardSidebar {
 
   handleLogout() {
     localStorage.removeItem('userInfo');
-    window.location.href = '/';
+    this.router.navigate(['/home']);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', () => this.checkMobile());
+    window.removeEventListener('toggleSidebar', () => {});
   }
 }
