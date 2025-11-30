@@ -1,60 +1,190 @@
-<footer class="bg-gray-100 mt-16">
-    <div class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            <!-- Logo Section -->
-            <div class="sm:col-span-2 lg:col-span-1">
-                <div class="bg-transparent p-2 rounded-lg inline-block mb-4">
-                    <img src="Assets/logos/image.png" alt="CIPC Paramedical Council" 
-                         class="h-20 sm:h-24 w-auto object-contain max-w-[140px] drop-shadow-md"
-                         style="background: transparent; mix-blend-mode: multiply;"
-                         onerror="this.style.display='none';">
-                </div>
-                <p class="text-sm sm:text-base text-gray-600 mb-2 font-semibold">CIPC PARAMEDICAL COUNCIL</p>
-                <p class="text-xs sm:text-sm text-gray-500">ISO 9001:2015 Certified</p>
-            </div>
-            <!-- Contact Info -->
-            <div>
-                <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Contact Us</h2>
-                <div class="space-y-2 text-xs sm:text-sm text-gray-600">
-                    <p>CIPC Paramedical Council</p>
-                    <p>N9/38 F-31 Newada Patiya</p>
-                    <p>Varanasi, UP-221010</p>
-                    <p class="break-all">Phone: <a href="tel:7275380105" class="hover:text-green-600">7275380105</a></p>
-                    <p class="break-all">Email: <a href="mailto:cipcvns@gmail.com" class="hover:text-green-600">cipcvns@gmail.com</a></p>
-                </div>
-            </div>
-            <!-- Quick Links -->
-            <div>
-                <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Quick Links</h2>
-                <ul class="space-y-2 text-xs sm:text-sm">
-                    <li><a href="/home" class="text-gray-600 hover:text-green-600 transition-colors">Home</a></li>
-                    <li><a href="/about" class="text-gray-600 hover:text-green-600 transition-colors">About Us</a></li>
-                    <li><a href="/courses" class="text-gray-600 hover:text-green-600 transition-colors">Courses</a></li>
-                    <li><a href="/admissions" class="text-gray-600 hover:text-green-600 transition-colors">Admissions</a></li>
-                    <li><a href="/contact" class="text-gray-600 hover:text-green-600 transition-colors">Contact</a></li>
-                </ul>
-            </div>
-            <!-- Social Media -->
-            <div>
-                <h2 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Follow Us</h2>
-                <div class="flex flex-wrap gap-3 sm:gap-4">
-                    <a title="facebook" href="#" class="text-gray-600 hover:text-green-600 transition-colors text-xl sm:text-2xl">
-                        <i class="ri-facebook-fill"></i>
-                    </a>
-                    <a title="X" href="#" class="text-gray-600 hover:text-green-600 transition-colors text-xl sm:text-2xl">
-                        <i class="ri-twitter-x-fill"></i>
-                    </a>
-                    <a title="instagram" href="#" class="text-gray-600 hover:text-green-600 transition-colors text-xl sm:text-2xl">
-                        <i class="ri-instagram-fill"></i>
-                    </a>
-                    <a title="linkedin" href="#" class="text-gray-600 hover:text-green-600 transition-colors text-xl sm:text-2xl">
-                        <i class="ri-linkedin-fill"></i>
-                    </a>
-                </div>
-            </div>
+<footer class="bg-gradient-to-b from-gray-900 to-gray-950 text-gray-300 mt-16 relative">
+  <!-- Top Accent Line -->
+  <div class="h-1 bg-gradient-to-r from-green-600 via-green-500 to-transparent"></div>
+
+  <!-- Main Footer Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-20 lg:py-24">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-6">
+      
+      <!-- Logo & About Section -->
+      <div class="lg:col-span-1">
+        <div class="mb-6">
+          <img src="Assets/logos/image.png" alt="CIPC Paramedical Council" 
+               class="h-24 w-auto object-contain drop-shadow-lg mb-3"
+               onerror="this.style.display='none';">
+          <div>
+            <h3 class="text-xl font-bold text-white">CIPC</h3>
+            <p class="text-xs text-gray-400 font-semibold">Paramedical Council</p>
+          </div>
         </div>
-        <div class="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-300 text-center text-xs sm:text-sm text-gray-500">
-            &copy; 2015 - {{ currentYear }} CIPC Paramedical Council. All rights reserved.
+        <p class="text-sm text-gray-400 leading-relaxed mb-4">Empowering healthcare professionals through quality education and excellence.</p>
+        <div class="flex items-center gap-2 bg-gradient-to-r from-green-600/20 to-transparent p-3 rounded-lg border border-green-600/30">
+          <i class="ri-checkbox-circle-fill text-green-500 text-lg"></i>
+          <p class="text-xs font-semibold text-gray-200">ISO 9001:2015 Certified</p>
         </div>
+      </div>
+
+      <!-- Quick Links (2 columns) -->
+      <div class="lg:col-span-2">
+        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+          <i class="ri-link-line text-green-500 text-lg"></i>Quick Links
+        </h4>
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+          <a *ngFor="let link of quickLinks" 
+             [routerLink]="link.path" 
+             class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-3 py-2 rounded-lg hover:bg-green-600/10">
+            <i [class]="'text-green-500 group-hover:translate-x-0.5 transition-transform ' + link.icon"></i>
+            <span class="group-hover:translate-x-1 transition-transform">{{ link.name }}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Courses -->
+      <div>
+        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+          <i class="ri-book-open-line text-green-500 text-lg"></i>Featured Courses
+        </h4>
+        <ul class="space-y-3">
+          <li *ngFor="let course of courses">
+            <a [routerLink]="course.path" 
+               class="text-sm text-gray-400 hover:text-green-400 transition-all duration-300 flex items-center gap-2 group px-2 py-1.5 rounded hover:bg-green-600/10">
+              <i [class]="'text-green-500 ' + course.icon"></i>
+              <span class="group-hover:translate-x-1 transition-transform">{{ course.name }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+          <i class="ri-phone-line text-green-500 text-lg"></i>Contact
+        </h4>
+        <div class="space-y-5">
+          <div class="flex gap-3 group">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                <i class="ri-map-pin-line text-green-500"></i>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-gray-300 mb-1">Address</p>
+              <p class="text-xs text-gray-400 leading-relaxed">N9/38 F-31 Newada Patiya<br>Varanasi, UP-221010<br>India</p>
+            </div>
+          </div>
+          <div class="flex gap-3 group">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                <i class="ri-phone-line text-green-500"></i>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-gray-300 mb-1">Phone</p>
+              <a href="tel:7275380105" class="text-xs text-gray-400 hover:text-green-400 transition-colors">+91 7275 380105</a>
+            </div>
+          </div>
+          <div class="flex gap-3 group">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-8 h-8 rounded-lg bg-green-600/20 flex items-center justify-center group-hover:bg-green-600/30 transition-all">
+                <i class="ri-mail-line text-green-500"></i>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-gray-300 mb-1">Email</p>
+              <a href="mailto:cipcvns@gmail.com" class="text-xs text-gray-400 hover:text-green-400 transition-colors break-all">cipcvns@gmail.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social & Newsletter -->
+      <div>
+        <h4 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+          <i class="ri-share-2-line text-green-500 text-lg"></i>Connect
+        </h4>
+        <div class="space-y-6">
+          <!-- Social Icons -->
+          <div>
+            <p class="text-xs font-semibold text-gray-300 mb-4">Follow Us</p>
+            <div class="flex flex-wrap gap-3">
+              <a *ngFor="let social of socialLinks" 
+                 [href]="social.url" 
+                 [title]="social.title"
+                 class="w-10 h-10 rounded-lg bg-green-600 hover:bg-green-500 flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50">
+                <i [class]="'text-base ' + social.icon"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="bg-gradient-to-br from-green-600/10 to-transparent p-4 rounded-lg border border-green-600/30">
+            <p class="text-xs font-bold text-white mb-3 flex items-center gap-2">
+              <i class="ri-mail-star-line text-green-500"></i>Newsletter
+            </p>
+            <div class="flex gap-2">
+              <input type="email" placeholder="Your email" 
+                     class="flex-1 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg border border-gray-700 focus:border-green-500 focus:outline-none placeholder-gray-500 transition-colors">
+              <button class="px-3 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50">
+                <i class="ri-send-plane-fill"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Stats Section -->
+    <div class="mt-12 pt-8 border-t border-gray-800">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
+          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">2015</p>
+          <p class="text-xs sm:text-sm text-gray-400">Established</p>
+        </div>
+        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
+          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">50+</p>
+          <p class="text-xs sm:text-sm text-gray-400">Courses</p>
+        </div>
+        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
+          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">5000+</p>
+          <p class="text-xs sm:text-sm text-gray-400">Students</p>
+        </div>
+        <div class="text-center p-4 rounded-lg bg-green-600/5 hover:bg-green-600/10 transition-all">
+          <p class="text-2xl sm:text-3xl font-bold text-green-400 mb-1">85%</p>
+          <p class="text-xs sm:text-sm text-gray-400">Placed</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="mt-12 pt-8 border-t border-gray-800"></div>
+
+    <!-- Bottom Footer -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+      <!-- Copyright & Message -->
+      <div class="text-center sm:text-left">
+        <p class="text-xs sm:text-sm text-gray-400 font-semibold mb-1">
+          &copy; {{ currentYear }} CIPC Paramedical Council. All rights reserved.
+        </p>
+        <p class="text-xs text-gray-500">
+          <i class="ri-heart-fill text-red-500"></i>
+          Empowering Healthcare Excellence Since 2015
+        </p>
+      </div>
+
+      <!-- Legal Links -->
+      <div class="text-center sm:text-right">
+        <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs">
+          <a *ngFor="let link of legalLinks; let last = last" 
+             [href]="link.path" 
+             class="text-gray-500 hover:text-green-400 transition-colors font-medium"
+             [ngClass]="{ 'sm:border-r sm:border-gray-700 sm:pr-6': !last }">
+            {{ link.name }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated Bottom Border -->
+  <div class="h-1 bg-gradient-to-r from-transparent via-green-500 to-transparent opacity-50"></div>
 </footer>

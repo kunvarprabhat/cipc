@@ -1,0 +1,5 @@
+/* Teams page styles (kept minimal; Tailwind utilities used in template) */
+
+:host {
+  display: block;
+}

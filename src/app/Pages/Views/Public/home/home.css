@@ -1,0 +1,7 @@
+/* Keep a minimal fallback for line-clamp when Tailwind plugin isn't enabled */
+.line-clamp-3 {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}

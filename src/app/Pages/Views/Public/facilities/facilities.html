@@ -1,0 +1,63 @@
+<div class="min-h-screen bg-gradient-to-b from-green-50 to-white">
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-12 sm:py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+        Our Facilities
+      </h1>
+      <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
+        World-class infrastructure and modern equipment for comprehensive learning
+      </p>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 lg:py-20">
+    <!-- Facilities Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div *ngFor="let facility of facilities"
+        class="bg-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
+        (click)="toggleFacility(facility.id)">
+        
+        <!-- Facility Card Header -->
+        <div class="p-6 sm:p-8 border-b-4 border-green-500">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+              <i [class]="'text-green-600 text-2xl sm:text-3xl ' + facility.icon"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-800">{{ facility.name }}</h3>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed">{{ facility.description }}</p>
+        </div>
+
+        <!-- Facility Features (Expanded) -->
+        <div *ngIf="isFacilityExpanded(facility.id)"
+          class="px-6 sm:px-8 py-4 sm:py-6 bg-gray-50 border-t border-gray-200">
+          <h4 class="font-semibold text-gray-800 mb-3 sm:mb-4 text-sm sm:text-base">Key Features:</h4>
+          <ul class="space-y-2 sm:space-y-3">
+            <li *ngFor="let feature of facility.features"
+              class="flex items-center text-xs sm:text-sm text-gray-700">
+              <i class="ri-check-line text-green-600 font-bold mr-2 sm:mr-3 flex-shrink-0"></i>
+              <span>{{ feature }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="mt-12 sm:mt-16 bg-gradient-to-r from-green-600 to-green-800 rounded-lg sm:rounded-xl shadow-lg p-8 sm:p-12 text-white text-center">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Experience Our Campus</h2>
+      <p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-green-100 max-w-2xl mx-auto">
+        Schedule a campus tour to see our world-class facilities and infrastructure firsthand.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact" class="bg-white text-green-600 hover:bg-green-50 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors">
+          Schedule a Tour
+        </a>
+        <a href="tel:7275380105" class="bg-yellow-500 text-black hover:bg-yellow-400 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors">
+          Call: 7275380105
+        </a>
+      </div>
+    </div>
+  </main>
+</div>

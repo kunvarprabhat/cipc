@@ -1,0 +1,140 @@
+<div class="min-h-screen bg-gradient-to-b from-green-50 to-white">
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-r from-green-600 to-green-800 text-white py-12 sm:py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+        Scholarships & Financial Aid
+      </h1>
+      <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-green-100 max-w-3xl mx-auto leading-relaxed">
+        Making quality education accessible to deserving students
+      </p>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 lg:py-20">
+    <!-- Scholarships Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+      <div *ngFor="let scholarship of scholarships" class="bg-white rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        <div class="p-6 sm:p-8 border-b-4 border-green-500">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+              <i [class]="'text-green-600 text-2xl sm:text-3xl ' + scholarship.icon"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg sm:text-xl font-bold text-gray-800">{{ scholarship.name }}</h3>
+              <p class="text-green-600 font-semibold text-sm sm:text-base mt-1">{{ scholarship.amount }}</p>
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">{{ scholarship.description }}</p>
+
+          <div class="bg-green-50 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-800 mb-3 text-sm sm:text-base">Eligibility:</h4>
+            <ul class="space-y-2">
+              <li *ngFor="let eligibility of scholarship.eligibility" class="flex items-start text-xs sm:text-sm text-gray-700">
+                <i class="ri-checkbox-circle-line text-green-600 mr-2 mt-0.5 flex-shrink-0"></i>
+                <span>{{ eligibility }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Process -->
+    <div class="mb-12 sm:mb-16">
+      <div class="text-center mb-8 sm:mb-12">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">Application Process</h2>
+        <div class="w-20 sm:w-24 h-1 bg-green-600 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-4 sm:gap-6">
+        <div *ngFor="let process of processSteps" class="relative">
+          <div class="bg-white rounded-lg sm:rounded-xl shadow-lg p-6 sm:p-8 text-center">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-600 text-white flex items-center justify-center mx-auto mb-4 font-bold text-lg sm:text-xl">
+              {{ process.step }}
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2 text-sm sm:text-base">{{ process.title }}</h3>
+            <p class="text-xs sm:text-sm text-gray-600">{{ process.description }}</p>
+          </div>
+
+          <!-- Arrow to next step -->
+          <div *ngIf="process.step < 5" class="hidden md:flex absolute -right-3 top-1/2 transform -translate-y-1/2 z-10">
+            <div class="text-green-600 text-2xl">
+              <i class="ri-arrow-right-line"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Important Information -->
+    <div class="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
+      <div class="bg-white rounded-lg sm:rounded-xl shadow-lg p-6 sm:p-8">
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2">
+          <i class="ri-lightbulb-line text-green-600 text-2xl sm:text-3xl"></i>
+          Important Points
+        </h3>
+        <ul class="space-y-3 sm:space-y-4">
+          <li class="flex items-start">
+            <i class="ri-check-double-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Scholarship is valid for the entire duration of the course</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-check-double-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Minimum 75% attendance required to maintain scholarship</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-check-double-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Cannot avail multiple scholarships simultaneously</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-check-double-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Results and documents must be verified annually</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-green-50 rounded-lg sm:rounded-xl p-6 sm:p-8 border-2 border-green-200">
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center gap-2">
+          <i class="ri-file-list-line text-green-600 text-2xl sm:text-3xl"></i>
+          Required Documents
+        </h3>
+        <ul class="space-y-3 sm:space-y-4">
+          <li class="flex items-start">
+            <i class="ri-file-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">10th and 12th mark sheets</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-file-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Income certificate (for need-based scholarship)</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-file-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Caste certificate (if applicable)</span>
+          </li>
+          <li class="flex items-start">
+            <i class="ri-file-line text-green-600 font-bold mr-3 mt-1 flex-shrink-0 text-lg"></i>
+            <span class="text-sm sm:text-base text-gray-700">Bank account details for disbursement</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-gradient-to-r from-green-600 to-green-800 rounded-lg sm:rounded-xl shadow-lg p-8 sm:p-12 text-white text-center">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Apply for Scholarship Today</h2>
+      <p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 text-green-100 max-w-2xl mx-auto">
+        Don't let financial constraints hold you back. Explore our scholarship programs and apply now.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/admissions" class="bg-white text-green-600 hover:bg-green-50 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors">
+          Admissions
+        </a>
+        <a href="tel:7275380105" class="bg-yellow-500 text-black hover:bg-yellow-400 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base transition-colors">
+          Call: 7275380105
+        </a>
+      </div>
+    </div>
+  </main>
+</div>

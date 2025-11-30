@@ -1,11 +1,11 @@
 import {  OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, NgForOf, NgIf],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
@@ -57,6 +57,66 @@ certificates = [
       image: "https://readdy.ai/api/search-image?query=Operation%20theatre%20technician%20preparing%20surgical%20equipment%2C%20medical%20professional%20in%20sterile%20environment%2C%20modern%20surgical%20facility&width=400&height=250&seq=course3&orientation=landscape"
     }
   ];
+
+  teamPreview = [
+    {
+      id: '1',
+      name: 'Dr. Priya Sharma',
+      role: 'Director & Principal',
+      bio: 'Over 15 years of experience in paramedical education and healthcare management focused on student success and research-driven training.',
+      photo: 'Assets/people/priya.jpg'
+    },
+    {
+      id: '2',
+      name: 'Prof. Amit Singh',
+      role: 'Head of Faculty',
+      bio: 'Expert in curriculum development and clinical training with deep industry connections for placements.',
+      photo: 'Assets/people/amit.jpg'
+    },
+    {
+      id: '3',
+      name: 'Rahul Kumar',
+      role: 'Student Affairs',
+      bio: 'Leads student support, internships, and placement services to help students transition to careers.',
+      photo: 'Assets/people/rahul.jpg'
+    },
+    {
+      id: '4',
+      name: 'Ms. Neha Verma',
+      role: 'Lab Supervisor',
+      bio: 'Ensures labs and equipment meet safety and training standards for hands-on learning.',
+      photo: 'Assets/people/neha.jpg'
+    }
+  ];
+
+  whyChooseUs = [
+    { icon: 'ri-book-line', title: 'Comprehensive Curriculum', description: 'Industry-aligned courses designed to meet market demands' },
+    { icon: 'ri-team-line', title: 'Experienced Faculty', description: 'Educators with real-world healthcare experience' },
+    { icon: 'ri-building-line', title: 'Modern Infrastructure', description: 'Well-equipped labs and learning centers' },
+    { icon: 'ri-briefcase-line', title: 'Career Support', description: 'Dedicated placement and career counseling services' },
+    { icon: 'ri-globe-line', title: 'Global Standards', description: 'ISO certified with international recognition' },
+    { icon: 'ri-award-line', title: 'Success Track Record', description: '95%+ placement rate with leading hospitals' }
+  ];
+
+  successStories = [
+    { name: 'Priya Verma', role: 'Medical Lab Technician', company: 'Apollo Hospitals', feedback: 'CIPC transformed my career. The hands-on training and placement support made all the difference. Highly recommended!' },
+    { name: 'Raj Patel', role: 'Radiology Technician', company: 'Fortis Healthcare', feedback: 'The faculty expertise and practical experience at CIPC prepared me perfectly for real-world healthcare environments.' },
+    { name: 'Sneha Gupta', role: 'Operation Theatre Tech', company: 'Max Healthcare', feedback: 'Best investment in my future. The ISO-certified training and 100% placement promise became reality for me!' },
+    { name: 'Arjun Singh', role: 'Medical Lab Specialist', company: 'Dr. Lal PathLabs', feedback: 'Excellent curriculum, supportive faculty, and amazing placement assistance. CIPC is the top choice for paramedical education.' }
+  ];
+
+  selectedMember: any = undefined;
+
+  openMember(member: any) {
+    this.selectedMember = member;
+    // prevent background scroll when modal open
+    try { document.body.style.overflow = 'hidden'; } catch (e) { }
+  }
+
+  closeMember() {
+    this.selectedMember = undefined;
+    try { document.body.style.overflow = ''; } catch (e) { }
+  }
 
 
 

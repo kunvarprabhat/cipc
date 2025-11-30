@@ -21,9 +21,16 @@ export class Header {
 
   navItems = [
     { name: 'Home', path: '/home' },
+    { name: 'Team', path: '/teams' },
     { name: 'About Us', path: '/about' },
+    { name: 'Admissions', path: '/admissions' },
+    { name: 'Facilities', path: '/facilities' },
+    { name: 'Placements', path: '/placements' },
+    { name: 'Scholarships', path: '/scholarships' },
+    { name: 'Student Life', path: '/student-life' },
     { name: 'Training Pattern', path: '/Training Pattern' },
     { name: 'Our Achievements', path: '/Our Achievements' },
+    { name: 'FAQ', path: '/faq' },
     { name: 'Gallery', path: '/gallary' },
     { name: 'Affiliated Institutions', path: '/affiliated' },
     { name: 'Contact Us', path: '/contact' },

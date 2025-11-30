@@ -24,10 +24,17 @@ import { TransportList } from './Pages/Views/Secure/TransportManagement/transpor
 import { EventList } from './Pages/Views/Secure/EventManagement/event-list/event-list';
 import { DashboardOverview } from './Pages/Views/Secure/DashboardOverview/dashboard-overview';
 import { Gallary } from './Pages/Views/Public/gallary/gallary';
+import { Teams } from './Pages/Views/Public/teams/teams';
 import { AdmissionForm } from './Pages/Views/Public/forms/admission/admission';
 import { ExaminationForm } from './Pages/Views/Public/forms/examination/examination';
 import { CertificationForm } from './Pages/Views/Public/forms/certification/certification';
 import { ResultList } from './Pages/Views/Secure/ResultManagement/result-list/result-list';
+import { Admissions } from './Pages/Views/Public/admissions/admissions';
+import { FAQ } from './Pages/Views/Public/faq/faq';
+import { Facilities } from './Pages/Views/Public/facilities/facilities';
+import { Placements } from './Pages/Views/Public/placements/placements';
+import { Scholarships } from './Pages/Views/Public/scholarships/scholarships';
+import { StudentLife } from './Pages/Views/Public/student-life/student-life';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,11 +43,18 @@ export const routes: Routes = [
   { path: 'courses', component: Courses, canActivate: [PublicGuard] },
   { path: 'home', component: Home, canActivate: [PublicGuard] },
   { path: 'about', component: About, canActivate: [PublicGuard] },
+  { path: 'admissions', component: Admissions, canActivate: [PublicGuard] },
+  { path: 'faq', component: FAQ, canActivate: [PublicGuard] },
+  { path: 'facilities', component: Facilities, canActivate: [PublicGuard] },
+  { path: 'placements', component: Placements, canActivate: [PublicGuard] },
+  { path: 'scholarships', component: Scholarships, canActivate: [PublicGuard] },
+  { path: 'student-life', component: StudentLife, canActivate: [PublicGuard] },
   { path: 'affiliated', component: Affiliated, canActivate: [PublicGuard] },
   { path: 'contact', component: Contact, canActivate: [PublicGuard] },
   { path: 'Training Pattern', component: Faculty, canActivate: [PublicGuard] },
   { path: 'Our Achievements', component: News, canActivate: [PublicGuard] },
   { path: 'gallary', component: Gallary, canActivate: [PublicGuard] },
+  { path: 'teams', component: Teams, canActivate: [PublicGuard] },
   // Forms - accessible to all (no guard)
   { path: 'forms/admission', component: AdmissionForm },
   { path: 'forms/examination', component: ExaminationForm },

@@ -1,0 +1,26 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+button.active {
+  background-color: #059669;
+  color: white;
+  border-color: #059669;
+}
+
+/* Ensure smooth transitions for answer expand/collapse */
+div[class*="bg-gray-50"] {
+  max-height: 500px;
+  overflow: hidden;
+}
