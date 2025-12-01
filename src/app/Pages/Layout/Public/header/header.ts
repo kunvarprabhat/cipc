@@ -34,6 +34,7 @@ export class Header {
     { name: 'Gallery', path: '/gallary' },
     { name: 'Affiliated Institutions', path: '/affiliated' },
     { name: 'Contact Us', path: '/contact' },
+    {nam:'News', path:'/news'}
   ];
 
   academicForms = [
