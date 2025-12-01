@@ -1,43 +1,55 @@
 <!-- Navigation Bar -->
-<nav class="bg-green-800 sticky top-0 z-50 shadow-lg border-0">
+<nav class="bg-gradient-to-r from-green-800 to-green-900 sticky top-0 z-50 shadow-xl border-b border-green-700/50">
   <div class="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-    <div class="flex justify-between items-center min-h-[56px] sm:min-h-[60px] md:min-h-[64px] relative">
+    <div class="flex justify-between items-center min-h-[60px] sm:min-h-[64px] md:min-h-[70px] relative">
       <!-- Mobile Menu Button -->
       <button (click)="toggleMenu()"
-        class="lg:hidden text-white p-2.5 hover:bg-green-700 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 z-50 flex-shrink-0"
+        class="lg:hidden text-white p-2.5 hover:bg-green-700/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-green-800 z-50 flex-shrink-0"
         aria-label="Toggle menu"
         type="button">
-        <i class="ri text-xl sm:text-2xl" [ngClass]="isMenuOpen ? 'ri-close-line' : 'ri-menu-line'"></i>
+        <i class="ri text-2xl sm:text-3xl transition-transform duration-200" [ngClass]="isMenuOpen ? 'ri-close-line' : 'ri-menu-line'"></i>
       </button>
 
       <!-- Mobile/Tablet Logo/Title -->
       <div class="lg:hidden flex-1 text-center px-2 flex items-center justify-center min-w-0">
-        <a routerLink="/home" (click)="isMenuOpen && toggleMenu()" class="flex items-center justify-center no-underline hover:opacity-90 transition-opacity min-w-0">
-          <img src="Assets/logos/image.png" alt="CIPC Logo" 
-               class="h-8 sm:h-10 w-auto max-w-[100px] sm:max-w-[120px] object-contain flex-shrink-0"
-               onerror="this.onerror=null; this.style.display='none';">
-          <span class="text-white font-bold text-sm sm:text-base md:text-lg ml-2 truncate">CIPC</span>
+        <a routerLink="/home" 
+           (click)="isMenuOpen && toggleMenu()" 
+           class="flex items-center justify-center no-underline hover:opacity-90 transition-opacity min-w-0 group">
+          <img src="Assets/logos/image.png" 
+               alt="CIPC Paramedical Council Logo" 
+               class="h-10 sm:h-12 md:h-14 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] object-contain flex-shrink-0 group-hover:scale-105 transition-transform duration-200"
+               onerror="this.onerror=null; this.src='Assets/logos/image.png';">
+          <div class="ml-2 sm:ml-3 flex flex-col items-start">
+            <span class="text-white font-bold text-sm sm:text-base md:text-lg leading-tight">CIPC</span>
+            <span class="text-white/90 font-semibold text-xs sm:text-sm leading-tight hidden sm:block">Paramedical Council</span>
+          </div>
         </a>
       </div>
 
       <!-- Desktop Logo (Left Side) -->
-      <div class="hidden lg:flex items-center mr-4 xl:mr-6 flex-shrink-0">
-        <a routerLink="/home" class="flex items-center no-underline hover:opacity-90 transition-opacity">
-          <img src="Assets/logos/image.png" alt="CIPC Logo" 
-               class="h-10 lg:h-12 xl:h-14 w-auto max-w-[140px] lg:max-w-[160px] xl:max-w-[180px] object-contain"
-               onerror="this.onerror=null; this.style.display='none';">
+      <div class="hidden lg:flex items-center mr-6 xl:mr-8 flex-shrink-0">
+        <a routerLink="/home" 
+           class="flex items-center no-underline hover:opacity-90 transition-opacity group">
+          <img src="Assets/logos/image.png" 
+               alt="CIPC Paramedical Council Logo" 
+               class="h-14 lg:h-16 xl:h-20 w-auto max-w-[160px] lg:max-w-[180px] xl:max-w-[220px] object-contain group-hover:scale-105 transition-transform duration-200"
+               onerror="this.onerror=null; this.src='Assets/logos/image.png';">
+          <div class="ml-3 xl:ml-4 flex flex-col items-start">
+            <span class="text-white font-bold text-lg xl:text-xl leading-tight">CIPC</span>
+            <span class="text-white/90 font-semibold text-sm xl:text-base leading-tight">Paramedical Council</span>
+          </div>
         </a>
       </div>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center flex-1 justify-between ml-4 xl:ml-6 min-w-0">
+      <div class="hidden lg:flex items-center flex-1 justify-between ml-6 xl:ml-8 min-w-0">
         <!-- Navigation Items -->
-        <div class="flex items-center gap-0.5 xl:gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+        <div class="flex items-center gap-1 xl:gap-2 overflow-x-auto scrollbar-hide flex-1 min-w-0">
           <a routerLink="/home"
-            routerLinkActive="bg-green-700"
+            routerLinkActive="bg-green-700/80"
             [routerLinkActiveOptions]="{exact: true}"
-            class="text-white hover:bg-green-700 px-2.5 lg:px-3 xl:px-4 py-2.5 lg:py-3 transition-colors duration-200 whitespace-nowrap font-medium text-sm xl:text-base active:bg-green-700 no-underline rounded-md flex-shrink-0">
-            Home
+            class="text-white hover:bg-green-700/60 px-3 lg:px-4 xl:px-5 py-2.5 lg:py-3 transition-all duration-200 whitespace-nowrap font-medium text-sm xl:text-base active:bg-green-700 no-underline rounded-lg flex-shrink-0 hover:shadow-md">
+            <i class="ri-home-line mr-1.5 text-xs"></i>Home
           </a>
           
           <!-- Academic Forms Dropdown -->
@@ -46,17 +58,19 @@
                (mouseleave)="isAcademicFormsOpen = false"
                (click)="$event.stopPropagation()">
             <button (click)="toggleAcademicForms()"
-              class="text-white hover:bg-green-700 px-2.5 lg:px-3 xl:px-4 py-2.5 lg:py-3 transition-colors duration-200 whitespace-nowrap font-medium text-sm xl:text-base flex items-center gap-1 rounded-md">
+              type="button"
+              class="text-white hover:bg-green-700/60 px-3 lg:px-4 xl:px-5 py-2.5 lg:py-3 transition-all duration-200 whitespace-nowrap font-medium text-sm xl:text-base flex items-center gap-1.5 rounded-lg hover:shadow-md">
+              <i class="ri-file-list-3-line text-xs"></i>
               <span class="hidden xl:inline">Academic Forms</span>
               <span class="xl:hidden">Forms</span>
               <i class="ri-arrow-down-s-line text-xs transition-transform duration-200" [ngClass]="{'rotate-180': isAcademicFormsOpen}"></i>
             </button>
             <div *ngIf="isAcademicFormsOpen" 
-              class="absolute top-full left-0 mt-1 bg-white shadow-2xl rounded-lg w-[240px] py-2 z-[60] border border-gray-100">
+              class="absolute top-full left-0 mt-2 bg-white shadow-2xl rounded-xl w-[260px] py-2 z-[60] border border-gray-200 overflow-hidden">
               <a *ngFor="let form of academicForms" 
                 [routerLink]="form.path"
                 (click)="closeAcademicForms()"
-                class="block px-4 py-2.5 text-gray-800 hover:bg-green-50 hover:text-green-700 transition-colors cursor-pointer text-sm font-medium no-underline">
+                class="block px-4 py-3 text-gray-800 hover:bg-green-50 hover:text-green-700 transition-all duration-200 cursor-pointer text-sm font-medium no-underline border-l-4 border-transparent hover:border-green-600">
                 <i class="ri-file-edit-line mr-2 text-green-600"></i>
                 {{form.name}}
               </a>
@@ -66,8 +80,8 @@
           <ng-container *ngFor="let item of navItems; let i = index">
             <a *ngIf="i > 0"
               [routerLink]="item.path"
-              routerLinkActive="bg-green-700"
-              class="text-white hover:bg-green-700 px-2.5 lg:px-3 xl:px-4 py-2.5 lg:py-3 transition-colors duration-200 whitespace-nowrap font-medium text-sm xl:text-base active:bg-green-700 no-underline rounded-md flex-shrink-0">
+              routerLinkActive="bg-green-700/80"
+              class="text-white hover:bg-green-700/60 px-3 lg:px-4 xl:px-5 py-2.5 lg:py-3 transition-all duration-200 whitespace-nowrap font-medium text-sm xl:text-base active:bg-green-700 no-underline rounded-lg flex-shrink-0 hover:shadow-md">
               {{item.name}}
             </a>
           </ng-container>
@@ -75,51 +89,60 @@
         
         <!-- Apply Now Button -->
         <button (click)="openLogin('student')"
-          class="bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 text-black px-3 lg:px-4 xl:px-5 py-2 lg:py-2.5 xl:py-3 rounded-md font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-2 text-sm xl:text-base shadow-md hover:shadow-lg ml-2 xl:ml-4 cursor-pointer flex-shrink-0">
+          type="button"
+          class="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 active:from-yellow-600 active:to-yellow-700 text-black px-4 lg:px-5 xl:px-6 py-2.5 lg:py-3 rounded-lg font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-2 text-sm xl:text-base shadow-lg hover:shadow-xl ml-3 xl:ml-5 cursor-pointer flex-shrink-0 transform hover:scale-105">
           <i class="ri-user-add-line text-base lg:text-lg"></i> 
-          <span class="hidden lg:inline">Apply Now</span>
-          <span class="lg:hidden">Apply</span>
+          <span class="hidden lg:inline">SignUp</span>
+          <span class="lg:hidden">SignUp</span>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
     <div *ngIf="isMenuOpen" 
-      class="lg:hidden bg-green-800 pb-4 transition-all duration-300 ease-in-out border-t border-green-700/50 max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain">
+      class="lg:hidden bg-gradient-to-b from-green-800 to-green-900 pb-6 transition-all duration-300 ease-in-out border-t border-green-700/50 max-h-[calc(100vh-70px)] overflow-y-auto overscroll-contain shadow-inner">
       <!-- Mobile Menu Logo -->
-      <div class="px-4 py-3 border-b border-green-700/50 mb-2">
-        <a routerLink="/home" (click)="toggleMenu()" class="flex items-center justify-center no-underline">
-          <img src="Assets/logos/image.png" alt="CIPC Logo" 
-               class="h-12 w-auto max-w-[140px] object-contain"
-               onerror="this.onerror=null; this.style.display='none';">
+      <div class="px-4 py-4 border-b border-green-700/50 mb-3 bg-green-800/50">
+        <a routerLink="/home" 
+           (click)="toggleMenu()" 
+           class="flex items-center justify-center no-underline group">
+          <img src="Assets/logos/image.png" 
+               alt="CIPC Paramedical Council Logo" 
+               class="h-16 w-auto max-w-[180px] object-contain group-hover:scale-105 transition-transform duration-200"
+               onerror="this.onerror=null; this.src='Assets/logos/image.png';">
+          <div class="ml-3 flex flex-col items-start">
+            <span class="text-white font-bold text-lg leading-tight">CIPC</span>
+            <span class="text-white/90 font-semibold text-sm leading-tight">Paramedical Council</span>
+          </div>
         </a>
       </div>
       
       <!-- Navigation Links -->
       <a routerLink="/home" 
         (click)="toggleMenu()"
-        routerLinkActive="bg-green-700"
+        routerLinkActive="bg-green-700/80"
         [routerLinkActiveOptions]="{exact: true}"
-        class="block text-white hover:bg-green-700 px-4 py-3 border-t border-green-700/50 transition-colors duration-200 text-sm sm:text-base active:bg-green-700 no-underline font-medium">
-        <i class="ri-home-line mr-2 text-base"></i> Home
+        class="block text-white hover:bg-green-700/60 px-5 py-3.5 border-b border-green-700/30 transition-all duration-200 text-base sm:text-lg active:bg-green-700 no-underline font-medium">
+        <i class="ri-home-line mr-3 text-lg"></i> Home
       </a>
       
       <!-- Academic Forms Mobile Dropdown -->
-      <div class="border-t border-green-700/50">
+      <div class="border-b border-green-700/30">
         <button (click)="toggleAcademicFormsMobile()"
           type="button"
-          class="w-full text-left text-white hover:bg-green-700 px-4 py-3 transition-colors duration-200 text-sm sm:text-base flex items-center justify-between font-medium">
+          class="w-full text-left text-white hover:bg-green-700/60 px-5 py-3.5 transition-all duration-200 text-base sm:text-lg flex items-center justify-between font-medium">
           <span class="flex items-center">
-            <i class="ri-file-list-3-line mr-2 text-base"></i> Academic Forms
+            <i class="ri-file-list-3-line mr-3 text-lg"></i> Academic Forms
           </span>
-          <i class="ri-arrow-down-s-line text-sm transition-transform duration-200" [ngClass]="{'rotate-180': isAcademicFormsMobileOpen}"></i>
+          <i class="ri-arrow-down-s-line text-base transition-transform duration-200" [ngClass]="{'rotate-180': isAcademicFormsMobileOpen}"></i>
         </button>
-        <div *ngIf="isAcademicFormsMobileOpen" class="bg-green-900/50 border-t border-green-700/30">
+        <div *ngIf="isAcademicFormsMobileOpen" 
+             class="bg-green-900/40 border-t border-green-700/30">
           <a *ngFor="let form of academicForms" 
             [routerLink]="form.path"
             (click)="closeMobileMenu()"
-            class="block text-white hover:bg-green-700 px-8 py-2.5 transition-colors duration-200 text-sm cursor-pointer no-underline font-medium">
-            <i class="ri-file-edit-line mr-2 text-green-300"></i>
+            class="block text-white/90 hover:text-white hover:bg-green-700/60 px-10 py-3 transition-all duration-200 text-sm sm:text-base cursor-pointer no-underline font-medium border-l-4 border-transparent hover:border-green-400">
+            <i class="ri-file-edit-line mr-3 text-green-300"></i>
             {{form.name}}
           </a>
         </div>
@@ -129,18 +152,18 @@
         <a *ngIf="i > 0"
           [routerLink]="item.path" 
           (click)="toggleMenu()"
-          routerLinkActive="bg-green-700"
-          class="block text-white hover:bg-green-700 px-4 py-3 border-t border-green-700/50 transition-colors duration-200 text-sm sm:text-base active:bg-green-700 no-underline font-medium">
-          <i class="ri-arrow-right-line mr-2 text-xs"></i> {{item.name}}
+          routerLinkActive="bg-green-700/80"
+          class="block text-white hover:bg-green-700/60 px-5 py-3.5 border-b border-green-700/30 transition-all duration-200 text-base sm:text-lg active:bg-green-700 no-underline font-medium">
+          <i class="ri-arrow-right-line mr-3 text-sm"></i> {{item.name}}
         </a>
       </ng-container>
       
       <!-- Apply Now Button in Mobile Menu -->
-      <div class="px-4 pt-4 pb-2 border-t border-green-700/50 mt-2">
+      <div class="px-4 pt-5 pb-3 border-t border-green-700/50 mt-3">
         <button (click)="openLogin('student'); toggleMenu()"
           type="button"
-          class="w-full text-center bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 text-black px-6 py-3 rounded-lg font-bold transition-colors duration-200 shadow-md text-sm sm:text-base cursor-pointer">
-          <i class="ri-user-add-line mr-2"></i> Apply Now
+          class="w-full text-center bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 active:from-yellow-600 active:to-yellow-700 text-black px-6 py-4 rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl text-base sm:text-lg cursor-pointer transform active:scale-95">
+          <i class="ri-user-add-line mr-2 text-lg"></i> SignUp
         </button>
       </div>
     </div>
