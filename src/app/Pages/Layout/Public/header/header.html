@@ -1,9 +1,9 @@
 <!-- Top Utility Bar -->
-<div class="bg-green-900 text-white text-xs sm:text-sm py-2 border-b border-green-800/50">
-  <div class="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+<div class="bg-green-900 text-white  text-xs sm:text-sm py-2 border-b border-green-800/50 [&_a]:no-underline [&_a:hover]:no-underline">
+  <div class="max-w-full  mx-auto px-3 sm:px-4 md:px-6 lg:px-8 ">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
       <!-- Left: Contact Information -->
-      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 ">
         <a href="tel:7275380105" class="flex items-center gap-2 hover:text-green-300 transition-colors">
           <i class="ri-phone-fill text-sm"></i>
           <span>+91 7275 380105</span>
@@ -22,7 +22,7 @@
         <a routerLink="/faq" class="hover:text-green-300 transition-colors hidden sm:inline">FAQ</a>
         <button (click)="openLogin('student')" 
                 class="bg-green-700 hover:bg-green-600 px-3 py-1 rounded-md font-medium transition-colors text-xs sm:text-sm">
-          Student Portal
+          SignUp
         </button>
       </div>
     </div>
@@ -131,13 +131,13 @@
           </div>
           
           <!-- Apply Now Button -->
-          <button (click)="openLogin('student')"
+          <!-- <button (click)="openLogin('student')"
             type="button"
             class="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 active:from-yellow-600 active:to-yellow-700 text-black px-4 lg:px-5 xl:px-6 py-2.5 lg:py-3 rounded-lg font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-2 text-sm xl:text-base shadow-lg hover:shadow-xl cursor-pointer flex-shrink-0 transform hover:scale-105">
             <i class="ri-user-add-line text-base lg:text-lg"></i> 
             <span class="hidden lg:inline">Apply Now</span>
             <span class="lg:hidden">Apply</span>
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
