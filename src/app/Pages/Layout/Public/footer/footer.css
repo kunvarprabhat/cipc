@@ -1,15 +1,12 @@
-/* Footer enhanced styles - Tailwind CSS utilities in template */
+/* Footer styles - All styling uses Tailwind CSS classes in template */
+/* Component-specific overrides */
 
-/* Logo styling */
+/* Logo image optimization */
 footer img {
-  background: transparent !important;
+  max-width: 100%;
+  height: auto;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
-  mix-blend-mode: multiply;
-  display: block;
-  margin: 0;
-  padding: 0;
-  object-fit: contain;
 }
 
 /* Smooth transitions for footer links */
@@ -17,47 +14,9 @@ footer a {
   transition: all 0.3s ease;
 }
 
-/* Newsletter input styles */
-footer input {
-  transition: all 0.3s ease;
-}
-
+/* Newsletter input focus styles */
 footer input:focus {
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
-
-/* Social icons scaling and shadow on hover */
-footer a[title] {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-footer a[title]:hover {
-  transform: scale(1.1) translateY(-2px);
-}
-
-/* Link hover effects */
-footer .group:hover {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Stats card hover effects */
-footer [class*="grid"] > div {
-  transition: all 0.3s ease;
-}
-
-/* Contact info icons animation */
-footer .group {
-  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
 }
 

@@ -6,11 +6,11 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgForOf,],
+  imports: [CommonModule, RouterModule, NgForOf],
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class Footer  {
+export class Footer implements AfterViewInit {
   currentYear: number = new Date().getFullYear();
 
   quickLinks = [

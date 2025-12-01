@@ -1,18 +1,3 @@
-.main {
-  width: 100%;
-  min-height: 100vh;
-}
-
-.content {
-  width: 100%;
-  position: relative;
-}
-
-/* Ensure only one layout is visible at a time */
-app-public-layout,
-app-dashboard-layout {
-  display: block;
-  width: 100%;
-  min-height: 100vh;
-}
+/* App styles - Using Tailwind CSS classes in template */
+/* Minimal component-specific styles only */
 

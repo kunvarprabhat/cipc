@@ -12,6 +12,17 @@ import { Home } from "../../../Views/Public/home/home";
   styleUrl: './public-layout.css'
 })
 export class PublicLayout {
+  constructor(private router: Router) {}
+
+  openLogin(type: string) {
+    // Navigate to login page
+    this.router.navigate(['/login']);
+  }
+
+  openEnquiry() {
+    // Navigate to contact page for enquiry
+    this.router.navigate(['/contact']);
+  }
 certificates = [
     {
       image: "https://readdy.ai/api/search-image?query=Professional%20ISO%209001%202015%20certification%20document%2C%20official%20quality%20management%20certificate%2C%20clean%20white%20background%2C%20business%20certification&width=300&height=400&seq=cert1&orientation=portrait",
