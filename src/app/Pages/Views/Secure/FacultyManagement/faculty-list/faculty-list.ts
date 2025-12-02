@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ToastService } from '../../../../../Services/toast.service';
+import { ToastService } from '../../../../../Services/shared-service/toast.service';
 
 interface Faculty {
   id: string;

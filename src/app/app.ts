@@ -1,18 +1,18 @@
 import { Component, signal, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
-import { Footer } from "./Pages/Layout/Public/footer/footer";
-import { Header } from './Pages/Layout/Public/header/header';
+import { Router, NavigationEnd } from '@angular/router';
 import { PublicLayout } from "./Pages/Layout/Public/public-layout/public-layout";
 import { DashboardLayout } from "./Pages/Layout/Secure/dashboard-layout/dashboard-layout";
-import { AuthServices } from './Services/auth-services';
 import { ToastComponent } from './Components/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { filter, Subscription, interval } from 'rxjs';
+import { ApplicationUser } from './Services/shared-service/application-user';
+import { LoaderComponent } from "./Pages/shared-component/loading";
+
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [PublicLayout, DashboardLayout, ToastComponent, CommonModule],
+  imports: [PublicLayout, DashboardLayout, ToastComponent, CommonModule, LoaderComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -23,7 +23,7 @@ export class App implements OnInit, OnDestroy {
   private authCheckSubscription?: Subscription;
 
   constructor(
-    private authService: AuthServices,
+    private _appuser: ApplicationUser,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -44,7 +44,7 @@ export class App implements OnInit, OnDestroy {
 
     // Check auth status periodically to catch localStorage changes (reduced frequency)
     this.authCheckSubscription = interval(300).subscribe(() => {
-      const newAuthStatus = this.authService.getAuthStatus();
+      const newAuthStatus = this._appuser.getAuthStatus();
       if (newAuthStatus !== this.isAuthenticated) {
         this.checkAuthStatus();
       }
@@ -57,7 +57,7 @@ export class App implements OnInit, OnDestroy {
   }
 
   checkAuthStatus() {
-    const newAuthStatus = this.authService.getAuthStatus();
+    const newAuthStatus = this._appuser.getAuthStatus();
     if (newAuthStatus !== this.isAuthenticated) {
       this.isAuthenticated = newAuthStatus;
       this.cdr.detectChanges();

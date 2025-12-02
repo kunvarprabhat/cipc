@@ -9,7 +9,7 @@ type LoginType = 'student' | 'admin' | 'teacher' | 'affiliation';
 @Component({
   selector: 'app-header',
   standalone: true,  // ✅ standalone component
-  imports: [    CommonModule,    FormsModule, ReactiveFormsModule, RouterModule,    Login     ],
+  imports: [    CommonModule,    FormsModule, ReactiveFormsModule, RouterModule, Login     ],
   templateUrl: './header.html',
   styleUrls: ['./header.css']   
 })

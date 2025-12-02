@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "../../../Guards/auth-guard";
 import { Attendance } from "./AttendanceManagement/attendance/attendance";
 import { Course } from "./CourseManagement/course/course";
 import { DashboardOverview } from "./DashboardOverview/dashboard-overview";

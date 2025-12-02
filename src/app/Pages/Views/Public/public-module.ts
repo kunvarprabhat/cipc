@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PublicGuard } from "../../../Guards/public-guard";
 import { Login } from "../../Layout/Public/login/login";
 import { About } from "./about/about";
 import { Admissions } from "./admissions/admissions";
@@ -21,6 +20,7 @@ import { Placements } from "./placements/placements";
 import { Scholarships } from "./scholarships/scholarships";
 import { StudentLife } from "./student-life/student-life";
 import { Teams } from "./teams/teams";
+import { PublicGuard } from "../../../lab/routing-guards/public-guard";
 
 const route: Routes = [
     {
