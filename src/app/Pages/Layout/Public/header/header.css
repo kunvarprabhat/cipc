@@ -1,1 +1,44 @@
 /* All styles are now using Tailwind CSS classes in the HTML template */
+
+/* Ensure dropdown can overflow header */
+nav {
+  overflow: visible !important;
+}
+
+nav > div {
+  overflow: visible !important;
+}
+
+nav > div > div {
+  overflow: visible !important;
+}
+
+/* Academic Forms Dropdown - Fixed Positioning */
+.academic-forms-dropdown {
+  position: fixed;
+  background: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 0.75rem;
+  width: 260px;
+  padding: 0.5rem 0;
+  z-index: 9999;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  animation: slide-down 0.3s ease-out forwards;
+}
+
+/* Dropdown Animation */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out forwards;
+}
