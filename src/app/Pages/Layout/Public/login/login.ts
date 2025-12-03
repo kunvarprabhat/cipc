@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthServices } from '../../../../Services/auth-services';
+import { ApplicationUser } from '../../../../Services/shared-service/application-user';
 
 type LoginType = 'student' | 'admin' | 'teacher' | 'affiliation';
 
@@ -34,7 +34,7 @@ export class Login {
   };
 
   constructor(private router: Router,
-    private authService: AuthServices,
+    private _appuser: ApplicationUser,
   ) { }
 
   close() {
@@ -53,7 +53,7 @@ export class Login {
 
   await new Promise(r => setTimeout(r, 1000)); // simulate loading
 
-  if (this.authService.login(this.email, this.password, this.loginType)) {
+  if (this._appuser.login(this.email, this.password, this.loginType)) {
     this.isLoggedIn = true; // ✅ mark user as logged in
     this.isLoading = false;
     // Optionally navigate to dashboard automatically after a delay
