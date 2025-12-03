@@ -47,11 +47,37 @@ mat-form-field .mat-mdc-form-field-infix {
 
 /* Datepicker panel styling */
 .mat-datepicker-popup {
-  z-index: 1000 !important;
+  z-index: 10000 !important;
+  position: fixed !important;
 }
 
-.mat-calendar {
+.mat-datepicker-container {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+.cdk-overlay-container {
+  z-index: 10000 !important;
+}
+
+.cdk-overlay-pane {
+  z-index: 10000 !important;
+}
+
+.mat-datepicker-popup .mat-calendar {
   width: 100% !important;
+  min-width: 300px !important;
+}
+
+/* Ensure datepicker doesn't get clipped */
+.mat-datepicker-content {
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+/* Fix for datepicker backdrop */
+.cdk-overlay-backdrop {
+  z-index: 9999 !important;
 }
 
 /* Print styles - hide Material components */
@@ -59,4 +85,621 @@ mat-form-field .mat-mdc-form-field-infix {
   mat-form-field {
     display: none !important;
   }
+}
+
+/* Fade in animation for steps */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Custom datepicker panel styling - Material Design 3 (MDC) */
+.custom-datepicker-panel {
+  z-index: 10000 !important;
+}
+
+/* Datepicker content container */
+.mat-datepicker-content {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  border: 2px solid #86efac !important;
+  padding: 8px !important;
+}
+
+/* Calendar background - MDC */
+.mat-calendar {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%) !important;
+  border-radius: 12px !important;
+}
+
+/* MDC Calendar specific */
+.mat-mdc-calendar {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%) !important;
+  border-radius: 12px !important;
+}
+
+/* Calendar header background - MDC */
+.mat-calendar-header,
+.mat-mdc-calendar-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 12px !important;
+}
+
+/* Calendar navigation buttons - MDC */
+.mat-calendar-previous-button,
+.mat-calendar-next-button,
+.mat-mdc-calendar-previous-button,
+.mat-mdc-calendar-next-button {
+  color: white !important;
+}
+
+.mat-calendar-previous-button:hover,
+.mat-calendar-next-button:hover,
+.mat-mdc-calendar-previous-button:hover,
+.mat-mdc-calendar-next-button:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+}
+
+/* Calendar period button - MDC */
+.mat-calendar-period-button,
+.mat-mdc-calendar-period-button {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* Calendar table header - MDC */
+.mat-calendar-table-header,
+.mat-mdc-calendar-table-header {
+  background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%) !important;
+  color: #065f46 !important;
+  font-weight: bold !important;
+}
+
+/* Calendar table header cells */
+.mat-calendar-table-header th,
+.mat-mdc-calendar-table-header th {
+  background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%) !important;
+  color: #065f46 !important;
+  font-weight: bold !important;
+  padding: 8px !important;
+}
+
+/* Calendar body cells - MDC */
+.mat-calendar-body-cell,
+.mat-mdc-calendar-body-cell {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 8px !important;
+  margin: 2px !important;
+}
+
+.mat-calendar-body-cell:hover,
+.mat-mdc-calendar-body-cell:hover {
+  background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%) !important;
+  color: white !important;
+}
+
+/* Calendar body cell content */
+.mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-cell-content {
+  border-radius: 8px !important;
+}
+
+/* Selected date - MDC */
+.mat-calendar-body-selected,
+.mat-mdc-calendar-body-selected {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.mat-calendar-body-selected .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-selected .mat-mdc-calendar-body-cell-content {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+}
+
+/* Today's date - MDC */
+.mat-calendar-body-today,
+.mat-mdc-calendar-body-today {
+  border: 2px solid #10b981 !important;
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.mat-calendar-body-today .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-today .mat-mdc-calendar-body-cell-content {
+  border: 2px solid #10b981 !important;
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Disabled dates - MDC */
+.mat-calendar-body-disabled,
+.mat-mdc-calendar-body-disabled {
+  background: rgba(229, 231, 235, 0.5) !important;
+  color: #9ca3af !important;
+}
+
+.mat-calendar-body-disabled .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-disabled .mat-mdc-calendar-body-cell-content {
+  background: rgba(229, 231, 235, 0.5) !important;
+  color: #9ca3af !important;
+}
+
+/* Calendar body */
+.mat-calendar-body,
+.mat-mdc-calendar-body {
+  background: transparent !important;
+}
+
+/* Calendar table */
+.mat-calendar-table,
+.mat-mdc-calendar-table {
+  background: transparent !important;
+}
+
+/* Global datepicker styling - using ::ng-deep for deep selection */
+::ng-deep .mat-datepicker-content {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 25%, #a7f3d0 50%, #6ee7b7 75%, #34d399 100%) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(16, 185, 129, 0.2) !important;
+  border: 3px solid #10b981 !important;
+  padding: 16px !important;
+  overflow: visible !important;
+  position: relative !important;
+  min-height: auto !important;
+  animation: calendarFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform-origin: center top !important;
+}
+
+@keyframes calendarFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+::ng-deep .mat-datepicker-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #34d399, #6ee7b7, #10b981);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 20px 20px 0 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+::ng-deep .mat-calendar,
+::ng-deep .mat-mdc-calendar {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%) !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .mat-calendar-header,
+::ng-deep .mat-mdc-calendar-header {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%) !important;
+  color: white !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 18px 14px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .mat-calendar-header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+::ng-deep .mat-calendar-table-header th,
+::ng-deep .mat-mdc-calendar-table-header th {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%) !important;
+  color: #065f46 !important;
+  font-weight: bold !important;
+  padding: 12px 8px !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 8px !important;
+  margin: 2px !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content,
+::ng-deep .mat-mdc-calendar-body-cell-content {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 10px !important;
+  margin: 2px !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  border: 2px solid transparent !important;
+  font-weight: 500 !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  position: relative !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content:hover,
+::ng-deep .mat-mdc-calendar-body-cell-content:hover {
+  background: linear-gradient(135deg, #86efac 0%, #6ee7b7 100%) !important;
+  color: white !important;
+  transform: scale(1.12) translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4) !important;
+  border-color: #10b981 !important;
+  z-index: 10 !important;
+}
+
+::ng-deep .mat-calendar-body-selected .mat-calendar-body-cell-content,
+::ng-deep .mat-mdc-calendar-body-selected .mat-mdc-calendar-body-cell-content {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%) !important;
+  color: white !important;
+  font-weight: bold !important;
+  box-shadow: 0 6px 12px rgba(5, 150, 105, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.15) !important;
+  border: 2px solid white !important;
+  animation: pulse 2s ease-in-out infinite !important;
+  z-index: 15 !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 6px 12px rgba(5, 150, 105, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3);
+    transform: scale(1.15);
+  }
+  50% { 
+    box-shadow: 0 8px 16px rgba(5, 150, 105, 0.6), 0 0 0 3px rgba(255, 255, 255, 0.5);
+    transform: scale(1.18);
+  }
+}
+
+::ng-deep .mat-calendar-body-today .mat-calendar-body-cell-content,
+::ng-deep .mat-mdc-calendar-body-today .mat-mdc-calendar-body-cell-content {
+  border: 3px solid #10b981 !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(52, 211, 153, 0.2) 100%) !important;
+  color: #059669 !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) .mat-calendar-body-cell-content:hover,
+::ng-deep .mat-mdc-calendar-body-today:not(.mat-mdc-calendar-body-selected) .mat-mdc-calendar-body-cell-content:hover {
+  border-color: #34d399 !important;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button,
+::ng-deep .mat-mdc-calendar-previous-button,
+::ng-deep .mat-mdc-calendar-next-button {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+::ng-deep .mat-calendar-previous-button:hover,
+::ng-deep .mat-calendar-next-button:hover,
+::ng-deep .mat-mdc-calendar-previous-button:hover,
+::ng-deep .mat-mdc-calendar-next-button:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.15) rotate(5deg) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+::ng-deep .mat-calendar-previous-button:active,
+::ng-deep .mat-calendar-next-button:active,
+::ng-deep .mat-mdc-calendar-previous-button:active,
+::ng-deep .mat-mdc-calendar-next-button:active {
+  transform: scale(1.05) !important;
+  transition: all 0.1s ease !important;
+}
+
+::ng-deep .mat-calendar-period-button,
+::ng-deep .mat-mdc-calendar-period-button {
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  padding: 10px 18px !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+::ng-deep .mat-calendar-period-button:hover,
+::ng-deep .mat-mdc-calendar-period-button:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+::ng-deep .mat-calendar-period-button:active,
+::ng-deep .mat-mdc-calendar-period-button:active {
+  transform: translateY(-1px) scale(1.02) !important;
+  transition: all 0.1s ease !important;
+}
+
+/* Disabled dates styling */
+::ng-deep .mat-calendar-body-disabled .mat-calendar-body-cell-content,
+::ng-deep .mat-mdc-calendar-body-disabled .mat-mdc-calendar-body-cell-content {
+  background: rgba(229, 231, 235, 0.4) !important;
+  color: #9ca3af !important;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Calendar body background */
+::ng-deep .mat-calendar-body,
+::ng-deep .mat-mdc-calendar-body {
+  background: transparent !important;
+  padding: 8px !important;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Calendar table */
+::ng-deep .mat-calendar-table,
+::ng-deep .mat-mdc-calendar-table {
+  background: transparent !important;
+  border-spacing: 5px !important;
+  width: 100% !important;
+  table-layout: fixed !important;
+  overflow: visible !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Calendar table cells */
+::ng-deep .mat-calendar-table td,
+::ng-deep .mat-mdc-calendar-table td {
+  padding: 2px !important;
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* Calendar body row */
+::ng-deep .mat-calendar-body-row,
+::ng-deep .mat-mdc-calendar-body-row {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* Ensure calendar content doesn't get clipped */
+::ng-deep .mat-datepicker-content {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+::ng-deep .mat-datepicker-content .mat-calendar {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Calendar container */
+::ng-deep .cdk-overlay-pane .mat-datepicker-content {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Fix for calendar body cells container */
+::ng-deep .mat-calendar-body-cell,
+::ng-deep .mat-mdc-calendar-body-cell {
+  overflow: visible !important;
+  position: relative !important;
+  height: auto !important;
+  min-height: 40px !important;
+}
+
+/* Calendar view */
+::ng-deep .mat-calendar-view,
+::ng-deep .mat-mdc-calendar-view {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+/* Calendar content wrapper */
+::ng-deep .mat-calendar-content,
+::ng-deep .mat-mdc-calendar-content {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  padding-bottom: 8px !important;
+}
+
+/* Ensure parent containers don't clip the datepicker - more specific */
+.bg-gradient-to-r.from-green-50,
+.bg-gradient-to-br.from-white {
+  overflow: visible !important;
+}
+
+/* Date of Birth section specific */
+.mb-6 {
+  overflow: visible !important;
+}
+
+/* Fix for datepicker positioning */
+.mat-datepicker-content-container {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+/* Autocomplete dropdown styling - State and District */
+::ng-deep .mat-mdc-autocomplete-panel,
+::ng-deep .custom-autocomplete-panel {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 25%, #e9d5ff 50%, #ddd6fe 75%, #c4b5fd 100%) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.2), 0 10px 10px -5px rgba(139, 92, 246, 0.1) !important;
+  border: 2px solid #a78bfa !important;
+  padding: 8px !important;
+  max-height: 320px !important;
+  overflow-y: auto !important;
+  animation: dropdownFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-top: 6px !important;
+  z-index: 10001 !important;
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Autocomplete options */
+::ng-deep .mat-mdc-autocomplete-panel .mat-mdc-option,
+::ng-deep .custom-autocomplete-panel .mat-mdc-option,
+::ng-deep .custom-autocomplete-option {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px !important;
+  margin: 5px 0 !important;
+  padding: 12px 16px !important;
+  min-height: 52px !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  border: 2px solid transparent !important;
+  cursor: pointer !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel .mat-mdc-option:hover,
+::ng-deep .custom-autocomplete-panel .mat-mdc-option:hover,
+::ng-deep .custom-autocomplete-option:hover {
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #7c3aed 100%) !important;
+  color: white !important;
+  transform: translateX(6px) scale(1.03) !important;
+  box-shadow: 0 6px 12px rgba(139, 92, 246, 0.4) !important;
+  border-color: #8b5cf6 !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel .mat-mdc-option.mat-mdc-option-active,
+::ng-deep .custom-autocomplete-panel .mat-mdc-option.mat-mdc-option-active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3) !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel .mat-mdc-option .mdc-list-item__primary-text {
+  color: inherit !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Scrollbar styling for autocomplete - Ultra thin */
+::ng-deep .mat-mdc-autocomplete-panel::-webkit-scrollbar,
+::ng-deep .custom-autocomplete-panel::-webkit-scrollbar {
+  width: 2px !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel::-webkit-scrollbar-track,
+::ng-deep .custom-autocomplete-panel::-webkit-scrollbar-track {
+  background: rgba(250, 245, 255, 0.2) !important;
+  border-radius: 1px !important;
+  margin: 1px !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb,
+::ng-deep .custom-autocomplete-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+  border-radius: 1px !important;
+  border: none !important;
+  min-height: 20px !important;
+}
+
+::ng-deep .mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb:hover,
+::ng-deep .custom-autocomplete-panel::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+  width: 3px !important;
+}
+
+/* Firefox scrollbar styling */
+::ng-deep .mat-mdc-autocomplete-panel,
+::ng-deep .custom-autocomplete-panel {
+  scrollbar-width: thin !important;
+  scrollbar-color: #8b5cf6 rgba(250, 245, 255, 0.2) !important;
+}
+
+/* State and District input fields styling */
+input[matInput][formControlName="state"],
+input[matInput][formControlName="district"] {
+  transition: all 0.3s ease !important;
+}
+
+input[matInput][formControlName="state"]:focus,
+input[matInput][formControlName="district"]:focus {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Disabled state styling */
+input[matInput][formControlName="district"]:disabled {
+  background: linear-gradient(to right, #f3f4f6, #e5e7eb) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
 }

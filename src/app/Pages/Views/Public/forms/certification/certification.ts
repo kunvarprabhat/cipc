@@ -30,12 +30,17 @@ import { Observable } from 'rxjs';
 })
 export class CertificationForm implements OnInit {
   certificationForm!: FormGroup;
+  verificationForm!: FormGroup;
   isSubmitted = false;
   submitSuccess = false;
   isProcessing = false;
   studentPhotoPreview: string | null = null;
   studentPhotoFile: File | null = null;
   generatedCertificateNumber: string = '';
+  isVerified = false;
+  verificationError = '';
+  isVerifying = false;
+  studentData: any = null;
 
   courses = [
     'Medical Laboratory Technology',
@@ -109,9 +114,16 @@ export class CertificationForm implements OnInit {
   filteredStates!: Observable<string[]>;
   filteredDistricts!: Observable<string[]>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+    // Set max date for DOB verification (user must be at least 16 years old)
+    const today = new Date();
+    this.maxDateDOB = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+  }
+
+  maxDateDOB: Date;
 
   ngOnInit() {
+    this.initializeVerificationForm();
     this.initializeForm();
 
     // Setup autocomplete filtering for courses
@@ -186,6 +198,16 @@ export class CertificationForm implements OnInit {
     return district || '';
   }
 
+  initializeVerificationForm() {
+    this.verificationForm = this.fb.group({
+      enrolmentNumber: ['', [Validators.required, Validators.minLength(5)]],
+      dateOfBirthFull: ['', Validators.required],
+      dateOfBirth: ['', [Validators.required, Validators.pattern(/^(0[1-9]|[12][0-9]|3[01])$/)]],
+      monthOfBirth: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])$/)]],
+      yearOfBirth: ['', [Validators.required, Validators.pattern(/^(19|20)\d{2}$/)]]
+    });
+  }
+
   initializeForm() {
     this.certificationForm = this.fb.group({
       certificateNumber: [{value: '', disabled: true}],
@@ -205,6 +227,216 @@ export class CertificationForm implements OnInit {
       email: ['', [Validators.email]],
       studentPhoto: ['']
     });
+  }
+
+  onVerificationDateSelected(event: any) {
+    if (event && event.value) {
+      const selectedDate = new Date(event.value);
+      if (!isNaN(selectedDate.getTime())) {
+        const day = String(selectedDate.getDate()).padStart(2, '0');
+        const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+        const year = String(selectedDate.getFullYear());
+        
+        this.verificationForm.patchValue({
+          dateOfBirth: day,
+          monthOfBirth: month,
+          yearOfBirth: year,
+          dateOfBirthFull: selectedDate
+        }, { emitEvent: false });
+      }
+    }
+  }
+
+  syncVerificationDateFromManualInputs() {
+    const day = String(this.verificationForm.get('dateOfBirth')?.value || '').padStart(2, '0');
+    const month = String(this.verificationForm.get('monthOfBirth')?.value || '').padStart(2, '0');
+    const year = String(this.verificationForm.get('yearOfBirth')?.value || '');
+    
+    if (day && month && year && day.length <= 2 && month.length <= 2 && year.length === 4) {
+      const dateStr = `${year}-${month}-${day}`;
+      const dateObj = new Date(dateStr);
+      if (!isNaN(dateObj.getTime()) && dateObj <= this.maxDateDOB) {
+        this.verificationForm.patchValue({ dateOfBirthFull: dateObj }, { emitEvent: false });
+        this.verificationForm.patchValue({
+          dateOfBirth: day,
+          monthOfBirth: month
+        }, { emitEvent: false });
+      }
+    }
+  }
+
+  validateVerificationDateInput(event: any, fieldName: string, min: number, max: number) {
+    const value = parseInt(event.target.value);
+    if (isNaN(value) || value < min || value > max) {
+      if (value > max) {
+        event.target.value = max;
+        this.verificationForm.patchValue({ [fieldName]: String(max) }, { emitEvent: false });
+      } else if (value < min && value > 0) {
+        event.target.value = min;
+        this.verificationForm.patchValue({ [fieldName]: String(min).padStart(2, '0') }, { emitEvent: false });
+      }
+    }
+    this.syncVerificationDateFromManualInputs();
+  }
+
+  verifyStudent() {
+    this.isVerifying = true;
+    this.verificationError = '';
+
+    // Mark all fields as touched to show validation errors
+    Object.keys(this.verificationForm.controls).forEach(key => {
+      const control = this.verificationForm.get(key);
+      if (control) {
+        control.markAsTouched();
+        control.markAsDirty();
+      }
+    });
+
+    // Check if dateOfBirthFull is empty but manual date fields are filled
+    if (!this.verificationForm.get('dateOfBirthFull')?.value && 
+        this.verificationForm.get('dateOfBirth')?.value && 
+        this.verificationForm.get('monthOfBirth')?.value && 
+        this.verificationForm.get('yearOfBirth')?.value) {
+      const day = this.verificationForm.get('dateOfBirth')?.value;
+      const month = this.verificationForm.get('monthOfBirth')?.value;
+      const year = this.verificationForm.get('yearOfBirth')?.value;
+      const dateStr = `${year}-${month}-${day}`;
+      const dateObj = new Date(dateStr);
+      if (!isNaN(dateObj.getTime())) {
+        this.verificationForm.patchValue({ dateOfBirthFull: dateObj }, { emitEvent: false });
+      }
+    }
+
+    if (this.verificationForm.valid) {
+      const enrolmentNumber = this.verificationForm.get('enrolmentNumber')?.value;
+      const dob = this.verificationForm.get('dateOfBirthFull')?.value;
+      
+      // Dummy/Test verification data for testing
+      const dummyStudents = [
+        {
+          enrolmentNumber: 'CIPC-2025-0101-12345',
+          dateOfBirth: new Date('2000-01-15'),
+          nameInCapital: 'RAHUL KUMAR',
+          courseOptedFor: 'Medical Laboratory Technology',
+          fullPostalAddress: '123, Test Street, Varanasi',
+          district: 'Varanasi',
+          state: 'Uttar Pradesh',
+          pinCode: '221001',
+          mobileNo1: '9876543210',
+          email: 'test@example.com',
+          studentPhoto: ''
+        },
+        {
+          enrolmentNumber: 'CIPC-2025-0101-54321',
+          dateOfBirth: new Date('1999-05-20'),
+          nameInCapital: 'PRIYA SHARMA',
+          courseOptedFor: 'X-Ray Technology',
+          fullPostalAddress: '456, Sample Road, Lucknow',
+          district: 'Lucknow',
+          state: 'Uttar Pradesh',
+          pinCode: '226001',
+          mobileNo1: '9876543211',
+          email: 'priya@example.com',
+          studentPhoto: ''
+        },
+        {
+          enrolmentNumber: 'TEST123',
+          dateOfBirth: new Date('2001-12-25'),
+          nameInCapital: 'TEST STUDENT',
+          courseOptedFor: 'Physiotherapy',
+          fullPostalAddress: '789, Demo Avenue, Delhi',
+          district: 'New Delhi',
+          state: 'Delhi',
+          pinCode: '110001',
+          mobileNo1: '9876543212',
+          email: 'teststudent@example.com',
+          studentPhoto: ''
+        }
+      ];
+
+      // Check dummy data first
+      const dummyMatch = dummyStudents.find(dummy => {
+        const dummyDOB = new Date(dummy.dateOfBirth);
+        const verifyDOB = new Date(dob);
+        return dummy.enrolmentNumber === enrolmentNumber &&
+               dummyDOB.getDate() === verifyDOB.getDate() &&
+               dummyDOB.getMonth() === verifyDOB.getMonth() &&
+               dummyDOB.getFullYear() === verifyDOB.getFullYear();
+      });
+
+      if (dummyMatch) {
+        // Dummy verification successful - convert to expected format
+        const dummyData = {
+          ...dummyMatch,
+          dateOfBirthFull: dummyMatch.dateOfBirth,
+          enrolmentNumber: dummyMatch.enrolmentNumber
+        };
+        this.studentData = dummyData;
+        this.isVerified = true;
+        this.autoFillForm(dummyData);
+        this.isVerifying = false;
+        return;
+      }
+      
+      // Get stored registration data from localStorage
+      const storedData = localStorage.getItem('admissionFormData');
+      
+      if (storedData) {
+        try {
+          const registrationData = JSON.parse(storedData);
+          
+          // Check if enrolment number matches
+          if (registrationData.enrolmentNumber === enrolmentNumber) {
+            // Check if DOB matches
+            const regDOB = new Date(registrationData.dateOfBirthFull);
+            const verifyDOB = new Date(dob);
+            
+            // Compare dates (ignore time)
+            if (regDOB.getDate() === verifyDOB.getDate() &&
+                regDOB.getMonth() === verifyDOB.getMonth() &&
+                regDOB.getFullYear() === verifyDOB.getFullYear()) {
+              
+              // Verification successful - store student data and auto-fill form
+              this.studentData = registrationData;
+              this.isVerified = true;
+              this.autoFillForm(registrationData);
+              this.isVerifying = false;
+              return;
+            }
+          }
+        } catch (e) {
+          console.error('Error parsing stored data:', e);
+        }
+      }
+      
+      // If no match found
+      this.verificationError = 'Enrolment Number or Date of Birth does not match. Please check and try again.';
+      this.isVerifying = false;
+    } else {
+      this.verificationError = 'Please fill all fields correctly.';
+      this.isVerifying = false;
+    }
+  }
+
+  autoFillForm(registrationData: any) {
+    // Auto-fill common fields from registration data
+    this.certificationForm.patchValue({
+      enrolmentNumber: registrationData.enrolmentNumber || '',
+      studentName: registrationData.nameInCapital || '',
+      course: registrationData.courseOptedFor || '',
+      fullPostalAddress: registrationData.fullPostalAddress || '',
+      district: registrationData.district || '',
+      state: registrationData.state || '',
+      pinCode: registrationData.pinCode || '',
+      mobileNo: registrationData.mobileNo1 || '',
+      email: registrationData.email || '',
+      studentPhoto: registrationData.studentPhoto || ''
+    });
+
+    // Set photo preview if available
+    if (registrationData.studentPhoto) {
+      this.studentPhotoPreview = registrationData.studentPhoto;
+    }
   }
 
   onDateSelected(event: any) {
@@ -393,8 +625,13 @@ Submitted on: ${new Date().toLocaleString()}
     this.studentPhotoPreview = null;
     this.studentPhotoFile = null;
     this.generatedCertificateNumber = '';
+    this.isVerified = false;
+    this.verificationError = '';
+    this.studentData = null;
     this.certificationForm.reset();
+    this.verificationForm.reset();
     this.initializeForm();
+    this.initializeVerificationForm();
     const fileInput = document.getElementById('studentPhotoInput') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';

@@ -53,6 +53,21 @@ export class AdmissionForm implements OnInit {
     date: string;
   } | null = null;
 
+  // Step-by-step navigation
+  currentStep: number = 1;
+  totalSteps: number = 4;
+  steps = [
+    { number: 1, title: 'Personal Information', icon: 'ri-user-line' },
+    { number: 2, title: 'Course & Education', icon: 'ri-book-line' },
+    { number: 3, title: 'Address & Contact', icon: 'ri-map-pin-line' },
+    { number: 4, title: 'Review & Submit', icon: 'ri-file-check-line' }
+  ];
+
+  // Date picker configuration
+  maxDate: Date;
+  startDate: Date;
+  maxYear: number;
+
   courses = [
     'Medical Laboratory Technology',
     'X-Ray Technology',
@@ -142,7 +157,14 @@ export class AdmissionForm implements OnInit {
   filteredStates!: Observable<string[]>;
   filteredDistricts!: Observable<string[]>;
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
+    // Set max date to today (user must be at least 16 years old)
+    const today = new Date();
+    this.maxDate = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate());
+    this.maxYear = today.getFullYear() - 16;
+    // Set start date to 20 years ago for better UX
+    this.startDate = new Date(today.getFullYear() - 20, 0, 1);
+  }
 
   ngOnInit() {
     this.initializeForm();
@@ -264,15 +286,33 @@ export class AdmissionForm implements OnInit {
   }
 
   syncDateFromManualInputs() {
-    const day = this.admissionForm.get('dateOfBirth')?.value;
-    const month = this.admissionForm.get('monthOfBirth')?.value;
-    const year = this.admissionForm.get('yearOfBirth')?.value;
+    const day = String(this.admissionForm.get('dateOfBirth')?.value || '').padStart(2, '0');
+    const month = String(this.admissionForm.get('monthOfBirth')?.value || '').padStart(2, '0');
+    const year = String(this.admissionForm.get('yearOfBirth')?.value || '');
     
-    if (day && month && year && day.length === 2 && month.length === 2 && year.length === 4) {
+    if (day && month && year && day.length <= 2 && month.length <= 2 && year.length === 4) {
       const dateStr = `${year}-${month}-${day}`;
       const dateObj = new Date(dateStr);
-      if (!isNaN(dateObj.getTime())) {
+      if (!isNaN(dateObj.getTime()) && dateObj <= this.maxDate) {
         this.admissionForm.patchValue({ dateOfBirthFull: dateObj }, { emitEvent: false });
+        // Update manual inputs with padded values
+        this.admissionForm.patchValue({
+          dateOfBirth: day,
+          monthOfBirth: month
+        }, { emitEvent: false });
+      }
+    }
+  }
+
+  validateDateInput(event: any, fieldName: string, min: number, max: number) {
+    const value = parseInt(event.target.value);
+    if (isNaN(value) || value < min || value > max) {
+      if (value > max) {
+        event.target.value = max;
+        this.admissionForm.patchValue({ [fieldName]: String(max) }, { emitEvent: false });
+      } else if (value < min && value > 0) {
+        event.target.value = min;
+        this.admissionForm.patchValue({ [fieldName]: String(min).padStart(2, '0') }, { emitEvent: false });
       }
     }
   }
@@ -422,6 +462,13 @@ export class AdmissionForm implements OnInit {
         ...this.admissionForm.getRawValue(),
         enrolmentNumber: this.generatedEnrolmentNumber
       };
+      
+      // Store form data in localStorage for Examination Form auto-fill
+      try {
+        localStorage.setItem('admissionFormData', JSON.stringify(formData));
+      } catch (e) {
+        console.error('Error saving to localStorage:', e);
+      }
       
       // Process form submission
       console.log('Form Data:', formData);
@@ -727,11 +774,110 @@ Submitted on: ${new Date().toLocaleString()}
     this.studentPhotoPreview = null;
     this.studentPhotoFile = null;
     this.generatedEnrolmentNumber = '';
+    this.currentStep = 1;
     this.admissionForm.reset();
     this.initializeForm();
     const fileInput = document.getElementById('studentPhotoInput') as HTMLInputElement;
     if (fileInput) {
       fileInput.value = '';
+    }
+  }
+
+  // Step navigation methods
+  nextStep() {
+    if (this.validateCurrentStep()) {
+      if (this.currentStep < this.totalSteps) {
+        this.currentStep++;
+        this.scrollToTop();
+      }
+    }
+  }
+
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.scrollToTop();
+    }
+  }
+
+  goToStep(step: number) {
+    if (step >= 1 && step <= this.totalSteps) {
+      this.currentStep = step;
+      this.scrollToTop();
+    }
+  }
+
+  validateCurrentStep(): boolean {
+    let fieldsToValidate: string[] = [];
+
+    switch (this.currentStep) {
+      case 1:
+        fieldsToValidate = ['nameInCapital', 'fathersName', 'sex', 'nationality', 'dateOfBirth', 'monthOfBirth', 'yearOfBirth'];
+        break;
+      case 2:
+        fieldsToValidate = ['courseOptedFor', 'schoolCollege', 'detailsOfQualification'];
+        break;
+      case 3:
+        fieldsToValidate = ['fullPostalAddress', 'state', 'district', 'pinCode', 'mobileNo1', 'email'];
+        break;
+      case 4:
+        return true; // Review step doesn't need validation
+    }
+
+    // Mark fields as touched
+    fieldsToValidate.forEach(field => {
+      const control = this.admissionForm.get(field);
+      if (control) {
+        control.markAsTouched();
+        control.markAsDirty();
+      }
+    });
+
+    // Check if all required fields in current step are valid
+    const invalidFields = fieldsToValidate.filter(field => {
+      const control = this.admissionForm.get(field);
+      return control && control.invalid;
+    });
+
+    if (invalidFields.length > 0) {
+      const firstInvalidField = invalidFields[0];
+      const element = document.querySelector(`[formControlName="${firstInvalidField}"]`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return false;
+    }
+
+    return true;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  isStepValid(step: number): boolean {
+    switch (step) {
+      case 1:
+        return !!(this.admissionForm.get('nameInCapital')?.valid &&
+               this.admissionForm.get('fathersName')?.valid &&
+               this.admissionForm.get('sex')?.valid &&
+               this.admissionForm.get('nationality')?.valid &&
+               this.admissionForm.get('dateOfBirth')?.valid &&
+               this.admissionForm.get('monthOfBirth')?.valid &&
+               this.admissionForm.get('yearOfBirth')?.valid);
+      case 2:
+        return !!(this.admissionForm.get('courseOptedFor')?.valid &&
+               this.admissionForm.get('schoolCollege')?.valid &&
+               this.admissionForm.get('detailsOfQualification')?.valid);
+      case 3:
+        return !!(this.admissionForm.get('fullPostalAddress')?.valid &&
+               this.admissionForm.get('state')?.valid &&
+               this.admissionForm.get('district')?.valid &&
+               this.admissionForm.get('pinCode')?.valid &&
+               this.admissionForm.get('mobileNo1')?.valid &&
+               this.admissionForm.get('email')?.valid);
+      default:
+        return false;
     }
   }
 }
