@@ -124,6 +124,9 @@ certificates = [
  
   currentSlide = 0;
   interval: any;
+  showNotification = true;
+  notificationTimer: any;
+  isHiding = false;
 
   slides = [
     {
@@ -147,10 +150,58 @@ certificates = [
     this.interval = setInterval(() => {
       this.nextSlide();
     }, 5000);
+    
+    // Show notification popup on page load
+    this.showNotification = true;
+    this.startNotificationTimer();
   }
 
   ngOnDestroy() {
     clearInterval(this.interval);
+    if (this.notificationTimer) {
+      clearTimeout(this.notificationTimer);
+    }
+  }
+
+  startNotificationTimer() {
+    // Hide notification after 5 seconds
+    this.notificationTimer = setTimeout(() => {
+      if (this.showNotification && !this.isHiding) {
+        this.hideNotification();
+      }
+    }, 5000);
+  }
+
+  stopNotificationTimer() {
+    if (this.notificationTimer) {
+      clearTimeout(this.notificationTimer);
+      this.notificationTimer = null;
+    }
+  }
+
+  hideNotification() {
+    this.isHiding = true;
+    // Add fade-out animation
+    setTimeout(() => {
+      this.showNotification = false;
+      this.isHiding = false;
+    }, 300); // Animation duration
+  }
+
+  onNotificationMouseEnter() {
+    // Stop auto-hide when mouse enters
+    this.stopNotificationTimer();
+    this.isHiding = false;
+  }
+
+  onNotificationMouseLeave() {
+    // Resume auto-hide when mouse leaves
+    this.startNotificationTimer();
+  }
+
+  closeNotification() {
+    this.hideNotification();
+    this.stopNotificationTimer();
   }
 
   nextSlide() {

@@ -1,3 +1,56 @@
+<!-- Notification Popup -->
+<div *ngIf="showNotification" 
+  (mouseenter)="onNotificationMouseEnter()" 
+  (mouseleave)="onNotificationMouseLeave()"
+  [ngClass]="{'animate-fade-out': isHiding, 'animate-slide-in-right': !isHiding}"
+  class="fixed top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-auto">
+  <div class="bg-gradient-to-br from-green-600 via-green-700 to-teal-600 rounded-2xl shadow-2xl border-2 border-green-400/50 p-4 sm:p-5 md:p-6 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
+    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl -ml-12 -mb-12"></div>
+    
+    <!-- Close button -->
+    <button (click)="closeNotification()" 
+      class="absolute top-2 right-2 sm:top-3 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center bg-white/20 hover:bg-white/30 rounded-full text-white transition-all duration-200 hover:scale-110 z-10">
+      <i class="ri-close-line text-sm sm:text-base"></i>
+    </button>
+    
+    <!-- Content -->
+    <div class="relative z-10">
+      <div class="flex items-start gap-3 sm:gap-4">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+          <i class="ri-notification-badge-line text-white text-2xl sm:text-3xl"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h3 class="text-white font-bold text-base sm:text-lg md:text-xl mb-1 sm:mb-2">
+            🎓 Admissions 2025 Open!
+          </h3>
+          <p class="text-green-100 text-xs sm:text-sm md:text-base leading-relaxed mb-2 sm:mb-3">
+            Limited seats available for new batch. Apply now and start your journey in healthcare!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <a href="/admissions" 
+              class="inline-flex items-center justify-center gap-2 bg-white text-green-700 hover:bg-green-50 px-3 sm:px-4 py-2 rounded-lg font-bold text-xs sm:text-sm transition-all duration-200 hover:scale-105 shadow-lg">
+              <span>Apply Now</span>
+              <i class="ri-arrow-right-line"></i>
+            </a>
+            <a href="tel:7275380105" 
+              class="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-200 backdrop-blur-sm">
+              <i class="ri-phone-line"></i>
+              <span>Call Us</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Progress bar (optional visual indicator) -->
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+      <div class="h-full bg-white/60 animate-shrink-width" style="animation-duration: 5s;"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Notice -->
 <div class="bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 border-l-4 border-red-500 shadow-md animate-pulse">
   <div
