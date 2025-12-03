@@ -5,12 +5,12 @@
 }
 
 .chat-messages::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 
 @media (min-width: 640px) {
   .chat-messages::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
 }
 
@@ -63,20 +63,20 @@
 /* Responsive adjustments */
 @media (max-width: 475px) {
   .chat-messages {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 }
 
 @media (min-width: 475px) and (max-width: 640px) {
   .chat-messages {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 }
 
 /* Ensure chat window doesn't overflow on very small screens */
 @media (max-width: 320px) {
   .chat-messages {
-    padding: 0.5rem;
+    padding: 0.375rem;
   }
 }
 

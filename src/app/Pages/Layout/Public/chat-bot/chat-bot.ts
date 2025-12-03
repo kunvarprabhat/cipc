@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 interface ChatMessage {
   id: number;
@@ -22,7 +25,11 @@ export class ChatBot implements OnInit, OnDestroy {
   userMessage = '';
   isLoading = false;
   showQuickActions = true;
+  isHomePage = false;
   private messageIdCounter = 0;
+  private routerSubscription?: Subscription;
+
+  constructor(private router: Router) {}
 
   // Quick action buttons
   quickActions = [
@@ -116,10 +123,28 @@ export class ChatBot implements OnInit, OnDestroy {
   ngOnInit() {
     // Add welcome message when component initializes
     this.addBotMessage('Hello! 👋 Welcome to CIPC Paramedical Council. I\'m here to help you with any questions. How can I assist you today?');
+    
+    // Check if we're on home page
+    this.checkHomePage();
+    
+    // Listen to route changes
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkHomePage();
+      });
+  }
+
+  private checkHomePage() {
+    const url = this.router.url;
+    this.isHomePage = url === '/' || url === '/home' || url === '';
   }
 
   ngOnDestroy() {
-    // Cleanup if needed
+    // Cleanup subscriptions
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   toggleChat() {
@@ -129,13 +154,30 @@ export class ChatBot implements OnInit, OnDestroy {
       setTimeout(() => this.scrollToBottom(), 100);
     }
   }
+  
+  // Public method to check if chat is open (for external access)
+  get chatIsOpen(): boolean {
+    return this.isOpen;
+  }
 
-  sendMessage() {
-    if (!this.userMessage.trim() || this.isLoading) return;
+  sendMessage(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    // Only send if message is not empty and not loading
+    if (!this.userMessage || !this.userMessage.trim() || this.isLoading) {
+      return;
+    }
 
     const userMsg = this.userMessage.trim();
-    this.addUserMessage(userMsg);
+    
+    // Clear input immediately after getting the message
     this.userMessage = '';
+    
+    // Add user message to chat
+    this.addUserMessage(userMsg);
     this.isLoading = true;
     this.showQuickActions = false;
 
@@ -176,46 +218,115 @@ export class ChatBot implements OnInit, OnDestroy {
   private getDummyResponse(userMessage: string): string {
     const lowerMessage = userMessage.toLowerCase().trim();
     
-    // Remove common words for better matching
-    const cleanMessage = lowerMessage.replace(/\b(what|where|when|how|why|is|are|can|do|does|the|a|an|and|or|but|in|on|at|to|for|of|with|by)\b/g, '').trim();
+    // Direct keyword matching with priority
+    const keywordMap: { [key: string]: string } = {
+      // Greetings (highest priority)
+      'hello': 'hello',
+      'hi': 'hi',
+      'hey': 'hi',
+      'namaste': 'hi',
+      'good morning': 'hello',
+      'good afternoon': 'hello',
+      'good evening': 'hello',
+      
+      // Thanks and goodbye
+      'thank': 'thank',
+      'thanks': 'thank',
+      'thank you': 'thank',
+      'bye': 'bye',
+      'goodbye': 'bye',
+      'see you': 'bye',
+      
+      // Admission
+      'admission': 'admission',
+      'admit': 'admission',
+      'apply': 'admission',
+      'admission form': 'admission',
+      'how to apply': 'admission',
+      
+      // Courses
+      'course': 'course',
+      'courses': 'course',
+      'program': 'course',
+      'programme': 'course',
+      'programs': 'course',
+      'what courses': 'course',
+      'which course': 'course',
+      
+      // Fees
+      'fee': 'fee',
+      'fees': 'fee',
+      'payment': 'fee',
+      'cost': 'fee',
+      'price': 'fee',
+      'tuition': 'fee',
+      'fee structure': 'fee',
+      
+      // Contact
+      'contact': 'contact',
+      'phone': 'contact',
+      'email': 'contact',
+      'address': 'contact',
+      'call': 'contact',
+      'phone number': 'contact',
+      'mobile': 'contact',
+      
+      // Results
+      'result': 'result',
+      'results': 'result',
+      'grade': 'result',
+      'marks': 'result',
+      'grade card': 'result',
+      'check result': 'result',
+      
+      // Examination
+      'examination': 'examination',
+      'exam': 'examination',
+      'test': 'examination',
+      'exams': 'examination',
+      'examination form': 'examination',
+      
+      // Syllabus
+      'syllabus': 'syllabus',
+      'curriculum': 'syllabus',
+      'syllabi': 'syllabus',
+      
+      // Placement
+      'placement': 'placement',
+      'job': 'placement',
+      'career': 'placement',
+      'jobs': 'placement',
+      'placement assistance': 'placement',
+      
+      // Scholarship
+      'scholarship': 'scholarship',
+      'scholarships': 'scholarship',
+      'financial': 'scholarship',
+      'financial aid': 'scholarship',
+      
+      // Time Table
+      'time table': 'time table',
+      'timetable': 'time table',
+      'schedule': 'time table',
+      'exam schedule': 'time table',
+      
+      // Forms
+      'form': 'form',
+      'forms': 'form',
+      'application form': 'form'
+    };
     
-    // Priority-based keyword matching
-    const keywords = [
-      'thank', 'thanks', 'bye', 'goodbye',
-      'admission', 'admit', 'apply',
-      'course', 'courses', 'program', 'programme',
-      'fee', 'fees', 'payment', 'cost', 'price',
-      'contact', 'phone', 'email', 'address', 'call',
-      'result', 'results', 'grade', 'marks',
-      'examination', 'exam', 'test',
-      'syllabus', 'curriculum',
-      'placement', 'job', 'career',
-      'scholarship', 'financial',
-      'time table', 'timetable', 'schedule',
-      'form', 'forms',
-      'hello', 'hi', 'hey', 'namaste'
-    ];
-    
-    // Check for keywords in order of priority
-    for (const keyword of keywords) {
-      if (lowerMessage.includes(keyword) || cleanMessage.includes(keyword)) {
-        // Find matching response category
-        for (const [responseKey, responses] of Object.entries(this.dummyResponses)) {
-          if (responseKey === keyword || (responseKey !== 'default' && keyword.includes(responseKey))) {
-            return responses[Math.floor(Math.random() * responses.length)];
-          }
+    // Check for keyword matches
+    for (const [searchTerm, responseKey] of Object.entries(keywordMap)) {
+      if (lowerMessage.includes(searchTerm)) {
+        const responses = this.dummyResponses[responseKey];
+        if (responses && responses.length > 0) {
+          return responses[Math.floor(Math.random() * responses.length)];
         }
       }
     }
     
-    // Check direct keyword match
-    for (const [keyword, responses] of Object.entries(this.dummyResponses)) {
-      if (keyword !== 'default' && (lowerMessage.includes(keyword) || cleanMessage.includes(keyword))) {
-        return responses[Math.floor(Math.random() * responses.length)];
-      }
-    }
-    
-    // Default response
+    // Default response if no match found
     return this.dummyResponses['default'][Math.floor(Math.random() * this.dummyResponses['default'].length)];
   }
 

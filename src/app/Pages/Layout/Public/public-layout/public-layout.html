@@ -41,4 +41,26 @@
     <i class="ri-customer-service-2-line text-lg sm:text-xl"></i>
     <span class="hidden sm:inline text-sm font-semibold">Enquiry</span>
   </button>
+
+  <!-- Chat Bot Button - Only on Home Page (Full Original Design) -->
+  @if (isHomePage) {
+    <button 
+      (click)="toggleChat()"
+      class="w-14 h-14 xs:w-16 xs:h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 bg-gradient-to-br from-green-600 via-green-600 to-green-700 hover:from-green-500 hover:via-green-500 hover:to-green-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 flex items-center justify-center group relative overflow-hidden"
+      [class.animate-bounce]="!chatIsOpenState"
+      title="Chat with us">
+      <!-- Shimmer Effect -->
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+      <!-- Pulse Ring -->
+      <div class="absolute inset-0 rounded-full border-2 border-green-400 opacity-0 group-hover:opacity-100 animate-ping"></div>
+      
+      <i class="ri-message-3-fill text-2xl xs:text-3xl sm:text-4xl relative z-10 group-hover:scale-110 transition-transform duration-300"
+        [ngClass]="{'ri-close-line': chatIsOpenState, 'ri-message-3-fill': !chatIsOpenState}"></i>
+      
+      <!-- Notification Badge -->
+      @if (!chatIsOpenState) {
+        <div class="absolute -top-1 -right-1 xs:-top-1.5 xs:-right-1.5 w-4 h-4 xs:w-5 xs:h-5 bg-red-500 rounded-full border-2 border-white animate-pulse"></div>
+      }
+    </button>
+  }
 </div>

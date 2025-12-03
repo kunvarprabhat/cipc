@@ -1,19 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { ChatBot } from "../chat-bot/chat-bot";
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Home } from "../../../Views/Public/home/home";
+import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-public-layout',
-  imports: [Header, Footer, ChatBot, RouterOutlet, CommonModule, ],
+  imports: [Header, Footer, ChatBot, RouterOutlet, CommonModule],
   templateUrl: './public-layout.html',
   styleUrl: './public-layout.css'
 })
-export class PublicLayout {
+export class PublicLayout implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(ChatBot) chatBot!: ChatBot;
+  isHomePage = false;
+  chatIsOpen = false;
+  private routerSubscription?: Subscription;
+
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkHomePage();
+    this.routerSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkHomePage();
+      });
+  }
+
+  ngAfterViewInit() {
+    // ViewChild is now available
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  private checkHomePage() {
+    const url = this.router.url;
+    this.isHomePage = url === '/' || url === '/home' || url === '';
+  }
+
+  toggleChat() {
+    // Use setTimeout to ensure ViewChild is available
+    setTimeout(() => {
+      if (this.chatBot) {
+        this.chatBot.toggleChat();
+        // Update state after toggle
+        setTimeout(() => {
+          this.chatIsOpen = this.chatBot.chatIsOpen;
+        }, 50);
+      }
+    }, 0);
+  }
+
+  get chatIsOpenState(): boolean {
+    return this.chatBot?.chatIsOpen || this.chatIsOpen || false;
+  }
 
   openLogin(type: string) {
     // Navigate to login page
