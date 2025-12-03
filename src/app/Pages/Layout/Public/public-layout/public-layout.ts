@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
+import { ChatBot } from "../chat-bot/chat-bot";
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Home } from "../../../Views/Public/home/home";
 
 @Component({
   selector: 'app-public-layout',
-  imports: [Header, Footer, RouterOutlet, CommonModule, ],
+  imports: [Header, Footer, ChatBot, RouterOutlet, CommonModule, ],
   templateUrl: './public-layout.html',
   styleUrl: './public-layout.css'
 })
