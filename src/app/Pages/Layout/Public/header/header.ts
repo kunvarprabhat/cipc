@@ -28,8 +28,44 @@ export class Header implements AfterViewInit {
   studentsDropdownTop = 110;
   studentsDropdownLeft = 200;
   
+  // Font size control
+  fontSize = 100; // Base font size percentage
+  minFontSize = 80;
+  maxFontSize = 150;
+  
   ngAfterViewInit() {
-    // Component initialized
+    // Load saved font size from localStorage
+    const savedFontSize = localStorage.getItem('websiteFontSize');
+    if (savedFontSize) {
+      this.fontSize = parseInt(savedFontSize, 10);
+      this.applyFontSize();
+    }
+  }
+
+  increaseFontSize() {
+    if (this.fontSize < this.maxFontSize) {
+      this.fontSize = Math.min(this.fontSize + 10, this.maxFontSize);
+      this.applyFontSize();
+      localStorage.setItem('websiteFontSize', this.fontSize.toString());
+    }
+  }
+
+  decreaseFontSize() {
+    if (this.fontSize > this.minFontSize) {
+      this.fontSize = Math.max(this.fontSize - 10, this.minFontSize);
+      this.applyFontSize();
+      localStorage.setItem('websiteFontSize', this.fontSize.toString());
+    }
+  }
+
+  resetFontSize() {
+    this.fontSize = 100;
+    this.applyFontSize();
+    localStorage.setItem('websiteFontSize', '100');
+  }
+
+  private applyFontSize() {
+    document.documentElement.style.fontSize = `${this.fontSize}%`;
   }
 
   navItems = [

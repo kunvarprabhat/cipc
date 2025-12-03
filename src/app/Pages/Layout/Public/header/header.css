@@ -98,3 +98,17 @@ nav > div > div {
 .students-dropdown::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(to bottom, #059669, #047857);
 }
+
+/* Shimmer Animation for Top Bar */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}

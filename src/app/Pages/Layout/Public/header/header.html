@@ -1,50 +1,55 @@
 <!-- Top Utility Bar -->
 <div
-  class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 text-white text-xs sm:text-sm py-2.5 sm:py-3 border-b border-green-800/50 shadow-lg relative overflow-hidden [&_a]:no-underline [&_a:hover]:no-underline">
+  class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 text-white text-[10px] sm:text-xs py-1 sm:py-1.5 border-b border-green-800/60 shadow-xl relative overflow-hidden [&_a]:no-underline [&_a:hover]:no-underline">
   <!-- Animated Background Pattern -->
-  <div class="absolute inset-0 opacity-10">
-    <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px);"></div>
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.08) 8px, rgba(255,255,255,0.08) 16px);"></div>
   </div>
+  <!-- Shimmer Effect -->
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shimmer"></div>
   
-  <div class="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+  <div class="max-w-full mx-auto px-2 sm:px-3 md:px-4 lg:px-6 relative z-10">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-0">
       <!-- Left: Contact Information -->
-      <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-        <a href="tel:7275380105" class="flex items-center gap-2 hover:text-green-300 transition-all duration-300 group relative">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+        <a href="tel:7275380105" class="flex items-center gap-1.5 hover:text-green-300 transition-all duration-300 group relative">
           <div
-            class="w-8 h-8 rounded-full bg-gradient-to-br from-green-700 to-green-800 group-hover:from-green-600 group-hover:to-green-700 flex items-center justify-center transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:scale-110 relative overflow-hidden">
+            class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-green-700 to-green-800 group-hover:from-green-600 group-hover:to-green-700 flex items-center justify-center transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:scale-110 relative overflow-hidden">
             <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <i class="ri-phone-fill text-xs relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            <i class="ri-phone-fill text-[10px] sm:text-xs relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
           </div>
-          <span class="font-semibold group-hover:translate-x-1 transition-transform duration-300">+91 7275 380105</span>
+          <span class="font-bold text-[10px] sm:text-xs group-hover:translate-x-0.5 transition-transform duration-300">+91 7275 380105</span>
         </a>
         <a href="mailto:cipcvns@gmail.com"
-          class="flex items-center gap-2 hover:text-green-300 transition-all duration-300 group relative">
+          class="flex items-center gap-1.5 hover:text-green-300 transition-all duration-300 group relative">
           <div
-            class="w-8 h-8 rounded-full bg-gradient-to-br from-green-700 to-green-800 group-hover:from-green-600 group-hover:to-green-700 flex items-center justify-center transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:scale-110 relative overflow-hidden">
+            class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-green-700 to-green-800 group-hover:from-green-600 group-hover:to-green-700 flex items-center justify-center transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:scale-110 relative overflow-hidden">
             <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <i class="ri-mail-fill text-xs relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            <i class="ri-mail-fill text-[10px] sm:text-xs relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
           </div>
-          <span class="hidden sm:inline font-semibold group-hover:translate-x-1 transition-transform duration-300">cipcvns@gmail.com</span>
-          <span class="sm:hidden font-semibold group-hover:translate-x-1 transition-transform duration-300">Email</span>
+          <span class="hidden sm:inline font-bold text-[10px] sm:text-xs group-hover:translate-x-0.5 transition-transform duration-300">cipcvns@gmail.com</span>
+          <span class="sm:hidden font-bold text-[10px] group-hover:translate-x-0.5 transition-transform duration-300">Email</span>
         </a>
 
+        <!-- Divider -->
+        <div class="hidden sm:block w-px h-4 bg-green-700/50"></div>
+
         <!-- Social Media Icons with Enhanced Animations -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <!-- Facebook -->
           <a href="#" target="_blank" rel="noopener noreferrer"
-            class="w-9 h-9 flex items-center justify-center text-blue-600 hover:text-white bg-white/60 hover:bg-blue-600 rounded-full shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
+            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-blue-600 hover:text-white bg-white/60 hover:bg-blue-600 rounded-full shadow-md transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
             title="Facebook">
             <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <i class="ri-facebook-fill text-base relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            <i class="ri-facebook-fill text-xs sm:text-sm relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
           </a>
           
           <!-- X (Twitter) -->
           <a href="#" target="_blank" rel="noopener noreferrer"
-            class="w-9 h-9 flex items-center justify-center text-gray-900 hover:text-white bg-white/60 hover:bg-gray-900 rounded-full shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
+            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-gray-900 hover:text-white bg-white/60 hover:bg-gray-900 rounded-full shadow-md transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
             title="Twitter / X">
             <div class="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="relative z-10 group-hover:scale-110 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="relative z-10 group-hover:scale-110 transition-transform duration-300 sm:w-3.5 sm:h-3.5">
               <path
                 d="M18.244 2H21.5l-7.36 8.398L22 22h-6.832l-5.088-6.656L4.1 22H.834l7.732-8.825L2 2h6.91l4.552 6.063L18.244 2Zm-1.087 18h1.913L7.175 4h-2Z" />
             </svg>
@@ -52,48 +57,78 @@
           
           <!-- Instagram -->
           <a href="#" target="_blank" rel="noopener noreferrer"
-            class="w-9 h-9 flex items-center justify-center text-pink-600 hover:text-white bg-white/60 hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 rounded-full shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
+            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-pink-600 hover:text-white bg-white/60 hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 rounded-full shadow-md transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
             title="Instagram">
             <div class="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <i class="ri-instagram-fill text-base relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            <i class="ri-instagram-fill text-xs sm:text-sm relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
           </a>
           
           <!-- LinkedIn -->
           <a href="#" target="_blank" rel="noopener noreferrer"
-            class="w-9 h-9 flex items-center justify-center text-blue-700 hover:text-white bg-white/60 hover:bg-blue-700 rounded-full shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
+            class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-blue-700 hover:text-white bg-white/60 hover:bg-blue-700 rounded-full shadow-md transition-all duration-300 hover:scale-125 hover:rotate-12 group relative overflow-hidden"
             title="LinkedIn">
             <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <i class="ri-linkedin-fill text-base relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            <i class="ri-linkedin-fill text-xs sm:text-sm relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
           </a>
         </div>
       </div>
 
-      <!-- Right: Quick Links -->
-      <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <!-- Right: Quick Links & Font Controls -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <!-- Font Size Controls -->
+        <div class="flex items-center gap-1.5 bg-gradient-to-r from-green-800/50 to-green-900/50 rounded-xl px-2 py-1 border-2 border-green-700/60 shadow-lg backdrop-blur-sm">
+          <!-- A- Button -->
+          <button (click)="decreaseFontSize()" type="button"
+            [disabled]="fontSize <= minFontSize"
+            class="px-3 sm:px-3.5 py-1 sm:py-1.5 flex items-center justify-center text-white hover:text-green-200 bg-gradient-to-br from-green-700/70 via-green-700/60 to-green-800/70 hover:from-green-600 hover:via-green-600 hover:to-green-700 rounded-lg transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed group relative overflow-hidden shadow-md hover:shadow-xl transform hover:scale-110 active:scale-95"
+            title="Decrease Font Size">
+            <!-- Shimmer Effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-green-300/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <!-- Hover Glow -->
+            <div class="absolute inset-0 bg-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+            <span class="text-[10px] sm:text-xs font-black relative z-10 group-hover:scale-125 transition-transform duration-300 drop-shadow-md">A-</span>
+          </button>
+          
+          <!-- A+ Button -->
+          <button (click)="increaseFontSize()" type="button"
+            [disabled]="fontSize >= maxFontSize"
+            class="px-3 sm:px-3.5 py-1 sm:py-1.5 flex items-center justify-center text-white hover:text-green-200 bg-gradient-to-br from-green-700/70 via-green-700/60 to-green-800/70 hover:from-green-600 hover:via-green-600 hover:to-green-700 rounded-lg transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed group relative overflow-hidden shadow-md hover:shadow-xl transform hover:scale-110 active:scale-95"
+            title="Increase Font Size">
+            <!-- Shimmer Effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-green-300/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            <!-- Hover Glow -->
+            <div class="absolute inset-0 bg-green-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
+            <span class="text-[10px] sm:text-xs font-black relative z-10 group-hover:scale-125 transition-transform duration-300 drop-shadow-md">A+</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="hidden sm:block w-px h-4 bg-green-700/50"></div>
+
         <a routerLink="/news"
-          class="hover:text-green-300 transition-all duration-300 font-semibold px-3 py-1.5 rounded-lg hover:bg-green-800/40 hover:shadow-md relative group">
+          class="hover:text-green-300 transition-all duration-300 font-bold text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md hover:bg-green-800/40 hover:shadow-md relative group">
           <span class="relative z-10">News</span>
-          <span class="absolute inset-0 bg-green-800/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+          <span class="absolute inset-0 bg-green-800/20 rounded-md scale-0 group-hover:scale-100 transition-transform duration-300"></span>
         </a>
         <a routerLink="/about"
-          class="hover:text-green-300 transition-all duration-300 font-semibold px-3 py-1.5 rounded-lg hover:bg-green-800/40 hover:shadow-md relative group">
-          <span class="relative z-10">About Us</span>
-          <span class="absolute inset-0 bg-green-800/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+          class="hover:text-green-300 transition-all duration-300 font-bold text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md hover:bg-green-800/40 hover:shadow-md relative group">
+          <span class="relative z-10">About</span>
+          <span class="absolute inset-0 bg-green-800/20 rounded-md scale-0 group-hover:scale-100 transition-transform duration-300"></span>
         </a>
         <a routerLink="/contact"
-          class="hover:text-green-300 transition-all duration-300 font-semibold px-3 py-1.5 rounded-lg hover:bg-green-800/40 hover:shadow-md relative group">
-          <span class="relative z-10">Contact Us</span>
-          <span class="absolute inset-0 bg-green-800/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+          class="hover:text-green-300 transition-all duration-300 font-bold text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md hover:bg-green-800/40 hover:shadow-md relative group">
+          <span class="relative z-10">Contact</span>
+          <span class="absolute inset-0 bg-green-800/20 rounded-md scale-0 group-hover:scale-100 transition-transform duration-300"></span>
         </a>
         <a routerLink="/faq"
-          class="hover:text-green-300 transition-all duration-300 font-semibold px-3 py-1.5 rounded-lg hover:bg-green-800/40 hover:shadow-md relative group hidden sm:inline-block">
+          class="hover:text-green-300 transition-all duration-300 font-bold text-[10px] sm:text-xs px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md hover:bg-green-800/40 hover:shadow-md relative group hidden sm:inline-block">
           <span class="relative z-10">FAQ</span>
-          <span class="absolute inset-0 bg-green-800/20 rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300"></span>
+          <span class="absolute inset-0 bg-green-800/20 rounded-md scale-0 group-hover:scale-100 transition-transform duration-300"></span>
         </a>
         <button (click)="openLogin('student')" type="button"
-          class="bg-gradient-to-r from-green-700 via-green-600 to-green-700 hover:from-green-600 hover:via-green-500 hover:to-green-600 px-5 py-2 rounded-lg font-bold transition-all duration-300 text-xs sm:text-sm shadow-lg hover:shadow-xl transform hover:scale-110 flex items-center gap-2 relative overflow-hidden group">
+          class="bg-gradient-to-r from-green-700 via-green-600 to-green-700 hover:from-green-600 hover:via-green-500 hover:to-green-600 px-3 sm:px-4 py-1 sm:py-1.5 rounded-md font-extrabold transition-all duration-300 text-[10px] sm:text-xs shadow-lg hover:shadow-xl transform hover:scale-110 flex items-center gap-1.5 relative overflow-hidden group">
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-          <i class="ri-user-add-line text-sm relative z-10 group-hover:rotate-12 transition-transform duration-300"></i>
+          <i class="ri-user-add-line text-xs sm:text-sm relative z-10 group-hover:rotate-12 transition-transform duration-300"></i>
           <span class="relative z-10">Login</span>
         </button>
       </div>
