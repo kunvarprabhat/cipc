@@ -1,0 +1,248 @@
+/* All styles are using Tailwind CSS classes in the HTML template */
+
+/* Hide Material form field default styling */
+mat-form-field.mat-mdc-form-field {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+mat-form-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+mat-form-field .mat-mdc-text-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+mat-form-field .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  border-top: none !important;
+  min-height: auto !important;
+}
+
+/* Datepicker toggle button sizing */
+.mat-datepicker-toggle .mat-mdc-icon-button {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+}
+
+.mat-datepicker-toggle .mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Datepicker panel styling */
+.mat-datepicker-popup {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+.mat-datepicker-container {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+.cdk-overlay-container {
+  z-index: 10000 !important;
+}
+
+.cdk-overlay-pane {
+  z-index: 10000 !important;
+}
+
+.mat-datepicker-popup .mat-calendar {
+  width: 100% !important;
+  min-width: 300px !important;
+}
+
+/* Ensure datepicker doesn't get clipped */
+.mat-datepicker-content {
+  z-index: 10000 !important;
+  position: relative !important;
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  border: 2px solid #34d399 !important;
+  padding: 8px !important;
+}
+
+/* Calendar background - Green theme */
+.mat-calendar,
+.mat-mdc-calendar {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%) !important;
+  border-radius: 12px !important;
+}
+
+/* Calendar header background - Green theme */
+.mat-calendar-header,
+.mat-mdc-calendar-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: white !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 12px !important;
+}
+
+/* Calendar navigation buttons - Green theme */
+.mat-calendar-previous-button,
+.mat-calendar-next-button,
+.mat-mdc-calendar-previous-button,
+.mat-mdc-calendar-next-button {
+  color: white !important;
+}
+
+.mat-calendar-previous-button:hover,
+.mat-calendar-next-button:hover,
+.mat-mdc-calendar-previous-button:hover,
+.mat-mdc-calendar-next-button:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+}
+
+/* Calendar period button - Green theme */
+.mat-calendar-period-button,
+.mat-mdc-calendar-period-button {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* Calendar table header - Green theme */
+.mat-calendar-table-header,
+.mat-mdc-calendar-table-header {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%) !important;
+  color: #065f46 !important;
+  font-weight: bold !important;
+}
+
+/* Calendar table header cells - Green theme */
+.mat-calendar-table-header th,
+.mat-mdc-calendar-table-header th {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%) !important;
+  color: #065f46 !important;
+  font-weight: bold !important;
+  padding: 8px !important;
+}
+
+/* Calendar body cells - Green theme */
+.mat-calendar-body-cell,
+.mat-mdc-calendar-body-cell {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-radius: 8px !important;
+  margin: 2px !important;
+}
+
+.mat-calendar-body-cell:hover,
+.mat-mdc-calendar-body-cell:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
+  color: white !important;
+}
+
+/* Calendar body cell content */
+.mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-cell-content {
+  border-radius: 8px !important;
+}
+
+/* Selected date - Green theme */
+.mat-calendar-body-selected,
+.mat-mdc-calendar-body-selected {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* Today's date - Green theme */
+.mat-calendar-body-today,
+.mat-mdc-calendar-body-today {
+  border: 2px solid #10b981 !important;
+  font-weight: bold !important;
+}
+
+.mat-datepicker-content-container {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* Calendar styling */
+::ng-deep .mat-calendar {
+  background: transparent !important;
+  color: white !important;
+}
+
+::ng-deep .mat-calendar-header {
+  background: rgba(255, 255, 255, 0.1) !important;
+  padding: 0.5rem !important;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+::ng-deep .mat-calendar-table-header th {
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 0.5rem !important;
+}
+
+::ng-deep .mat-calendar-body-cell {
+  color: white !important;
+  overflow: visible !important;
+}
+
+::ng-deep .mat-calendar-body-cell:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0.25rem !important;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background: white !important;
+  color: #059669 !important;
+  border-radius: 0.25rem !important;
+}
+
+::ng-deep .mat-calendar-body-today {
+  border: 2px solid white !important;
+  border-radius: 0.25rem !important;
+}
+
+::ng-deep .mat-datepicker-toggle {
+  color: #10b981 !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline {
+  display: none !important;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-infix {
+  border: none !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-calendar-body {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+::ng-deep .mat-calendar-table {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-calendar-body-row {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-calendar-view {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-calendar-content {
+  overflow: visible !important;
+}
+

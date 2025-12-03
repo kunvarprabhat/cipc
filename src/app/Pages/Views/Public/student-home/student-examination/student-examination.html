@@ -1,0 +1,113 @@
+<!-- Hero Section -->
+<div class="relative h-[180px] sm:h-[200px] md:h-[220px] overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 via-blue-700 to-cyan-700"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+  <div class="absolute inset-0 flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full text-center">
+      <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 sm:mb-3 leading-tight drop-shadow-2xl text-white">
+        Examinations
+      </h1>
+      <p class="text-sm sm:text-base md:text-lg text-indigo-100 font-medium drop-shadow-lg">
+        Examination Schedule and Information
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="bg-gradient-to-b from-indigo-50 via-white to-gray-50 py-8 sm:py-10 md:py-14">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    
+    <!-- Examination Information -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 mb-8">
+      <div class="text-center mb-8">
+        <div class="inline-block mb-4 px-6 py-2 bg-gradient-to-r from-indigo-100 to-blue-100 rounded-full border border-indigo-200">
+          <span class="text-indigo-700 text-sm font-semibold">📝 Examination Details</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Examination Information</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl p-6 border border-indigo-100">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <i class="ri-calendar-line text-white text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Examination Schedule</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">Check the examination dates and timetable for your course. Regular updates are posted on the notice board.</p>
+          <a routerLink="/StudentHome/TimeTable" class="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-700">
+            <span>View Time Table</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center">
+              <i class="ri-file-list-3-line text-white text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Examination Form</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">Fill out the examination form online. Make sure to submit before the deadline.</p>
+          <a routerLink="/forms/examination" class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700">
+            <span>Fill Examination Form</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border border-yellow-200">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="ri-alert-line text-white text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Important Notice</h3>
+            <p class="text-gray-700 leading-relaxed mb-4">Students must carry their admit card and valid ID to the examination center. Late entry will not be permitted.</p>
+            <ul class="text-gray-700 space-y-2">
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Admit Card is mandatory</li>
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Reach 30 minutes before exam time</li>
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Follow all examination rules</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a routerLink="/forms/examination" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-indigo-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-file-edit-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Examination Form</h3>
+        </div>
+        <p class="text-gray-600">Submit your examination form online</p>
+      </a>
+
+      <a routerLink="/StudentHome/TimeTable" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-blue-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-calendar-check-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Time Table</h3>
+        </div>
+        <p class="text-gray-600">View examination schedule</p>
+      </a>
+
+      <a routerLink="/StudentHome/Results" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-green-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-award-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Results</h3>
+        </div>
+        <p class="text-gray-600">Check your examination results</p>
+      </a>
+    </div>
+
+  </div>
+</div>
+

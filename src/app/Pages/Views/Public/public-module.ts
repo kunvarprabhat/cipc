@@ -21,6 +21,16 @@ import { Scholarships } from "./scholarships/scholarships";
 import { StudentLife } from "./student-life/student-life";
 import { Teams } from "./teams/teams";
 import { PublicGuard } from "../../../lab/routing-guards/public-guard";
+import { StudentAdmissions } from "./student-home/student-admissions/student-admissions";
+import { StudentExamination } from "./student-home/student-examination/student-examination";
+import { TimeTable } from "./student-home/time-table/time-table";
+import { Syllabus } from "./student-home/syllabus/syllabus";
+import { EContent } from "./student-home/e-content/e-content";
+import { RTI } from "./student-home/rti/rti";
+import { HostelsMess } from "./student-home/hostels-mess/hostels-mess";
+import { ICT } from "./student-home/ict/ict";
+import { Results } from "./student-home/results/results";
+import { AntiRagging } from "./facility-home/anti-ragging/anti-ragging";
 
 const route: Routes = [
     {
@@ -43,9 +53,22 @@ const route: Routes = [
             { path: 'OurAchievements', component: News, canActivate: [PublicGuard] },
             { path: 'gallary', component: Gallary, canActivate: [PublicGuard] },
             { path: 'teams', component: Teams, canActivate: [PublicGuard] },
+            { path: 'news', component: News, canActivate: [PublicGuard] },
             { path: 'forms/admission', component: AdmissionForm },
             { path: 'forms/examination', component: ExaminationForm },
             { path: 'forms/certification', component: CertificationForm },
+            // Student Home Routes
+            { path: 'StudentHome/Admissions', component: StudentAdmissions, canActivate: [PublicGuard] },
+            { path: 'StudentHome/Examination', component: StudentExamination, canActivate: [PublicGuard] },
+            { path: 'StudentHome/TimeTable', component: TimeTable, canActivate: [PublicGuard] },
+            { path: 'StudentHome/Syllabus', component: Syllabus, canActivate: [PublicGuard] },
+            { path: 'StudentHome/EContent', component: EContent, canActivate: [PublicGuard] },
+            { path: 'StudentHome/RTI', component: RTI, canActivate: [PublicGuard] },
+            { path: 'StudentHome/Hostels_Mess', component: HostelsMess, canActivate: [PublicGuard] },
+            { path: 'StudentHome/ICT', component: ICT, canActivate: [PublicGuard] },
+            { path: 'StudentHome/Results', component: Results, canActivate: [PublicGuard] },
+            // Facility Home Routes
+            { path: 'FacilityHome/anti_ragging', component: AntiRagging, canActivate: [PublicGuard] },
         ]
     }
 ];

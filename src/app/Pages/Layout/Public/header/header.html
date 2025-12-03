@@ -129,6 +129,18 @@
             </button>
           </div>
 
+          <!-- Students Dropdown -->
+          <div class="relative flex-shrink-0 overflow-visible" (mouseenter)="isStudentsOpen = true"
+            (mouseleave)="isStudentsOpen = false" (click)="$event.stopPropagation()">
+            <button #studentsBtn (click)="toggleStudents()" type="button"
+              class="text-white hover:bg-green-700/60 px-3 lg:px-4 xl:px-5 py-2.5 lg:py-3 transition-all duration-200 whitespace-nowrap font-medium text-sm xl:text-base flex items-center gap-1.5 rounded-lg hover:shadow-md relative z-10">
+              <i class="ri-user-line text-xs"></i>
+              <span>Students</span>
+              <i class="ri-arrow-down-s-line text-xs transition-transform duration-200"
+                [ngClass]="{'rotate-180': isStudentsOpen}"></i>
+            </button>
+          </div>
+
           <ng-container *ngFor="let item of navItems; let i = index">
             <a *ngIf="i > 0" [routerLink]="item.path" routerLinkActive="bg-green-700/80 border-b-2 border-yellow-400"
               class="text-white hover:bg-green-700/60 px-3 lg:px-4 xl:px-5 py-2.5 lg:py-3 transition-all duration-200 whitespace-nowrap font-semibold text-sm xl:text-base active:bg-green-700 no-underline rounded-lg flex-shrink-0 hover:shadow-md relative group">
@@ -199,6 +211,30 @@
         </div>
       </div>
 
+      <!-- Students Mobile Dropdown -->
+      <div class="border-b border-green-700/30">
+        <button (click)="toggleStudentsMobile()" type="button"
+          class="w-full text-left text-white hover:bg-green-700/60 px-5 py-3.5 transition-all duration-200 text-base sm:text-lg flex items-center justify-between font-medium">
+          <span class="flex items-center">
+            <i class="ri-user-line mr-3 text-lg"></i> Students
+          </span>
+          <i class="ri-arrow-down-s-line text-base transition-transform duration-200"
+            [ngClass]="{'rotate-180': isStudentsMobileOpen}"></i>
+        </button>
+        <div *ngIf="isStudentsMobileOpen" class="bg-green-900/40 border-t border-green-700/30">
+          <a *ngFor="let item of studentsMenu" 
+            [routerLink]="item.isExternal ? null : item.path"
+            [href]="item.isExternal ? item.path : null"
+            [attr.target]="item.isExternal ? '_blank' : undefined"
+            [attr.rel]="item.isExternal ? 'noopener noreferrer' : undefined"
+            (click)="closeMobileMenu()"
+            [class]="item.isLogin ? 'block text-white hover:text-white hover:bg-green-700/60 px-10 py-3 transition-all duration-200 text-sm sm:text-base cursor-pointer no-underline font-bold border-l-4 border-yellow-400 hover:border-yellow-300' : 'block text-white/90 hover:text-white hover:bg-green-700/60 px-10 py-3 transition-all duration-200 text-sm sm:text-base cursor-pointer no-underline font-medium border-l-4 border-transparent hover:border-green-400'">
+            <i [class]="item.icon + ' mr-3 text-green-300'"></i>
+            {{item.name}}
+          </a>
+        </div>
+      </div>
+
       <ng-container *ngFor="let item of navItems; let i = index">
         <a *ngIf="i > 0" [routerLink]="item.path" (click)="toggleMenu()" routerLinkActive="bg-green-700/80"
           class="block text-white hover:bg-green-700/60 px-5 py-3.5 border-b border-green-700/30 transition-all duration-200 text-base sm:text-lg active:bg-green-700 no-underline font-medium">
@@ -226,6 +262,23 @@
     class="block px-4 py-3 text-gray-800 hover:bg-green-50 hover:text-green-700 transition-all duration-200 cursor-pointer text-sm font-medium no-underline border-l-4 border-transparent hover:border-green-600">
     <i class="ri-file-edit-line mr-2 text-green-600"></i>
     {{form.name}}
+  </a>
+</div>
+
+<!-- Students Dropdown - Outside Header in Content Area -->
+<div *ngIf="isStudentsOpen" 
+  class="students-dropdown"
+  (mouseenter)="isStudentsOpen = true"
+  (mouseleave)="isStudentsOpen = false">
+  <a *ngFor="let item of studentsMenu" 
+    [routerLink]="item.isExternal ? null : item.path"
+    [href]="item.isExternal ? item.path : null"
+    [attr.target]="item.isExternal ? '_blank' : undefined"
+    [attr.rel]="item.isExternal ? 'noopener noreferrer' : undefined"
+    (click)="closeStudents()"
+    [class]="item.isLogin ? 'block px-4 py-3 text-gray-800 hover:bg-green-50 hover:text-green-700 transition-all duration-200 cursor-pointer text-sm font-bold no-underline border-l-4 border-yellow-400 hover:border-yellow-500' : 'block px-4 py-3 text-gray-800 hover:bg-green-50 hover:text-green-700 transition-all duration-200 cursor-pointer text-sm font-medium no-underline border-l-4 border-transparent hover:border-green-600'">
+    <i [class]="item.icon + ' mr-2 text-green-600'"></i>
+    {{item.name}}
   </a>
 </div>
 

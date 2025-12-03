@@ -1,0 +1,113 @@
+<!-- Hero Section -->
+<div class="relative h-[180px] sm:h-[200px] md:h-[220px] overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-teal-600 via-cyan-700 to-blue-700"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+  <div class="absolute inset-0 flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full text-center">
+      <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 sm:mb-3 leading-tight drop-shadow-2xl text-white">
+        Syllabus
+      </h1>
+      <p class="text-sm sm:text-base md:text-lg text-teal-100 font-medium drop-shadow-lg">
+        Course Curriculum and Study Materials
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="bg-gradient-to-b from-teal-50 via-white to-gray-50 py-8 sm:py-10 md:py-14">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    
+    <!-- Syllabus Information -->
+    <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 mb-8">
+      <div class="text-center mb-8">
+        <div class="inline-block mb-4 px-6 py-2 bg-gradient-to-r from-teal-100 to-cyan-100 rounded-full border border-teal-200">
+          <span class="text-teal-700 text-sm font-semibold">📚 Course Syllabus</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Syllabus Information</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-100">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center">
+              <i class="ri-book-open-line text-white text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Course Curriculum</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">Detailed syllabus for all courses offered at CIPC. Download course-wise curriculum and study materials.</p>
+          <a routerLink="/courses" class="inline-flex items-center gap-2 text-teal-600 font-semibold hover:text-teal-700">
+            <span>View Courses</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6 border border-cyan-100">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <i class="ri-file-download-line text-white text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Study Materials</h3>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">Access study materials, notes, and reference books for your course. Materials are updated regularly.</p>
+          <a routerLink="/StudentHome/EContent" class="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:text-cyan-700">
+            <span>View e-Content</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="ri-information-line text-white text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Syllabus Details</h3>
+            <p class="text-gray-700 leading-relaxed mb-4">For detailed syllabus of your specific course, please contact your course coordinator or visit the academic office. Syllabus documents are also available in the library.</p>
+            <ul class="text-gray-700 space-y-2">
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Course-wise detailed syllabus</li>
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Subject-wise study materials</li>
+              <li class="flex items-center gap-2"><i class="ri-check-line text-green-600"></i> Reference books and resources</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a routerLink="/courses" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-teal-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-book-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Courses</h3>
+        </div>
+        <p class="text-gray-600">Explore all available courses</p>
+      </a>
+
+      <a routerLink="/StudentHome/EContent" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-cyan-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-video-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">e-Lectures</h3>
+        </div>
+        <p class="text-gray-600">Access online study materials</p>
+      </a>
+
+      <a routerLink="/contact" class="group bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all border border-gray-100 hover:border-blue-300">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <i class="ri-phone-line text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900">Contact</h3>
+        </div>
+        <p class="text-gray-600">Get syllabus information</p>
+      </a>
+    </div>
+
+  </div>
+</div>
+
