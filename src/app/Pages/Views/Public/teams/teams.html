@@ -18,12 +18,12 @@
 </div>
 
 <!-- Main Content -->
-<div class="bg-gradient-to-b from-green-50 via-white to-gray-50 py-6 sm:py-8 md:py-10 lg:py-14 xl:py-20">
+<div class="bg-gradient-to-b from-green-50 via-white to-gray-50 py-4 sm:py-6 md:py-8">
   <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-      <div *ngFor="let m of pagedMembers" class="group bg-gradient-to-br from-white to-indigo-50/30 rounded-2xl sm:rounded-3xl shadow-xl p-6 sm:p-8 text-center hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-indigo-100/50 relative overflow-hidden">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+      <div *ngFor="let m of pagedMembers" class="group bg-gradient-to-br from-white to-indigo-50/30 rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-5 text-center hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-indigo-100/50 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-100/50 to-purple-100/50 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-        <div class="relative mb-6">
+        <div class="relative mb-4">
           <div class="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full blur-xl opacity-30"></div>
           <img [src]="m.photo || 'Assets/logos/image.png'" alt="{{m.name}}" 
             class="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-full mx-auto shadow-2xl border-4 border-white relative z-10 group-hover:scale-110 transition-transform duration-500" 
