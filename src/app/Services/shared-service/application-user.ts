@@ -5,7 +5,7 @@ export class ApplicationUser {
   private TOKEN_KEY = 'User_Token';
   private REFRESH_TOKEN_KEY = 'refresh_Token';
   private ACCESS_TOKEN_KEY = 'access_Token';
-  private USER_KEY = 'user_key';
+  private USER_KEY = 'userInfo';
 
   login(email: string, password: string, loginType: string): boolean {
     // Check against dummy credentials
@@ -18,31 +18,76 @@ export class ApplicationUser {
 
     const creds = dummyCredentials[loginType];
     if (creds && email === creds.email && password === creds.password) {
-      localStorage.setItem('userInfo', JSON.stringify({
+      // Generate a simple token for authentication
+      const token = this.generateToken(email, loginType);
+      
+      // Store user info
+      localStorage.setItem(this.USER_KEY, JSON.stringify({
         name: creds.name,
         role: creds.role,
         loginType,
-        email: creds.email
+        email: creds.email,
+        token: token
       }));
+
+      // Store token separately for easy access
+      localStorage.setItem(this.TOKEN_KEY, token);
 
       return true;
     }
     return false;
   }
+
+  private generateToken(email: string, loginType: string): string {
+    // Generate a simple token (in production, this should come from backend)
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 15);
+    return btoa(`${email}:${loginType}:${timestamp}:${random}`);
+  }
+
   getToken(): string | null {
-    const userInfo = localStorage.getItem('TOKEN_KEY');
+    // First try to get token from TOKEN_KEY
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (token) {
+      return token;
+    }
+    
+    // Fallback: get token from userInfo
+    const userInfo = localStorage.getItem(this.USER_KEY);
     if (userInfo) {
-      const user = JSON.parse(userInfo);
-      return user.token || null;
+      try {
+        const user = JSON.parse(userInfo);
+        return user.token || null;
+      } catch (e) {
+        return null;
+      }
     }
     return null;
   }
+
   getAuthStatus(): boolean {
-    return !!localStorage.getItem('TOKEN_KEY'); // ✅ check localStorage
+    // Check if userInfo exists in localStorage
+    return !!localStorage.getItem(this.USER_KEY);
+  }
+
+  getUserInfo(): any {
+    const userInfo = localStorage.getItem(this.USER_KEY);
+    if (userInfo) {
+      try {
+        return JSON.parse(userInfo);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
   }
 
   logout() {
-    localStorage.removeItem('TOKEN_KEY');
+    // Remove both userInfo and token
+    localStorage.removeItem(this.USER_KEY);
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
   }
 }
 

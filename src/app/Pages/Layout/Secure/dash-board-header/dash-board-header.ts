@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApplicationUser } from '../../../../Services/shared-service/application-user';
 
 interface UserInfo {
   name: string;
@@ -43,7 +44,10 @@ export class DashBoardHeader implements OnInit {
     color: 'blue'
   }));
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private _appuser: ApplicationUser
+  ) { }
 
   ngOnInit() {
     // Get user info from localStorage if not provided via Input
@@ -75,7 +79,7 @@ export class DashBoardHeader implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('userInfo');
+    this._appuser.logout();
     this.router.navigate(['/home']);
   }
 

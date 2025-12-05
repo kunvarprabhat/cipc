@@ -11,7 +11,7 @@ export class PublicGuard implements CanActivate {
   canActivate(): boolean {
     // If user is logged in, redirect to dashboard
     if (this._appuser.getAuthStatus()) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/secure/dashboard']);
       return false; // Prevent access to public route
     }
     return true; // Allow access to public route if not logged in

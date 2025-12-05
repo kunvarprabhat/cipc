@@ -59,7 +59,7 @@ export class Login {
     // Optionally navigate to dashboard automatically after a delay
     setTimeout(() => {
       this.close(); // close modal
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/secure/dashboard']);
     }, 1000); // show success message for 1s
   } else {
     this.error = 'Invalid email or password. Please use demo credentials.';
